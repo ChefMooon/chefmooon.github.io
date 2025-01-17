@@ -54,6 +54,18 @@ layout: minecraft-mod/wiki/base
                                 <div class="recipe-input">
                                     <h4><strong>Ingredients:</strong></h4>
                                     <ul>
+                                    {%- if recipe[1].key -%}
+                                        {%- for key in recipe[1].key -%}
+                                            <li>
+                                                {%- if key.tag -%}
+                                                    {{ key[1].tag | split: "/" | last | replace: "_", " " | capitalize_all }}
+                                                {%- else -%}
+                                                    {{ key[1].item | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                {%- endif -%}
+                                            </li>
+                                        {%- endfor -%}
+                                    {%- endif -%}
+
                                     {%- for ingredient in recipe[1].ingredients -%}
                                         <li>
                                         {%- if ingredient.tag -%}

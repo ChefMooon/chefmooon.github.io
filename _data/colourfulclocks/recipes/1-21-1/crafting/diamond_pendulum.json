@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "  B",
+    "AA ",
+    "AA "
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:diamond_pendulum"
+  }
+}

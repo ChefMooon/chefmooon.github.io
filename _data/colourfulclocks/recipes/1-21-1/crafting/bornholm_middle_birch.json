@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:birch_wood"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "A A",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:bornholm_middle_birch"
+  }
+}

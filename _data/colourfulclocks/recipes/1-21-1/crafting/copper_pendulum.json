@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_ingot"
+    },
+    "B": {
+      "item": "minecraft:chain"
+    }
+  },
+  "pattern": [
+    "  B",
+    "AA ",
+    "AA "
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:copper_pendulum"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_ingot"
+    },
+    "B": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    " C ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:copper_pocket_watch"
+  }
+}

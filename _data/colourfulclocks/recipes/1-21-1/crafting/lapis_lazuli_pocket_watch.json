@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:lapis_lazuli"
+    },
+    "B": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    " C ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:lapis_lazuli_pocket_watch"
+  }
+}

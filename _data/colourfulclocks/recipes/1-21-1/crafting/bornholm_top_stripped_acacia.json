@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:stripped_acacia_wood"
+    },
+    "B": {
+      "item": "minecraft:glass_pane"
+    },
+    "C": {
+      "item": "minecraft:quartz"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "BCA",
+    "AAA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "colourfulclocks:bornholm_top_stripped_acacia"
+  }
+}
