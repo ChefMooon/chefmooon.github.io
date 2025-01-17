@@ -273,6 +273,10 @@ $dropdown-hover-background-color: #2a2a2a !default;
   margin-bottom: 20px;
   background-color: $dropdown-background-color;
   transition: transform 0.3s, box-shadow 0.3s;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 .recipe-card:hover {
@@ -284,14 +288,20 @@ $dropdown-hover-background-color: #2a2a2a !default;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  width: 100%;
+  max-width: 100%;
 }
 
-.recipe-info, .recipe-input, .recipe-output {
+.recipe-info, 
+.recipe-input, 
+.recipe-output {
   flex: 1;
   background-color: $dropdown-hover-background-color;
   padding: 10px;
   border-radius: 10px;
-  margin: 10px;
+  margin: 5px;
+  box-sizing: border-box;
+  min-width: 200px;
 }
 
 .recipe-info {
@@ -319,4 +329,24 @@ $dropdown-hover-background-color: #2a2a2a !default;
 
 .recipe-input li {
   margin-bottom: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .recipe-details {
+    flex-direction: column;
+    padding: 0;
+  }
+
+  .recipe-info,
+  .recipe-input,
+  .recipe-output {
+    width: 100%;
+    margin: 5px 0;
+    min-width: unset;
+  }
+
+  .recipe-card {
+    padding: 10px;
+    margin: 10px 0;
+  }
 }
