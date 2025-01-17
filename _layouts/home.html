@@ -1,0 +1,98 @@
+---
+layout: base
+---
+
+<div class="home">
+  {%- if page.title -%}
+    <h1 class="post-title">{{ page.title }}</h1>
+  {%- endif -%}
+
+  <p>Welcome to ChefMooons’s Hub! The central hub for everything ChefMooon.</p>
+
+  <a href="https://discord.gg/mbuDBHHUws"><img src="https://img.shields.io/discord/1159501560997498952?color=a46083&label=Discord&logo=discord&logoColor=a46083&style=for-the-badge" alt="Discord"></a>
+
+  <br />
+  <br />
+
+  <h1>Minecraft Mods</h1>
+
+  {%- include minecraft-mods-simple.html -%}
+
+  {{ content }}
+
+
+  {% if site.paginate %}
+    {% assign posts = paginator.posts %}
+  {% else %}
+    {% assign posts = site.posts %}
+  {% endif %}
+
+  <br />
+
+  {%- if posts.size > 0 -%}
+    {%- if page.list_title -%}
+    	<h1>{{ page.list_title }}</h1>
+    {%- endif -%}
+    <ul class="post-list">
+		{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+		{%- for post in posts -%}
+		<li>
+			<span class="post-meta">{{ post.date | date: date_format }}</span>
+			<span class="post-meta">
+				{% assign minecraft_versions = post.minecraft_version | split: ", " %}
+				{% assign minecraft_loaders = post.minecraft_loader | split: ", " %}
+				{% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
+
+				{%- if post.mod_id -%}
+					• {{ mod_info.title | escape }}&nbsp;
+				{%- endif -%}
+				{%- if minecraft_versions.size > 0 -%}
+					• {{ minecraft_versions | join: ", " }}&nbsp;
+				{%- endif -%}
+				{%- if minecraft_loaders.size > 0 -%}
+					• {{ minecraft_loaders | join: ", " }}
+				{%- endif -%}
+			</span>
+			<h3>
+				<a class="post-link" href="{{ post.url | relative_url }}">
+					
+
+					{%- if post.mod_title -%}
+						{{ post.mod_title | escape }}&nbsp;-&nbsp;
+					{%- endif -%}
+					{%- if post.mod_version -%}
+						{{ post.mod_version | escape }}&nbsp;-&nbsp;
+					{%- endif -%}
+					{%- if post.title -%}
+						{{ post.title | escape }}
+					{%- endif -%}
+				</a>
+			</h3>
+			{%- if site.show_excerpts -%}
+				{{ post.excerpt }}
+			{%- endif -%}
+		</li>
+		{%- endfor -%}
+    </ul>
+
+    {% if site.paginate %}
+		<div class="pager">
+				<ul class="pagination">
+					{%- if paginator.previous_page %}
+						<li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
+					{%- else %}
+						<li><div class="pager-edge">•</div></li>
+					{%- endif %}
+						<li><div class="current-page">{{ paginator.page }}</div></li>
+					{%- if paginator.next_page %}
+						<li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
+					{%- else %}
+						<li><div class="pager-edge">•</div></li>
+					{%- endif %}
+				</ul>
+		</div>
+    {%- endif %}
+
+  {%- endif -%}
+
+</div>

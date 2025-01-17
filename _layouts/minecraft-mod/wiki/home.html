@@ -1,0 +1,21 @@
+---
+layout: minecraft-mod/wiki/base
+---
+
+{%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+
+<article class="post">
+
+    <br />
+
+    <p>
+        This wiki will serve as the main source of information for {{ mod_info.title | escape }}. 
+        Here details will be provided about; Mod Mechanics, Configuration Options, and Contributing to the project. 
+        Please check back with each update as this wiki will be updated with each release.
+    </p>
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+</article>

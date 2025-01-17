@@ -1,0 +1,49 @@
+---
+layout: minecraft-mod/base
+---
+
+{%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+{%- assign versions = mod_info.wiki_available_minecraft_versions | split: ", " -%}
+
+<h1 class="minecraft-mod-wiki-title">{{ mod_info.title | escape }} Wiki</h1>
+
+<div class="wrapper">
+    <nav class="minecraft-mod-nav">
+        <ul class="menu">
+            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/home"><img src="/assets/img/buttons/button_wiki_home.png" alt="Wiki Home"></a></li>
+            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/item-details"><img src="/assets/img/buttons/button_wiki_item_details.png" alt="Item Details"></a></li>
+            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/block-details"><img src="/assets/img/buttons/button_wiki_block_details.png" alt="Block Details"></a></li>
+            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/recipes"><img src="/assets/img/buttons/button_wiki_recipes.png" alt="Recipes"></a></li>
+            
+        </ul>
+        <ul class="menu wiki-version-dropdown">
+            {%- if versions.size > 1 -%}
+                <li class="wiki-version-dropdown">
+                    <p class="wiki-version-toggle">Minecraft: {{ page.minecraft_version }}</p>
+                    <ul class="wiki-version-content">
+                        {%- for version in versions -%}
+                        {%- assign page_name = page.name | split: "." | first -%}
+                        <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ version | escape }}/{{ page_name }}">{{ version }}</a></li>
+                        {%- endfor -%}
+                    </ul>
+                </li>
+            {%- endif -%}
+        </ul>
+    </nav>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const wikiVersionToggles = document.querySelectorAll('.wiki-version-toggle');
+
+  wikiVersionToggles.forEach(toggle => {
+    toggle.addEventListener('click', function(event) {
+      event.preventDefault();
+      const parentDropdown = this.parentElement;
+      parentDropdown.classList.toggle('active');
+    });
+  });
+});
+</script>
+
+{{ content }}

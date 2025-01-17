@@ -1,0 +1,117 @@
+---
+layout: minecraft-mod/wiki/base
+---
+
+{%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+{%- assign version_folder = page.minecraft_version | replace: ".", "-" -%}
+{%- assign version_recipes = site.data[page.mod_id].recipes[version_folder] -%}
+{%- assign total_recipes = version_recipes | size -%}
+
+{% assign type_mapping = site.data.crafting_types %}
+
+<article class="post">
+
+    <header class="post-header">
+        <h1 class="post-title">Recipes</h1>
+    </header>
+
+    <p>
+        Note: the information found here is taken directly from the mod files and uses ID's instead of names.<br />
+        "_" have been replaced with " " and the first letter of each word is capitalized.<br />
+        For example, "Lapis Lazuli Block" is "minecraft:lapis_block".
+    </p>
+
+    <p><strong>Total Recipes:</strong> {{ total_recipes }}</p>
+
+
+    {%- if total_recipes > 0 -%}
+        <div class="recipe-types">
+            <h2><strong>Recipe Types</strong></h2>
+            <ul>
+                {%- for category in version_recipes -%}
+                    <li><a href="#{{ category[0] }}">{{ category[0] | capitalize }}</a></li>
+                {%- endfor -%}
+            </ul>
+        </div>
+
+        <div class="recipe-list">
+            {%- for category in version_recipes %}
+                {%- assign category_name = category[0] | capitalize -%}
+                {%- assign recipe_count = category[1] | size -%}
+                <h2 id="{{ category[0] }}" class="category-header"><strong>{{ category_name }} ({{ recipe_count }})</strong></h2>
+                <div class="category-content">
+                    {%- for recipe in category[1] %}
+                        <div class="recipe-card">
+                            <h3><strong>{{ recipe[0] | replace: "_", " " | capitalize_all }}</strong></h3>
+                            <div class="recipe-details">
+                                <div class="recipe-info">
+                                    {%- assign type_key = recipe[1].type | split: ":" | last -%}
+                                    <p><strong>Type:</strong> {{ type_mapping[type_key] | default: type_key | replace: "_", " " | capitalize_all }}</p>
+                                    {%- if recipe[1].category -%}
+                                        <p><strong>Category:</strong> {{ recipe[1].category | capitalize }}</p>
+                                    {%- endif -%}
+                                </div>
+                                <div class="recipe-input">
+                                    <h4><strong>Ingredients:</strong></h4>
+                                    <ul>
+                                    {%- for ingredient in recipe[1].ingredients -%}
+                                        <li>
+                                        {%- if ingredient.tag -%}
+                                            {{ ingredient.tag | split: "/" | last | replace: "_", " " | capitalize_all }}
+                                        {%- else -%}
+                                            {{ ingredient.item | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                        {%- endif -%}
+                                        </li>
+                                    {%- endfor -%}
+                                    </ul>
+                                    {%- if recipe[1].tool -%}
+                                        {%- if recipe[1].tool.tag -%}
+                                            <p><strong>Tool:</strong> {{ recipe[1].tool.tag | split: "/" | last | capitalize_all }}</p>
+                                        {%- else -%}
+                                            <p><strong>Tool:</strong> {{ recipe[1].tool | split: ":" | last | capitalize_all }}</p>
+                                        {%- endif -%}
+                                    {%- endif -%}
+                                </div>
+                                <div class="recipe-output">
+                                    <h4><strong>Result:</strong></h4>
+                                    {%- if recipe[1].result.id -%}
+                                        <ul>
+                                            <li>{{ recipe[1].result.count }} x {{ recipe[1].result.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
+                                        </ul>
+                                    {%- else -%}
+                                        {%- if recipe[1].result.size > 0 -%}
+                                            <ul>
+                                            {%- for result in recipe[1].result -%}
+                                                {%- if result.chance -%}
+                                                    <li>{{ result.item.count }} x {{ result.item.id | split: ":" | last | replace: "_", " " | capitalize_all }} ({{ result.chance | times: 100 | floor }}%)</li>
+                                                {%- else -%}
+                                                    <li>{{ result.item.count }} x {{ result.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
+                                                {%- endif -%}
+                                            {%- endfor -%}
+                                            </ul>
+                                        {%- endif -%}
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                        </div>
+                    {%- endfor %}
+                </div>
+            {%- endfor %}
+        </div>
+    {%- endif -%}
+
+    <div class="post-content">
+        {{ content }}
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var headers = document.querySelectorAll('.category-header');
+            headers.forEach(function(header) {
+                header.addEventListener('click', function() {
+                    this.classList.toggle('open');
+                });
+            });
+        });
+    </script>
+</article>

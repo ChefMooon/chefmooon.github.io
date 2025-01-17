@@ -1,0 +1,10 @@
+{%- for mod in site.data.minecraft_mods -%}
+<a href="{{ mod.id | relative_url }}">
+    {% if mod.banner %}
+        <img class="minecraft-mod-banner hover-highlight" src="{{ mod.banner }}" alt="{{ mod.title | escape }}" />
+        <br />
+    {% else %}
+        <h3>{{ mod.title | escape }}</h3>
+    {% endif %}
+</a>
+{%- endfor -%}

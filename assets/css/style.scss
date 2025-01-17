@@ -1,0 +1,318 @@
+---
+---
+
+@import
+  "minima/skins/{{ site.minima.skin | default: 'classic' }}",
+  "minima/initialize";
+
+$background-color:      #181818 !default;
+$dropdown-background-color: #212121 !default;
+$dropdown-hover-background-color: #2a2a2a !default;
+
+/* Dropdown Menu Styles */
+.site-nav .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.site-nav .menu li {
+  position: relative;
+}
+
+.site-nav .menu li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: var(--color-text-primary); /* Use CSS variable for text color */
+}
+
+.site-nav .menu .dropdown-content {
+  display: none;
+  position: absolute;
+  left: -50px;
+  background-color: $dropdown-background-color;
+  min-width: 180px;
+  z-index: 1;
+}
+
+.site-nav .menu li.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.site-nav .menu .dropdown-content li {
+  display: block;
+  background-color: $dropdown-background-color;
+  width: 100%;
+  text-align: center;
+}
+
+.site-nav .menu li:hover > .dropdown-content {
+  display: block;
+}
+
+.site-nav .menu .dropdown-content li a {
+  padding: 12px 16px;
+  color: var(--color-text-primary); /* Use CSS variable for text color */
+  width: 100%;
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+}
+
+.site-nav .menu .dropdown-content li:hover,
+.site-nav .menu .dropdown-content li a:hover {
+  background-color: $dropdown-hover-background-color;
+  width: 100%;
+}
+
+.site-nav .menu .dropdown-content .dropdown-content {
+  left: 100%;
+  top: 0;
+  margin-left: -1px;
+}
+
+.site-nav .menu .dropdown-content.submenu {
+  min-width: 50px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.site-title {
+  padding-top: 5px;
+}
+
+/* Footer */
+.center-content {
+  padding-top: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* Minecraft Mods */
+.minecraft-mod-banner  {
+  padding-bottom: 10px;
+}
+
+.hover-highlight:hover {
+  transform: scale(1.05);
+  filter: brightness(120%);
+}
+
+.minecraft-mod-button :hover { // only used in _includes/minecraft-mods.html - remove?
+  filter: brightness(120%);
+}
+
+.minecraft-mod-button a img {
+  padding-bottom: 2px;
+}
+
+.minecraft-mod-button a {
+  text-decoration: none;
+}
+
+.minecraft-mod-nav {
+  text-align: center;
+}
+
+.minecraft-mod-nav a img:hover {
+  transform: scale(1.05);
+  filter: brightness(120%);
+}
+
+.minecraft-mod-nav .menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.minecraft-mod-nav .menu li {
+  position: relative;
+}
+
+.minecraft-mod-nav .menu li a {
+  display: block;
+  padding: 8px;
+  text-decoration: none;
+}
+
+.main-mod-nav {
+  transform: scale(1.1);
+}
+
+.minecraft-mod-header {
+  text-align: center;
+}
+
+/* Minecraft Mod Wiki */
+
+.minecraft-mod-wiki-title {
+  text-align: center;
+  @include relative-font-size(2.625);
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+
+.site-nav .menu {
+  position: relative;
+  display: flex;
+}
+
+.wiki-version-toggle {
+  cursor: pointer;
+  padding: 8px 12px;
+  border: 1px solid var(--color-text-primary);
+  border-radius: 4px;
+  background-color: $dropdown-background-color;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  display: block;
+}
+
+.wiki-version-content {
+  display: none;
+  position: absolute;
+  background-color: $dropdown-background-color;
+  min-width: 120px;
+  z-index: 1;
+  border: 1px solid var(--color-text-primary);
+  border-radius: 4px;
+  margin-top: 4px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  left: -20px;
+}
+
+.wiki-version-dropdown {
+  margin-left: auto;
+}
+
+.wiki-version-dropdown.active > .wiki-version-content {
+  display: block;
+}
+
+.wiki-version-content li {
+  text-align: center;
+  list-style: none;
+  text-decoration: none;
+}
+
+.wiki-version-content li a {
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+  color: var(--color-text-primary);
+}
+
+.wiki-version-content li a:hover {
+  background-color: $dropdown-hover-background-color;
+}
+
+/* Recipe Types */
+
+.recipe-types ul {
+  list-style-type: none;
+  padding: 0 0 15px;
+  margin: 0;
+}
+
+.recipe-types li {
+  display: inline;
+  margin-right: 10px;
+}
+
+.recipe-types li a:hover {
+  filter: brightness(110%);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.recipe-types li a {
+  text-decoration: none;
+  color: var(--color-text-primary);
+  flex: 1;
+  background-color: $dropdown-hover-background-color;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+/* Recipe Category */
+
+.category-content {
+  display: block;
+}
+
+.category-header {
+  cursor: pointer;
+}
+
+.category-header.open + .category-content {
+  display: none;
+}
+
+.category-header :hover {
+  filter: brightness(120%);
+}
+
+/* Recipe Card */
+
+.recipe-card {
+  border: 1px solid var(--color-text-primary);
+  border-radius: 20px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: $dropdown-background-color;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.recipe-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.recipe-details {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.recipe-info, .recipe-input, .recipe-output {
+  flex: 1;
+  background-color: $dropdown-hover-background-color;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.recipe-info {
+  margin-right: 10px;
+}
+
+.recipe-input {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.recipe-output {
+  margin-left: 10px;
+}
+
+.recipe-info p, .recipe-input h4, .recipe-input ul, .recipe-output h4, .recipe-output p {
+  margin: 0;
+  padding: 5px 0;
+}
+
+.recipe-input ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.recipe-input li {
+  margin-bottom: 5px;
+}

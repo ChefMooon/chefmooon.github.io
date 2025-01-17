@@ -1,0 +1,38 @@
+<div class="minecraft-mod-button">
+    {%- for mod in site.data.minecraft_mods -%}
+    <a href="{{ mod.id | relative_url }}">
+        {% if mod.banner %}
+            <img class="minecraft-mod-banner" src="{{ mod.banner }}" alt="{{ mod.title | escape }}" />
+            <br />
+        {% else %}
+            <!-- <img src="{{ mod.icon }}" alt="{{ mod.title | escape }}"> -->
+            <h3>{{ mod.title | escape }}</h3>
+        {% endif %}
+    </a>
+    <a href="{{ mod.id | relative_url }}">
+        <img src="/assets/img/buttons/button_home.png" alt="Home" />
+    </a>
+    <a href="{{ mod.id | relative_url }}wiki">
+        <img src="/assets/img/buttons/button_wiki.png" alt="Wiki" />
+    </a>
+    <a href="{{ mod.id | relative_url }}roadmap">
+        <img src="/assets/img/buttons/button_roadmap.png" alt="Roadmap" />
+    </a>
+    <br />
+    <a href="{{ mod.url_modrinth }}">
+        <img src="/assets/img/buttons/button_modrinth.png" alt="Modrinth" />
+    </a>
+    <a href="{{ mod.url_curseforge }}">
+        <img src="/assets/img/buttons/button_curseforge.png" alt="Curseforge" />
+    </a>
+    <br />
+    <a href="{{ mod.source }}">
+        <img src="/assets/img/buttons/button_source.png" alt="Source" />
+    </a>
+    <a href="{{ mod.issues }}">
+        <img src="/assets/img/buttons/button_issues.png" alt="Issues" />
+    </a>
+    <br />
+    <br />
+    {%- endfor -%}
+</div>

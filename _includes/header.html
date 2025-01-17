@@ -1,0 +1,63 @@
+<header class="site-header">
+
+    <div class="wrapper">
+        {%- assign default_paths = site.pages | map: "path" -%}
+        {%- assign page_paths = site.header_pages | default: default_paths -%}
+        {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
+
+        <a class="site-title" rel="author" href="{{ '/' | relative_url }}">
+            <img class="site-logo" src="{{ site.logo | relative_url }}" alt="{{ site.title | escape }}" />
+        </a>
+
+        <nav class="site-nav">
+            <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+            <label for="nav-trigger">
+                <span class="menu-icon">
+                    <svg viewBox="0 0 18 15" width="18px" height="15px">
+                        <path fill="#000" d="M18,1.484 C18,0.664 17.328,0 16.516,0 L1.484,0 C0.664,0 0,0.664 0,1.484 C0,2.304 0.664,2.968 1.484,2.968 L16.516,2.968 C17.328,2.968 18,2.304 18,1.484 Z M18,7.516 C18,6.696 17.328,6.032 16.516,6.032 L1.484,6.032 C0.664,6.032 0,6.696 0,7.516 C0,8.336 0.664,9 1.484,9 L16.516,9 C17.328,9 18,8.336 18,7.516 Z M18,13.516 C18,12.696 17.328,12.032 16.516,12.032 L1.484,12.032 C0.664,12.032 0,12.696 0,13.516 C0,14.336 0.664,15 1.484,15 L16.516,15 C17.328,15 18,14.336 18,13.516 Z"></path>
+                    </svg>
+                </span>
+            </label>
+            <div class="trigger">
+                <ul class="menu">
+                    <li><a href="{{ '/' | relative_url }}">ChefMooons's Hub</a></li>
+                    <li class="dropdown">
+                        <a href="{{ 'minecraft-mods/' | relative_url }}">Minecraft Mods</a>
+                        <ul class="dropdown-content">
+                            {%- for path in page_paths -%}
+                                {%- assign my_page = site.pages | where: "path", path | first -%}
+                                {%- assign mod_info = site.data.minecraft_mods | where: "id", my_page.mod_id | first -%}
+                                {%- if my_page.layout == "minecraft-mod/page" -%}
+                                    <li class="dropdown">
+                                        <a class="page-link" href="{{ my_page.url | relative_url }}">{{ mod_info.title | escape }}</a>
+                                        <ul class="dropdown-content submenu">
+                                            <li><a class="page-link" href="{{ my_page.url | relative_url }}">Home</a></li>
+                                            <li><a href="{{ my_page.url | relative_url }}/wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home">Wiki</a></li>
+                                            <li><a href="{{ my_page.url | relative_url }}changelog">Changelog</a></li>
+                                            <li><a href="{{ my_page.url | relative_url }}roadmap">Roadmap</a></li>
+                                        </ul>
+                                    </li>
+                                {%- endif -%}
+                            {%- endfor -%}
+                        </ul>
+                    </li>
+                    <li><a href="{{ '/about' | relative_url }}">About</a></li>
+                    <!-- <li><a href="{{ site.patreon_url | relative_url }}">Patreon</a></li> -->
+                </ul>
+            </div>
+        </nav>
+    </div>
+</header>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+  
+      dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(event) {
+          event.preventDefault();
+          const parentDropdown = this.parentElement;
+          parentDropdown.classList.toggle('active');
+        });
+      });
+    });
+  </script>

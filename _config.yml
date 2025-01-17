@@ -18,24 +18,41 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome title
+title: ChefMooon's hub
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  Write an awesome description for your new site here. You can edit this
-  line in _config.yml. It will appear in your document head meta (for
-  Google search results) and in your feed.xml site description.
-respository: ChefMooon/chefmooon.github.io
+  ChefMooon’s Hub is the central hub for everything ChefMooon! 
+  Dive into detailed information about Minecraft mods like 
+  Ube's Delight, Fright's Delight, Breeze Bounce, and Colourful Clocks.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+logo: assets/img/logo.png
+respository: ChefMooon/chefmooon.github.io
+
+patreon_url: https://patreon.com/ChefMooon
+
+# Socials
+twitter_username: ChefMooon
+github_username:  ChefMooon
 
 # Build settings
-theme: minima
-# remote_theme: pages-themes/hacker@v0.2.0
+# theme: minima
+remote_theme: jekyll/minima
 plugins:
   - jekyll-remote-theme
   - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+minima:
+  skin: dark
+  social_links:
+    - { platform: github,  user_url: "https://github.com/ChefMooon" }
+    - { platform: bluesky, user_url: "https://bsky.app/profile/chefmooon.bsky.social" }
+
+# Silence some warnings
+sass:
+  quiet_deps: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.
