@@ -32,14 +32,14 @@ layout: minecraft-mod/wiki/base
             <h2><strong>Recipe Types</strong></h2>
             <ul>
                 {%- for category in version_recipes -%}
-                    <li><a href="#{{ category[0] }}">{{ category[0] | capitalize }}</a></li>
+                    <li><a href="#{{ category[0] }}">{{ category[0] | replace: "_", " " | capitalize_all }}</a></li>
                 {%- endfor -%}
             </ul>
         </div>
 
         <div class="recipe-list">
             {%- for category in version_recipes %}
-                {%- assign category_name = category[0] | capitalize -%}
+                {%- assign category_name = category[0] | replace: "_", " " | capitalize_all -%}
                 {%- assign recipe_count = category[1] | size -%}
                 <h2 id="{{ category[0] }}" class="category-header"><strong>{{ category_name }} ({{ recipe_count }})</strong></h2>
                 <div class="category-content">
@@ -70,7 +70,7 @@ layout: minecraft-mod/wiki/base
                                         {%- for key in recipe[1].key -%}
                                             <li>
                                                 {%- if key.tag -%}
-                                                    {{ key[1].tag | split: "/" | last | replace: "_", " " | capitalize_all }}
+                                                    {{ key[1].tag }}
                                                 {%- else -%}
                                                     {{ key[1].item | split: ":" | last | replace: "_", " " | capitalize_all }}
                                                 {%- endif -%}
@@ -81,11 +81,19 @@ layout: minecraft-mod/wiki/base
                                     {%- if recipe[1].ingredients -%}
                                         {%- for ingredient in recipe[1].ingredients -%}
                                             <li>
-                                            {%- if ingredient.tag -%}
-                                                {{ ingredient.tag | split: "/" | last | replace: "_", " " | capitalize_all }}
-                                            {%- else -%}
-                                                {{ ingredient.item | split: ":" | last | replace: "_", " " | capitalize_all }}
-                                            {%- endif -%}
+                                                {%- if ingredient.tag -%}
+                                                    {{ ingredient.tag }}
+                                                {%- else -%}
+                                                    {{ ingredient.item | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                {%- endif -%}
+                                            </li>
+                                        {%- endfor -%}
+                                    {%- endif -%}
+
+                                    {%- if recipe[1].ingredient -%}
+                                        {%- for ingredient in recipe[1].ingredient -%}
+                                            <li>
+                                                {{ ingredient | split: "/" | last | split: ":" | last | replace: "_", " " | replace: '"]', ' ' | capitalize_all }}
                                             </li>
                                         {%- endfor -%}
                                     {%- endif -%}
@@ -102,8 +110,12 @@ layout: minecraft-mod/wiki/base
                                 <div class="recipe-output">
                                     <h4><strong>Result:</strong></h4>
                                     {%- if recipe[1].result.id -%}
+                                        {%- assign count = 1 -%}
+                                        {%- if result[1].item.count -%}
+                                            {%- assign count = result[1].item.count -%}
+                                        {%- endif -%}
                                         <ul>
-                                            <li>{{ recipe[1].result.count }} x {{ recipe[1].result.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
+                                            <li>{{ count }} x {{ recipe[1].result.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
                                         </ul>
                                     {%- else -%}
                                         {%- if recipe[1].result.size > 0 -%}
