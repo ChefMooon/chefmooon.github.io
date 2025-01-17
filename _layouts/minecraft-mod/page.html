@@ -55,7 +55,7 @@ layout: minecraft-mod/base
                 <li>
                     <span class="post-meta">{{ post.date | date: date_format }}</span>
                     <span class="post-meta">
-                        {% assign minecraft_versions = post.minecraft_version | split: ", " %}
+                        <!-- {% assign minecraft_versions = post.minecraft_version | split: ", " %}
                         {% assign minecraft_loaders = post.minecraft_loader | split: ", " %}
                         {% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
         
@@ -67,7 +67,7 @@ layout: minecraft-mod/base
                         {%- endif -%}
                         {%- if minecraft_loaders.size > 0 -%}
                             • {{ minecraft_loaders | join: ", " }}
-                        {%- endif -%}
+                        {%- endif -%} -->
                     </span>
                     <h3>
                     <a class="post-link" href="{{ post.url | relative_url }}">

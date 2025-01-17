@@ -53,6 +53,10 @@ minima:
 
 google_analytics: 473625175
 
+# Tag Settings
+tag_page_layout: tag_page
+tag_page_dir: tag
+
 # Silence some warnings
 sass:
   quiet_deps: true
