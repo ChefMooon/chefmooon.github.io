@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 2.0,
+  "ingredients": [
+    {
+      "item": "frightsdelight:apple_slime"
+    },
+    {
+      "tag": "c:foods/vegetable"
+    },
+    {
+      "item": "frightsdelight:apple_slime"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:soup_slimeapple"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "frightsdelight:bone_crate"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:bone"
+  }
+}

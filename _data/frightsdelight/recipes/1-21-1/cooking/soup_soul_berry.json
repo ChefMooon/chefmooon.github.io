@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 2.0,
+  "ingredients": [
+    {
+      "item": "frightsdelight:soul_berry"
+    },
+    {
+      "tag": "c:foods/vegetable"
+    },
+    {
+      "item": "frightsdelight:soul_berry"
+    }
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:soup_soul_berry"
+  }
+}
