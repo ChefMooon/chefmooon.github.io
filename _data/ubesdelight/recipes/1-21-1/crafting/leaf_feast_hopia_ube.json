@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "ubesdelight:hopia_ube"
+    },
+    "B": {
+      "tag": "minecraft:leaves"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:leaf_feast_hopia_ube"
+  }
+}
