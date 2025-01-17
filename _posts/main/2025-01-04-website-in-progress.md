@@ -9,6 +9,4 @@ categories: misc
 
 **Coming Soon!**
 
-I’m excited to introduce the ChefMooon Website! Soon, all the information about my mods will be available here.
-
 Feel free to explore the site as I work on adding content and finishing up features.
