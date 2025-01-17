@@ -53,6 +53,15 @@ layout: minecraft-mod/wiki/base
                                     {%- if recipe[1].category -%}
                                         <p><strong>Category:</strong> {{ recipe[1].category | capitalize }}</p>
                                     {%- endif -%}
+                                    {%- if recipe[1].recipe_book_tab -%}
+                                        <p><strong>Recipe Book Tab:</strong> {{ recipe[1].recipe_book_tab | capitalize_all }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe[1].cookingtime -%}
+                                        <p><strong>Cooking Time:</strong> {{ recipe[1].cookingtime }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe[1].experience -%}
+                                        <p><strong>Experience:</strong> {{ recipe[1].experience }}</p>
+                                    {%- endif -%}
                                 </div>
                                 <div class="recipe-input">
                                     <h4><strong>Ingredients:</strong></h4>
@@ -69,15 +78,18 @@ layout: minecraft-mod/wiki/base
                                         {%- endfor -%}
                                     {%- endif -%}
 
-                                    {%- for ingredient in recipe[1].ingredients -%}
-                                        <li>
-                                        {%- if ingredient.tag -%}
-                                            {{ ingredient.tag | split: "/" | last | replace: "_", " " | capitalize_all }}
-                                        {%- else -%}
-                                            {{ ingredient.item | split: ":" | last | replace: "_", " " | capitalize_all }}
-                                        {%- endif -%}
-                                        </li>
-                                    {%- endfor -%}
+                                    {%- if recipe[1].ingredients -%}
+                                        {%- for ingredient in recipe[1].ingredients -%}
+                                            <li>
+                                            {%- if ingredient.tag -%}
+                                                {{ ingredient.tag | split: "/" | last | replace: "_", " " | capitalize_all }}
+                                            {%- else -%}
+                                                {{ ingredient.item | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                            {%- endif -%}
+                                            </li>
+                                        {%- endfor -%}
+                                    {%- endif -%}
+                                    
                                     </ul>
                                     {%- if recipe[1].tool -%}
                                         {%- if recipe[1].tool.tag -%}
