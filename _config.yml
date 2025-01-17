@@ -50,7 +50,7 @@ minima:
     - { platform: github,  user_url: "https://github.com/ChefMooon" }
     - { platform: bluesky, user_url: "https://bsky.app/profile/chefmooon.bsky.social" }
 
-google_analytics: 473625175
+google_analytics: G-2K7NSK072B
 
 # Tag Settings
 tag_page_layout: tag_page
