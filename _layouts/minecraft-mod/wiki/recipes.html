@@ -5,7 +5,10 @@ layout: minecraft-mod/wiki/base
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign version_folder = page.minecraft_version | replace: ".", "-" -%}
 {%- assign version_recipes = site.data[page.mod_id].recipes[version_folder] -%}
-{%- assign total_recipes = version_recipes | size -%}
+{%- assign total_recipes = 0 -%}
+{%- for category in version_recipes -%}
+    {%- assign total_recipes = category[1] | size | plus: total_recipes -%}
+{%- endfor -%}
 
 {% assign type_mapping = site.data.crafting_types %}
 
