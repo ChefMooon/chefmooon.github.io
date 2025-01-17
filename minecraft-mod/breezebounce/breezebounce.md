@@ -5,3 +5,15 @@ title: Breeze Bounce
 mod_id: breezebounce
 permalink: /breezebounce/
 ---
+
+[![Modfest Carnival](https://raw.githubusercontent.com/ModFest/art/v2/badge/svg/carnival/compact.svg)](https://modfest.net/carnival)
+
+Unleash chaos with Wind Charge-Infused blocks! Send your friends (or yourself) flying with bouncy fun! 
+
+![Blocks Banner](https://i.imgur.com/Od5GW2P.png)
+
+### **Bounce Blocks**
+
+Breeze Bounce has a set of Wind Charge-infused, wool-like blocks that will bounce entities that touch any side. When struck by a wind charge the block becomes ‘Inflated’ for a short duration, while inflated bounce power is increased. They are available as full blocks, stairs, slabs, and posts. 
+   
+![Bounce Blocks](https://i.imgur.com/9tb0JN4.gif)
