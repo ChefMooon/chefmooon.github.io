@@ -101,9 +101,9 @@ layout: minecraft-mod/wiki/base
                                     </ul>
                                     {%- if recipe[1].tool -%}
                                         {%- if recipe[1].tool.tag -%}
-                                            <p><strong>Tool:</strong> {{ recipe[1].tool.tag | split: "/" | last | capitalize_all }}</p>
+                                            <p><strong>Tool:</strong> {{ recipe[1].tool.tag | split: "/" | last | replace: "_", " " | capitalize_all }}</p>
                                         {%- else -%}
-                                            <p><strong>Tool:</strong> {{ recipe[1].tool | split: ":" | last | capitalize_all }}</p>
+                                            <p><strong>Tool:</strong> {{ recipe[1].tool | split: ":" | last | replace: "_", " " | capitalize_all }}</p>
                                         {%- endif -%}
                                     {%- endif -%}
                                 </div>
