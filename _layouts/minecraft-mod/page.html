@@ -18,10 +18,10 @@ layout: minecraft-mod/base
         <nav class="minecraft-mod-nav">
             <ul class="menu">
                 {%- if mod_info.url_modrinth -%}
-                    <li><a href="{{ mod_info.url_modrinth }}"><img src="/assets/img/buttons/button_modrinth.png" alt="Modrinth" /></a></li>
+                    <li><a href="{{ mod_info.url_modrinth }}" target="_blank"><img src="/assets/img/buttons/button_modrinth.png" alt="Modrinth" /></a></li>
                 {%- endif -%}
                 {%- if mod_info.url_curseforge -%}
-                    <li><a href="{{ mod_info.url_curseforge }}"><img src="/assets/img/buttons/button_curseforge.png" alt="Curseforge" /></a></li>
+                    <li><a href="{{ mod_info.url_curseforge }}" target="_blank"><img src="/assets/img/buttons/button_curseforge.png" alt="Curseforge" /></a></li>
                 {%- endif -%}
                 {%- if mod_info.source -%}
                     <li><a href="{{ mod_info.source }}"><img src="/assets/img/buttons/button_source.png" alt="Source" /></a></li>

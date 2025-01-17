@@ -43,7 +43,6 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
-  - jekyll-target-blank
 
 minima:
   skin: dark
