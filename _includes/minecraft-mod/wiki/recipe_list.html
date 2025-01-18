@@ -1,0 +1,203 @@
+{%- assign recipes = page.recipes -%}
+{%- assign total_recipes = recipes | size -%}
+{% assign recipe_types = page.recipe_types %}
+
+<p><strong>Total Recipes:</strong> {{ total_recipes }}</p>
+
+{%- if total_recipes > 0 -%}
+    <div class="recipe-types">
+        <h2><strong>Recipe Types</strong></h2>
+        <ul>
+            {%- for recipe_type in recipe_types -%}
+                <li>
+                    <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
+                    <span class="toggle-dot" data-target="{{ recipe_type }}"></span>
+                </li>
+            {%- endfor -%}
+            <li><a id="open-all" class="toggle-btn">Open All</a></li>
+            <li><a id="close-all" class="toggle-btn">Close All</a></li>
+        </ul>
+    </div>
+
+    <div class="recipe-list">
+        {%- for recipe_type in recipe_types -%}
+            <h2 id="{{ recipe_type }}" class="category-header"><strong>{{ site.data.crafting_types[recipe_type] }}</strong></h2>
+            <div class="category-content">
+                {%- for recipe in recipes -%}
+                    {%- if recipe_type == recipe['type'] -%}
+                        <div class="recipe-card">
+                            <h3 id="{{ recipe_type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }}</strong></h3>
+                            <div class="recipe-details">
+                                <div class="recipe-info">
+                                    {%- if recipe['type'] -%}
+                                        <p><strong>Type:</strong> {{ site.data.crafting_types[recipe_type] }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe['category'] -%}
+                                        <p><strong>Category:</strong> {{ recipe['category'] | capitalize }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe['recipe_book_tab'] -%}
+                                        <p><strong>Recipe Book Tab:</strong> {{ recipe['recipe_book_tab'] | capitalize_all }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe['cookingtime'] -%}
+                                        <p><strong>Cooking Time:</strong> {{ recipe['cookingtime'] }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe['experience'] -%}
+                                        <p><strong>Experience:</strong> {{ recipe['experience'] }}</p>
+                                    {%- endif -%}
+                                    {%- if recipe['tool'] -%}
+                                        <p><strong>Tool:</strong> {{ recipe['tool'] }}</p>
+                                    {%- endif -%}
+                                </div>
+                                <div class="recipe-input">
+                                    {%- if recipe['input'] -%}
+                                        <p><strong>Ingredients:</strong></p>
+                                        <ul>
+                                            {%- assign size = recipe['input'] | size -%}
+                                            {%- if size > 1 -%}
+                                                {%- for ingredient in recipe['input'] -%}
+                                                    <li>
+                                                        {%- if ingredient['tag'] -%}
+                                                            {{ ingredient['tag']['id'] }}
+                                                        {%- else -%}
+                                                            {{ ingredient['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                        {%- endif -%}
+                                                        {%- if ingredient['key'] -%}
+                                                            ({{ ingredient['key'] }})
+                                                        {%- endif -%}
+                                                    </li>
+                                                {%- endfor -%}
+                                            {%- else -%}
+                                                {%- if recipe['input'].first.item.id -%}   
+                                                    <li>{{ recipe['input'].first.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
+                                                {%- else if recipe['input']['tag'] -%}
+                                                    <li>{{ recipe['input']['tag']['id'] }}</li>
+                                                {%- else if recipe['input']['item']['id'] -%}
+                                                    <li>{{ recipe['input']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
+                                                {%- endif -%}
+                                            {%- endif -%}
+                                        </ul>
+                                    {%- endif -%}
+                                    {%- if recipe['pattern'] -%}
+                                        <p><strong>Pattern:</strong></p>
+                                        <p>
+                                            <div class="crafting-grid">
+                                                {%- for row in recipe['pattern'] -%}
+                                                    <div class="grid-row">
+                                                        {%- for char in row -%}
+                                                            <span>{{ char }}</span>
+                                                        {%- endfor -%}
+                                                    </div>
+                                                {%- endfor -%}
+                                            </div>
+                                        </p>
+                                    {%- endif -%}
+                                </div>
+                                <div class="recipe-output">
+                                    {%- if recipe['output'] -%}
+                                        <p><strong>Output:</strong></p>
+                                        <ul>
+                                            {%- assign size = recipe['output'] | size -%}
+                                            {%- if size > 1 -%}
+                                                {%- for ingredient in recipe['output'] -%}
+                                                    <li>
+                                                        {%- if ingredient['tag'] -%}
+                                                            {{ ingredient['tag']['count'] }} x {{ ingredient['tag']['id'] }}
+                                                        {%- else -%}
+                                                            {{ ingredient['item']['count'] }} x {{ ingredient['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                        {%- endif -%}
+                                                        {%- if ingredient['chance'] -%}
+                                                            ({{ ingredient['chance'] | times: 100 | round }}%)
+                                                        {%- endif -%}
+                                                    </li>
+                                                {%- endfor -%}
+                                            {%- else -%}
+                                                <li>
+                                                    {%- if recipe['output']['tag'] -%}
+                                                        {{ recipe['output']['tag']['count'] }} x {{ recipe['output']['tag']['id'] }}
+                                                    {%- else -%}
+                                                        {{ recipe['output']['item']['count'] }} x {{ recipe['output']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                    {%- endif -%}
+                                                </li>
+                                            {%- endif -%}
+                                        </ul>
+                                    {%- endif -%}
+                                </div>
+                            </div>
+                            <!-- <p>{{ recipe }}</p> -->
+                        </div>
+                    {%- endif -%}
+                {%- endfor -%}
+            </div>
+        {%- endfor -%}
+    </div>
+{%- endif -%}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var headers = document.querySelectorAll('.category-header');
+        headers.forEach(function(header) {
+            header.addEventListener('click', function() {
+                this.classList.toggle('open');
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const categoryLinks = document.querySelectorAll('.recipe-types a');
+        
+        categoryLinks.forEach(link => {
+            link.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const categoryHeader = document.getElementById(targetId);
+                const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
+                
+                const wasOpen = categoryHeader.classList.contains('open');
+                categoryHeader.classList.toggle('open');
+                dot.classList.toggle('open');
+            });
+        });
+    });
+
+    document.getElementById('close-all').addEventListener('click', function() {
+        document.querySelectorAll('.category-header').forEach(header => {
+            const targetId = header.getAttribute('id');
+            const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
+            
+            if (!header.classList.contains('open')) {
+                header.classList.add('open');
+                dot.classList.add('open');
+            }
+        });
+    });
+
+    document.getElementById('open-all').addEventListener('click', function() {
+        document.querySelectorAll('.category-header').forEach(header => {
+            const targetId = header.getAttribute('id');
+            const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
+            
+            if (header.classList.contains('open')) {
+                header.classList.remove('open');
+                dot.classList.remove('open');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const dots = document.querySelectorAll('.toggle-dot');
+        
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const header = document.getElementById(targetId);
+                const isOpen = header.classList.contains('open');
+                
+                header.classList.toggle('open');
+                this.classList.toggle('open');
+                
+                console.log(`Category "${targetId}" ${isOpen ? 'closed' : 'opened'}`);
+            });
+        });
+    });
+</script>
+

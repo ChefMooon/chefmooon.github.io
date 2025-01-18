@@ -1,20 +1,48 @@
 <!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
-  {%- include head.html -%}
+    {%- include head.html -%}
 
-  <body>
+    <body>
 
-    {%- include header.html -%}
+        {%- include header.html -%}
 
-    <main class="page-content" aria-label="Content">
-      <div class="wrapper">
-        {% include anchor_headings.html html=content anchorBody="#" %}
-      </div>
-    </main>
+        <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            {% include anchor_headings.html html=content anchorBody="#" %}
+        </div>
+        </main>
 
-    {%- include footer.html -%}
+        {%- include footer.html -%}
 
-  </body>
+    </body>
 
+    <button id="back-to-top" title="Back to Top">↑</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backToTop = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 200) {
+                    backToTop.style.display = 'block';
+                    backToTop.style.opacity = '1';
+                } else {
+                    backToTop.style.opacity = '0';
+                    setTimeout(() => {
+                        if (window.pageYOffset <= 200) {
+                            backToTop.style.display = 'none';
+                        }
+                    }, 300);
+                }
+            });
+            
+            backToTop.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </html>

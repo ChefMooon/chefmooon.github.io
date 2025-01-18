@@ -246,6 +246,34 @@ $dropdown-hover-background-color: #2a2a2a !default;
   margin: 0;
 }
 
+.recipe-types {
+  li {
+      display: flex;
+      align-items: center;
+      margin: 0;
+      
+      a {
+          flex: 1;
+          margin-right: 8px;
+      }
+      
+      .toggle-dot {
+          display: inline-block;
+          width: 10px;
+          height: 10px;
+          border-radius: 30%;
+          background-color: #4CAF50;
+          // margin-right: 10px;
+          cursor: pointer;
+          transition: background-color 0.2s ease;
+          
+          &.open {
+              background-color: #ccc;
+          }
+      }
+  }
+}
+
 /* Recipe Category */
 
 .category-content {
@@ -262,6 +290,33 @@ $dropdown-hover-background-color: #2a2a2a !default;
 
 .category-header :hover {
   filter: brightness(120%);
+}
+
+.category-link {
+  user-select: none;
+  -webkit-user-select: none;
+  &:hover {
+      cursor: pointer;
+  }
+}
+
+.toggle-btn {
+  cursor: pointer;
+}
+
+.toggle-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &.open {
+      background-color: #4CAF50;
+  }
 }
 
 /* Recipe Card */
@@ -331,6 +386,31 @@ $dropdown-hover-background-color: #2a2a2a !default;
   margin-bottom: 5px;
 }
 
+.crafting-grid {
+  background-image: url('/assets/img/crafting_grid.png');
+  background-size: cover;
+  width: 140px;
+  height: 140px;
+  padding: 6px;
+  box-sizing: border-box;
+  
+  .grid-row {
+      height: 46px;          // Reduced from 46px
+      line-height: 42px;     // Matched to height
+      text-align: center;
+      letter-spacing: 22px;
+      padding-left: 22px;
+      margin-top: 2px;
+      margin-bottom: -8px;   // Pull rows closer together
+      
+      span {
+          font-size: 16px;
+          color: black;
+          text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+      }
+  }
+}
+
 @media screen and (max-width: 600px) {
   .recipe-details {
     flex-direction: column;
@@ -348,5 +428,25 @@ $dropdown-hover-background-color: #2a2a2a !default;
   .recipe-card {
     padding: 10px;
     margin: 10px 0;
+  }
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
+  transition: opacity 0.3s, background-color 0.3s;
+  
+  &:hover {
+      background-color: rgba(0, 0, 0, 0.7);
   }
 }
