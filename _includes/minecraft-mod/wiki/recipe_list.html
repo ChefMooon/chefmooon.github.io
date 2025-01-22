@@ -2,17 +2,20 @@
 {%- assign total_recipes = recipes | size -%}
 {% assign recipe_types = page.recipe_types %}
 
-<p><strong>Total Recipes:</strong> {{ total_recipes }}</p>
-
 {%- if total_recipes > 0 -%}
     <div class="recipe-types">
         <h2><strong>Recipe Types</strong></h2>
         <ul>
             {%- for recipe_type in recipe_types -%}
-                <li>
-                    <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
-                    <span class="toggle-dot" data-target="{{ recipe_type }}"></span>
-                </li>
+                <div class="recipe-type-container">
+                    <li>
+                        <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
+                        <label class="switch">
+                            <input class="toggle-checkbox" data-target="{{ recipe_type }}" type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </li>
+                </div>
             {%- endfor -%}
             <li><a id="open-all" class="toggle-btn">Open All</a></li>
             <li><a id="close-all" class="toggle-btn">Close All</a></li>
@@ -52,8 +55,7 @@
                                     {%- if recipe['input'] -%}
                                         <p><strong>Ingredients:</strong></p>
                                         <ul>
-                                            {%- assign size = recipe['input'] | size -%}
-                                            {%- if size > 1 -%}
+                                            {%- if recipe['input'] | kind_of: "array" -%}
                                                 {%- for ingredient in recipe['input'] -%}
                                                     <li>
                                                         {%- if ingredient['tag'] -%}
@@ -67,13 +69,15 @@
                                                     </li>
                                                 {%- endfor -%}
                                             {%- else -%}
-                                                {%- if recipe['input'].first.item.id -%}   
-                                                    <li>{{ recipe['input'].first.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
-                                                {%- else if recipe['input']['tag'] -%}
-                                                    <li>{{ recipe['input']['tag']['id'] }}</li>
-                                                {%- else if recipe['input']['item']['id'] -%}
-                                                    <li>{{ recipe['input']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}</li>
-                                                {%- endif -%}
+                                                <li>
+                                                    {%- if recipe['input'].first.item.id -%}   
+                                                        {{ recipe['input'].first.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                    {%- elsif recipe['input']['tag'] -%}
+                                                        {{ recipe['input']['tag']['id'] }}
+                                                    {%- elsif recipe['input']['item']['id'] -%}
+                                                        {{ recipe['input']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                    {%- endif -%}
+                                                </li>
                                             {%- endif -%}
                                         </ul>
                                     {%- endif -%}
@@ -133,70 +137,80 @@
 {%- endif -%}
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var headers = document.querySelectorAll('.category-header');
-        headers.forEach(function(header) {
-            header.addEventListener('click', function() {
-                this.classList.toggle('open');
-            });
-        });
-    });
-
+// Handle right-click on Recipe Types List Header
     document.addEventListener('DOMContentLoaded', function() {
         const categoryLinks = document.querySelectorAll('.recipe-types a');
-        
+
         categoryLinks.forEach(link => {
             link.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
                 const categoryHeader = document.getElementById(targetId);
-                const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
-                
-                const wasOpen = categoryHeader.classList.contains('open');
-                categoryHeader.classList.toggle('open');
-                dot.classList.toggle('open');
+                const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
+
+                categoryHeader.classList.toggle('closed');
+                checkbox.checked = !categoryHeader.classList.contains('closed');
             });
         });
     });
 
-    document.getElementById('close-all').addEventListener('click', function() {
-        document.querySelectorAll('.category-header').forEach(header => {
-            const targetId = header.getAttribute('id');
-            const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
-            
-            if (!header.classList.contains('open')) {
-                header.classList.add('open');
-                dot.classList.add('open');
+    // Handle Click on Recipe Type Headers, left and right click work here
+    document.addEventListener('DOMContentLoaded', function() {
+        var headers = document.querySelectorAll('.category-header');
+        headers.forEach(function(header) {
+            header.addEventListener('click', handleClick);
+            header.addEventListener('contextmenu', handleClick);
+
+            function handleClick(e) {
+            if (e.type === 'contextmenu') {
+                e.preventDefault();
             }
+            const targetId = this.getAttribute('id');
+            const checkbox = document.querySelector(`.toggle-checkbox[data-target="${targetId}"]`);
+            
+            this.classList.toggle('closed');
+            checkbox.checked = !this.classList.contains('closed');
+        }
         });
     });
 
+    // Handle "Open All" Button
     document.getElementById('open-all').addEventListener('click', function() {
         document.querySelectorAll('.category-header').forEach(header => {
             const targetId = header.getAttribute('id');
-            const dot = document.querySelector(`.toggle-dot[data-target="${targetId}"]`);
+            const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
             
-            if (header.classList.contains('open')) {
-                header.classList.remove('open');
-                dot.classList.remove('open');
+            if (header.classList.contains('closed')) {
+                header.classList.remove('closed');
+                checkbox.checked = true;
             }
         });
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
-        const dots = document.querySelectorAll('.toggle-dot');
+    // Handle "Close All" Button
+    document.getElementById('close-all').addEventListener('click', function() {
+        document.querySelectorAll('.category-header').forEach(header => {
+            const targetId = header.getAttribute('id');
+            const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
+            
+            if (!header.classList.contains('closed')) {
+                header.classList.add('closed');
+                checkbox.checked = false;
+            }
+        });
+    });
+
+    // Handle Recipe Type Toggle Switch
+    document.querySelectorAll('.switch input[type="checkbox"]').forEach(function(checkbox) {
+        const targetId = checkbox.getAttribute('data-target');
+        const header = document.getElementById(targetId);
         
-        dots.forEach(dot => {
-            dot.addEventListener('click', function() {
-                const targetId = this.getAttribute('data-target');
-                const header = document.getElementById(targetId);
-                const isOpen = header.classList.contains('open');
-                
-                header.classList.toggle('open');
-                this.classList.toggle('open');
-                
-                console.log(`Category "${targetId}" ${isOpen ? 'closed' : 'opened'}`);
-            });
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                header.classList.remove('closed');
+            } else {
+                header.classList.add('closed');
+            }
         });
     });
 </script>

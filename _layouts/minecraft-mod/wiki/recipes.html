@@ -19,9 +19,17 @@ layout: minecraft-mod/wiki/base
     </header>
 
     <p>
-        Note: the information found here is taken directly from the mod files and uses ID's instead of names.<br />
-        "_" have been replaced with " " and the first letter of each word is capitalized.<br />
-        For example, "Lapis Lazuli Block" is "minecraft:lapis_block".
+        {{ mod_info.title }} has a total of {{ total_recipes }} recipes. Below is a list of all the recipes in the mod.
+    </p>
+
+    <p>
+        Left-Click on a recipe type to jump to the list of recipes for that type.<br />
+        Toggle recipe type visibility using the toggle or by right-clicking the type.<br />
+    </p>
+
+    <p>
+        Note: this page is a work in progress. Some recipes may be missing or incorrect.<br />
+        Item names are taken from the ID's so they may look odd. ("Lapis Lazuli Block" => "minecraft:lapis_block")
     </p>
 
     {%- include minecraft-mod/wiki/recipe_list.html -%}

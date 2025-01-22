@@ -215,6 +215,12 @@ $dropdown-hover-background-color: #2a2a2a !default;
 }
 
 /* Recipe Types */
+  
+.recipe-type-container {
+  background-color: $dropdown-background-color;
+  padding: 3px 9px 3px 3px;
+  border-radius: 10px;
+}
 
 .recipe-types ul {
   list-style-type: none;
@@ -232,7 +238,6 @@ $dropdown-hover-background-color: #2a2a2a !default;
 
 .recipe-types li a:hover {
   filter: brightness(110%);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .recipe-types li a {
@@ -240,7 +245,7 @@ $dropdown-hover-background-color: #2a2a2a !default;
   color: var(--color-text-primary);
   flex: 1;
   background-color: $dropdown-hover-background-color;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
   display: block;
   margin: 0;
@@ -256,22 +261,73 @@ $dropdown-hover-background-color: #2a2a2a !default;
           flex: 1;
           margin-right: 8px;
       }
-      
-      .toggle-dot {
-          display: inline-block;
-          width: 10px;
-          height: 10px;
-          border-radius: 30%;
-          background-color: #4CAF50;
-          // margin-right: 10px;
-          cursor: pointer;
-          transition: background-color 0.2s ease;
-          
-          &.open {
-              background-color: #ccc;
-          }
-      }
   }
+}
+
+/* Recipe Type Slider */
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 37px;
+  height: 21px;
+}
+
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+
+input:hover {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.switch:hover .slider {
+  filter: brightness(110%);
 }
 
 /* Recipe Category */
@@ -284,7 +340,7 @@ $dropdown-hover-background-color: #2a2a2a !default;
   cursor: pointer;
 }
 
-.category-header.open + .category-content {
+.category-header.closed + .category-content {
   display: none;
 }
 
@@ -292,31 +348,8 @@ $dropdown-hover-background-color: #2a2a2a !default;
   filter: brightness(120%);
 }
 
-.category-link {
-  user-select: none;
-  -webkit-user-select: none;
-  &:hover {
-      cursor: pointer;
-  }
-}
-
 .toggle-btn {
   cursor: pointer;
-}
-
-.toggle-dot {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #ccc;
-  margin-left: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  
-  &.open {
-      background-color: #4CAF50;
-  }
 }
 
 /* Recipe Card */
