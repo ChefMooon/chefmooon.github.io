@@ -1,26 +1,3 @@
-
-- id: ubesdelight
-  title: Ube's Delight
-  description: placeholder
-  banner: /assets/img/ubes-delight/banner.png
-  url_modrinth: https://modrinth.com/mod/ubes-delight
-  url_curseforge: https://www.curseforge.com/minecraft/mc-mods/ubes-delight
-  source: https://github.com/ChefMooon/ubes-delight
-  issues: https://github.com/ChefMooon/ubes-delight/issues
-  wiki_default_minecraft_version: 1.21.1
-  wiki_available_minecraft_versions: 1.20.1, 1.21.1
-
-- id: frightsdelight
-  title: Fright's Delight
-  description: placeholder
-  banner: /assets/img/frights-delight/banner.png
-  url_modrinth: https://modrinth.com/mod/frights-delight
-  url_curseforge: https://www.curseforge.com/minecraft/mc-mods/frights-delight
-  source: https://github.com/ChefMooon/frights-delight
-  issues: https://github.com/ChefMooon/frights-delight/issues
-  wiki_default_minecraft_version: 1.21.1
-  wiki_available_minecraft_versions: 1.21.1
-
 - id: breezebounce
   title: Breeze Bounce
   description: placeholder
@@ -42,3 +19,25 @@
   issues: https://github.com/ChefMooon/colourful-clocks/issues
   wiki_default_minecraft_version: 1.21.1
   wiki_available_minecraft_versions: 1.21.1
+
+- id: frightsdelight
+  title: Fright's Delight
+  description: placeholder
+  banner: /assets/img/frights-delight/banner.png
+  url_modrinth: https://modrinth.com/mod/frights-delight
+  url_curseforge: https://www.curseforge.com/minecraft/mc-mods/frights-delight
+  source: https://github.com/ChefMooon/frights-delight
+  issues: https://github.com/ChefMooon/frights-delight/issues
+  wiki_default_minecraft_version: 1.21.1
+  wiki_available_minecraft_versions: 1.21.1
+
+- id: ubesdelight
+  title: Ube's Delight
+  description: placeholder
+  banner: /assets/img/ubes-delight/banner.png
+  url_modrinth: https://modrinth.com/mod/ubes-delight
+  url_curseforge: https://www.curseforge.com/minecraft/mc-mods/ubes-delight
+  source: https://github.com/ChefMooon/ubes-delight
+  issues: https://github.com/ChefMooon/ubes-delight/issues
+  wiki_default_minecraft_version: 1.21.1
+  wiki_available_minecraft_versions: 1.20.1, 1.21.1

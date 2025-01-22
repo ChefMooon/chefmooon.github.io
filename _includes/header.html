@@ -19,17 +19,17 @@
                 </span>
             </label>
             <div class="trigger">
-                <ul class="menu">
+                <ul class="main-nav menu">
                     <li><a href="{{ '/' | relative_url }}">ChefMooon's Hub</a></li>
                     <li class="dropdown">
-                        <a href="{{ 'minecraft-mods/' | relative_url }}">Minecraft Mods</a>
+                        <a onclick="handleMenuClick(event, this)">Minecraft Mods ▼</a>
                         <ul class="dropdown-content">
                             {%- for path in page_paths -%}
                                 {%- assign my_page = site.pages | where: "path", path | first -%}
                                 {%- assign mod_info = site.data.minecraft_mods | where: "id", my_page.mod_id | first -%}
                                 {%- if my_page.layout == "minecraft-mod/page" -%}
                                     <li class="dropdown">
-                                        <a class="page-link" href="{{ my_page.url | relative_url }}">{{ mod_info.title | escape }}</a>
+                                        <a class="page-link" onclick="handleSubMenuClick(event, this)">{{ mod_info.title | escape }}</a>
                                         <ul class="dropdown-content submenu">
                                             <li><a class="page-link" href="{{ my_page.url | relative_url }}">Home</a></li>
                                             <li><a href="{{ my_page.url | relative_url }}/wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home">Wiki</a></li>
@@ -50,14 +50,50 @@
 </header>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-      const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-  
-      dropdownToggles.forEach(toggle => {
-        toggle.addEventListener('click', function(event) {
-          event.preventDefault();
-          const parentDropdown = this.parentElement;
-          parentDropdown.classList.toggle('active');
+        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
+    
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            const parentDropdown = this.parentElement;
+            parentDropdown.classList.toggle('active');
+            });
         });
-      });
     });
-  </script>
+
+    function handleMenuClick(event, element) {
+        event.preventDefault();
+        const parentLi = element.parentElement;
+        const subMenu = parentLi.querySelector('.dropdown-content');
+
+        parentLi.classList.toggle('active');
+    }
+
+    function handleSubMenuClick(event, element) {
+        event.preventDefault();
+        const parentLi = element.parentElement;
+        const mainLi = parentLi.parentElement.parentElement;
+        const subMenu = parentLi.querySelector('.submenu');
+        
+        // Parent dropdown toggle
+        mainLi.classList.toggle('active', !parentLi.classList.contains('active'));
+
+        // Close other dropdowns at the same level
+        const siblingDropdowns = parentLi.parentElement.querySelectorAll(':scope > li');
+        siblingDropdowns.forEach(li => {
+            if (li !== parentLi) {
+                li.classList.remove('active');
+                const subMenus = li.querySelectorAll('.submenu');
+                subMenus.forEach(subMenu => {
+                    subMenu.classList.remove('active');
+                });
+            }
+        });
+
+        // Toggle submenu
+        parentLi.classList.toggle('active');
+
+        // toggle sub submenu
+        subMenu.classList.toggle('active');
+    }
+</script>
