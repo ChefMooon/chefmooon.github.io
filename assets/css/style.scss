@@ -139,6 +139,18 @@ $dropdown-hover-background-color: #2a2a2a !default;
     text-align: center;
 }
 
+/* About */
+
+.chefmooon-about-container {
+    background-color: $dropdown-background-color;
+    border-radius: 20px;
+}
+
+.chefmooon-about {
+    display: block; 
+    margin: 0 auto; 
+}
+
 /* Minecraft Mods */
 .minecraft-mod-banner  {
     padding-bottom: 10px;
