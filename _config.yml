@@ -44,11 +44,16 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+modrinth_url: &modrinth_url https://modrinth.com/user/ChefMooon
+curseforge_url: &curseforge_url https://www.curseforge.com/members/chefmooon/projects
+github_url: &github_url "https://github.com/ChefMooon"
+blueksy_url: &bluesky_url "https://bsky.app/profile/chefmooon.bsky.social"
+
 minima:
   skin: dark
   social_links:
-    - { platform: github,  user_url: "https://github.com/ChefMooon" }
-    - { platform: bluesky, user_url: "https://bsky.app/profile/chefmooon.bsky.social" }
+    - { platform: github,  user_url: *github_url }
+    - { platform: bluesky, user_url: *bluesky_url }
 
 google_analytics: G-2K7NSK072B
 
