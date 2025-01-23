@@ -7,3 +7,4 @@ minecraft_version: 1.21.1
 permalink: /breezebounce/wiki/1.21.1/item-details
 ---
 
+Items Coming Soon!
