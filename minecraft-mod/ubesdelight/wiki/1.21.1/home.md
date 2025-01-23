@@ -11,6 +11,23 @@ Main goals of Ube’s Delight
 - Add authentic cuisine from the Philippines with respect and in a similar style to Vanilla and Farmer’s Delight food items
 - Create GUI-less ways to craft Ube’s Delight recipes as well as alternative ways to craft Vanilla items
 
+### Features
+
+<b>Crops:</b> Ube, Garlic, Ginger, Lemongrass<br>
+<b>Ingredients:</b> Condensed Milk, Fish Sauce, Milk Powder, Brown Sugar<br>
+<b>Drinks:</b> Ube Milk Tea and Halo Halo<br>
+<b>Sweets:</b> Ube Cake, Leche Flan, Ube Cookie, Ginger Cookie, 4 Flavours of Polvorone to discover!<br>
+<b>Feasts:</b> Leche Flan, Halo Halo, Ube Milk Tea, 10 Leaf Feasts<br>
+<b>Heat Source:</b> Kalan<br>
+<b>Food:</b> 12 new dishes to discover!<br>
+<b>Rolling Pin:</b> Wood, Iron, Gold, Diamond, and Netherite Rolling Pins<br>
+<b>Baking Mat:</b> 27 Recipes<br>
+
+
+### Mod Integrations
+
+**Current:** Eating Animation, Mod Menu, Fabric Seasons, Serene Seasons, Botany Pots, Create, Dehydration, Supplementaries, Origins, Presence Footsteps, WTHIT/WAILA, REI, JEI, EMI, Better Combat
+
 ### Development
 
 As this mod is still in development, it's possible to encounter issues and instabilities. When updating to the latest version:
