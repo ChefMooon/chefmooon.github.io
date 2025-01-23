@@ -70,21 +70,21 @@ layout: minecraft-mod/base
                             • {{ minecraft_loaders | join: ", " }}
                         {%- endif -%} -->
                     </span>
-                    <h3>
-                    <a class="post-link" href="{{ post.url | relative_url }}">
-                        {%- if post.mod_title -%}
-                        {{ post.mod_title | escape }}&nbsp;-&nbsp;
-                        {%- endif -%}
-                        {%- if post.mod_version -%}
-                        {{ post.mod_version | escape }}&nbsp;-&nbsp;
-                        {%- endif -%}
-                        {%- if post.title -%}
-                        {{ post.title | escape }}
-                        {%- endif -%}
-                    </a>
-                    </h3>
+                    <p>
+                        <a class="post-link" href="{{ post.url | relative_url }}">
+                            {%- if post.mod_title -%}
+                            {{ post.mod_title | escape }}&nbsp;-&nbsp;
+                            {%- endif -%}
+                            {%- if post.mod_version -%}
+                            {{ post.mod_version | escape }}&nbsp;-&nbsp;
+                            {%- endif -%}
+                            {%- if post.title -%}
+                            {{ post.title | escape }}
+                            {%- endif -%}
+                        </a>
+                    </p>
                     {%- if site.show_excerpts -%}
-                    {{ post.excerpt }}
+                        {{ post.excerpt }}
                     {%- endif -%}
                 </li>
             {%- endfor -%}
