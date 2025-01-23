@@ -29,7 +29,7 @@ layout: minecraft-mod/base
             {%- for post in filtered_posts -%}
                 <li>
                     <span class="post-meta">{{ post.date | date: date_format }}</span>
-                    <h3>
+                    <p>
                         <a class="post-link" href="{{ post.url | relative_url }}">
                             {%- if post.mod_title -%}
                             {{ post.mod_title | escape }}&nbsp;-&nbsp;
@@ -41,7 +41,7 @@ layout: minecraft-mod/base
                             {{ post.title | escape }}
                             {%- endif -%}
                         </a>
-                    </h3>
+                    </p>
                     {{ post.content }}
                 </li>
             {%- endfor -%}
