@@ -142,12 +142,13 @@ $dropdown-hover-background-color: #2a2a2a !default;
     padding-top: 5px;
 }
 
-// .main-socials {
-//     padding: 5px;
-// }
-
 .main-socials a img {
     margin: 2px auto;
+}
+
+.main-socials a img:hover {
+    transform: scale(1.05);
+    filter: brightness(120%);
 }
 
 /* Footer */
