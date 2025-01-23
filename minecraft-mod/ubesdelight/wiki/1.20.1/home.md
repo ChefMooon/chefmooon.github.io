@@ -1,5 +1,5 @@
 ---
-layout: minecraft-mod/wiki/base
+layout: minecraft-mod/wiki/home
 
 title: Wiki \| Ube's Delight
 mod_id: ubesdelight
