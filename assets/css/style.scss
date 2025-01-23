@@ -554,7 +554,12 @@ input:hover {
     height: 50px;
     font-size: 24px;
     cursor: pointer;
-    display: none;
+    // display: none; // TODO: test button. 5 next elements might fix it.
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    line-height: 1;    
     transition: opacity 0.3s, background-color 0.3s;
     
     &:hover {
