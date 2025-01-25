@@ -295,6 +295,38 @@ $dropdown-hover-background-color: #2a2a2a !default;
     background-color: $dropdown-hover-background-color;
 }
 
+/* Minecraft Mod Wiki - Quick Links */
+.quick-links ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    li {
+        display: inline-block;
+        margin: 0;
+
+        a {
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: $dropdown-background-color;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: $dropdown-hover-background-color;
+            }
+        }
+
+        h3 {
+            padding-top: 4px;
+        }
+    }
+}
+
 /* Recipe Types */
   
 .recipe-type-container {

@@ -5,6 +5,20 @@ title: Block Details \| Ube's Delight
 mod_id: ubesdelight
 minecraft_version: 1.21.1
 permalink: /ubesdelight/wiki/1.21.1/block-details
+
+quick_links:
+    - alt: Wild Crops
+      href: wild-crops
+    - alt: Punch Bowls
+      href: punch-bowls
+    - alt: Glass Cup
+      href: glass-cup
+    - alt: Leaf Feasts
+      href: leaf-feasts
+    - alt: Cakes and Flan
+      href: cakes-and-flan
+    - alt: Baking Mat
+      href: baking-mat
 ---
 
 ## Wild Crops

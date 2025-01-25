@@ -10,6 +10,18 @@ layout: minecraft-mod/wiki/base
         <h1 class="post-title">Block Details</h1>
     </header>
 
+    {%- assign quick_links_size = page.quick_links | size -%}
+    {%- if quick_links_size > 0 -%}
+    <div class="quick-links">
+        <ul>
+            <li><h3>Quick Links:</h3></li>
+            {%- for link in page.quick_links -%}
+            <li><a href="#{{ link.href }}">{{ link.alt }}</a></li>
+            {%- endfor -%}
+        </ul>
+    </div>
+    {%- endif -%}
+
     <div class="post-content">
         {{ content }}
     </div>

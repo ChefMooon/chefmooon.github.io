@@ -5,6 +5,14 @@ title: Block Details \| Fright's Delight
 mod_id: frightsdelight
 minecraft_version: 1.21.1
 permalink: /frightsdelight/wiki/1.21.1/block-details
+
+quick_links:
+    - alt: Soul Berry Bush
+      href: soul-berry-bush
+    - alt: Wither Berry Bush
+      href: wither-berry-bush
+    - alt: Punch Bowls
+      href: punch-bowls
 ---
 
 ## Soul Berry Bush

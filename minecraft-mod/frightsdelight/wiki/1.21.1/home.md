@@ -30,6 +30,8 @@ This mod was originaly created for the demodcontest 2023!
 - Cobwebbed: Slowed movement
 - Infected: Similar to hunger, but worse
 
+[Effect Details]({{ '/frightsdelight/wiki/1.21.1/item-details#effect-details' | relative_url }})
+
 ### Mod Integrations
 
 **Current:** Presence Footsteps, Supplementaries, Create, Origins, Dehydration, WTHIT/WAILA, REI, Just Enough Items, Just Enough Effect Descriptions, EMI, EMIffect
