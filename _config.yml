@@ -27,6 +27,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 logo: assets/img/logo.png
+banner: assets/img/banner.png
 respository: ChefMooon/chefmooon.github.io
 
 patreon_url: https://patreon.com/ChefMooon

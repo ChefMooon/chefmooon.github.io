@@ -6,8 +6,13 @@
         {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
 
         <a class="site-title" rel="author" href="{{ '/' | relative_url }}">
-            <img class="site-logo" src="{{ site.logo | relative_url }}" alt="{{ site.title | escape }}" />
+            <img class="site-logo" src="{{ site.logo | relative_url }}" alt="{{ site.title | escape }}" height="64" width="64"/>
+            <img class="site-banner-image" src="{{ site.banner | relative_url }}" alt="{{ site.title | escape }}" height="64" width="289" />
         </a>
+
+        <!-- <a class="site-banner" href="{{ '/' | relative_url }}">
+            
+        </a> -->
 
         <nav class="site-nav">
             <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -20,7 +25,7 @@
             </label>
             <div class="trigger">
                 <ul class="main-nav menu">
-                    <li><a href="{{ '/' | relative_url }}">ChefMooon's Hub</a></li>
+                    <!-- <li><a href="{{ '/' | relative_url }}">ChefMooon's Hub</a></li> -->
                     <li class="dropdown">
                         <a onclick="handleMenuClick(event, this)">Minecraft Mods ▼</a>
                         <ul class="dropdown-content">
