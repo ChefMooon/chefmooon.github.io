@@ -1,0 +1,11 @@
+{% assign mc_version = page.minecraft_version | replace: ".", "-" %}
+{% if include.tag.count %}{{ include.tag.count }} x {% endif %}
+{% assign ingredient_tag = include.tag.id %}
+{% assign tag = site.data.tags[mc_version][ingredient_tag] %}
+{% if tag %}
+    <span title="{{ ingredient_tag }}" style="cursor: pointer;">
+        {{ tag }}<span class="tag-info">*</span>
+    </span>
+{% else %}
+    {{ ingredient_tag }}
+{% endif %}

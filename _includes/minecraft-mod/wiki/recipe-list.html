@@ -48,7 +48,14 @@
                                         <p><strong>Experience:</strong> {{ recipe['experience'] }}</p>
                                     {%- endif -%}
                                     {%- if recipe['tool'] -%}
-                                        <p><strong>Tool:</strong> {{ recipe['tool'] }}</p>
+                                        {% assign mc_version = page.minecraft_version | replace: ".", "-" %}
+                                        {%- assign tool = recipe['tool'] -%}
+                                        {%- assign tool_tag = site.data.tags[mc_version][tool] -%}
+                                        {%- if tool_tag -%}
+                                            <p><strong>Tool:</strong> <span title="{{ tool }}" style="cursor: pointer;">{{ tool_tag }}<span class="tag-info">*</span></span></p>
+                                        {%- else -%}
+                                            <p><strong>Tool:</strong> {{ recipe['tool'] }}</p>
+                                        {%- endif -%}
                                     {%- endif -%}
                                 </div>
                                 <div class="recipe-input">
@@ -59,9 +66,13 @@
                                                 {%- for ingredient in recipe['input'] -%}
                                                     <li>
                                                         {%- if ingredient['tag'] -%}
-                                                            {{ ingredient['tag']['id'] }}
-                                                        {%- else -%}
-                                                            {{ ingredient['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
+                                                        {%- elsif ingredient['item']['id'] -%}
+                                                            {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
+                                                        {%- elsif recipe.input.tag.id -%}
+                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag %}
+                                                        {%- elsif recipe.input.item.id -%}
+                                                            {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.item %}
                                                         {%- endif -%}
                                                         {%- if ingredient['key'] -%}
                                                             ({{ ingredient['key'] }})
@@ -70,12 +81,12 @@
                                                 {%- endfor -%}
                                             {%- else -%}
                                                 <li>
-                                                    {%- if recipe['input'].first.item.id -%}   
-                                                        {{ recipe['input'].first.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                    {%- if recipe['input'].first.item.id -%} 
+                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.first.item %}
                                                     {%- elsif recipe['input']['tag'] -%}
-                                                        {{ recipe['input']['tag']['id'] }}
+                                                        {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag %}
                                                     {%- elsif recipe['input']['item']['id'] -%}
-                                                        {{ recipe['input']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.item %}
                                                     {%- endif -%}
                                                 </li>
                                             {%- endif -%}
@@ -85,13 +96,14 @@
                                         <p><strong>Pattern:</strong></p>
                                         <p>
                                             <div class="crafting-grid">
-                                                {%- for row in recipe['pattern'] -%}
+                                                {% for row in (0..2) %}
                                                     <div class="grid-row">
-                                                        {%- for char in row -%}
-                                                            <span>{{ char }}</span>
-                                                        {%- endfor -%}
+                                                        {% for col in (0..2) %}
+                                                            {% assign coord = col | append: '_' | append: row %}
+                                                            <span>{{ recipe['pattern'][coord] }}</span>
+                                                        {% endfor %}
                                                     </div>
-                                                {%- endfor -%}
+                                                {% endfor %}
                                             </div>
                                         </p>
                                     {%- endif -%}
@@ -105,9 +117,9 @@
                                                 {%- for ingredient in recipe['output'] -%}
                                                     <li>
                                                         {%- if ingredient['tag'] -%}
-                                                            {{ ingredient['tag']['count'] }} x {{ ingredient['tag']['id'] }}
+                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
                                                         {%- else -%}
-                                                            {{ ingredient['item']['count'] }} x {{ ingredient['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                            {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
                                                         {%- endif -%}
                                                         {%- if ingredient['chance'] -%}
                                                             ({{ ingredient['chance'] | times: 100 | round }}%)
@@ -117,9 +129,11 @@
                                             {%- else -%}
                                                 <li>
                                                     {%- if recipe['output']['tag'] -%}
-                                                        {{ recipe['output']['tag']['count'] }} x {{ recipe['output']['tag']['id'] }}
-                                                    {%- else -%}
-                                                        {{ recipe['output']['item']['count'] }} x {{ recipe['output']['item']['id'] | split: ":" | last | replace: "_", " " | capitalize_all }}
+                                                        {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
+                                                    {%- elsif recipe['output']['item'] -%}
+                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}
+                                                    {%- elsif recipe['output'].first.item -%}
+                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.first.item %}
                                                     {%- endif -%}
                                                 </li>
                                             {%- endif -%}
@@ -127,6 +141,7 @@
                                     {%- endif -%}
                                 </div>
                             </div>
+                            <!--  USED FOR DEBUGGING  -->
                             <!-- <p>{{ recipe }}</p> -->
                         </div>
                     {%- endif -%}
@@ -137,7 +152,7 @@
 {%- endif -%}
 
 <script>
-// Handle right-click on Recipe Types List Header
+    // Handle right-click on Recipe Types List Header
     document.addEventListener('DOMContentLoaded', function() {
         const categoryLinks = document.querySelectorAll('.recipe-types a');
 

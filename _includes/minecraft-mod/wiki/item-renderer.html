@@ -1,0 +1,2 @@
+{% if include.item.count %}{{ include.item.count }} x {% endif %}
+{{ include.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}

@@ -49,42 +49,59 @@ module Jekyll
             end
         end
 
-        def normalize_input(ingredient, key = nil)
-            output = if ingredient['item'] 
-                {
-                    'item' => {
-                        'type' => 'item',
-                        'id' => ingredient.dig('item'),
-                        'count' => ingredient.dig('count') || 1
-                    }
+        def normalize_input(ingredient)
+            data = ingredient['ingredient'] || ingredient
+            type = data['item'] ? 'item' : 'tag'
+            id = data[type]
+            count = data['count'] || 1
+
+            {
+                type => {
+                'id' => id,
+                'count' => count
                 }
-            elsif ingredient['tag']
-                {
-                    'tag' => {
-                        'type' => 'tag',
-                        'id' => ingredient.dig('tag'),
-                        'count' => ingredient.dig('count') || 1
-                    }
-                }
-            elsif ingredient['ingredient']['item']
-                {
-                    'item' => {
-                        'id' => ingredient['ingredient']['item'],
-                        'count' => ingredient.dig('ingredient', 'count') || 1
-                    }
-                }
-            elsif ingredient['ingredient']['tag']
-                {
-                    'tag' => {
-                        'id' => ingredient['ingredient']['tag'],
-                        'count' => ingredient.dig('ingredient', 'count') || 1
-                    }
-                }
-            end
-        
-            output['key'] = key if key
+            }
+        end
+
+        def count_key_occurrences(pattern)
+            pattern.join('').chars.reject { |c| c == ' ' }.tally
+          end
+
+        def normalize_input_with_pattern(ingredient, key, pattern)
+            data = ingredient['ingredient'] || ingredient
+            type = data['item'] ? 'item' : 'tag'
+            id = data[type]
+            count = count_key_occurrences(pattern)[key] || 1
+          
+            output = {
+              type => {
+                'id' => id,
+                'count' => count
+              }
+            }
+            
+            output['key'] = key
             output
         end
+
+        def normalize_combined_input(ingredients)
+            grouped = ingredients.group_by do |ingredient|
+              if ingredient['item']
+                ['item', ingredient['item']]
+              elsif ingredient['tag']
+                ['tag', ingredient['tag']]
+              end
+            end
+          
+            grouped.map do |(type, id), items|
+              {
+                type => {
+                  'id' => id,
+                  'count' => items.length
+                }
+              }
+            end
+          end
         
         def normalize_processing_stages(stage)
             {
@@ -115,13 +132,34 @@ module Jekyll
             output
         end
 
+        def pattern_to_coordinates(pattern)
+            coordinates = {}
+            
+            pattern.each_with_index do |row, y|
+              row.each_char.with_index do |char, x|
+                key = "#{x}_#{y}"
+                coordinates[key] = char
+              end
+            end
+            
+            # Ensure all positions are present (0-2 for both x and y)
+            (0..2).each do |y|
+              (0..2).each do |x|
+                key = "#{x}_#{y}"
+                coordinates[key] = " " unless coordinates.key?(key)
+              end
+            end
+            
+            coordinates
+          end
+
         def normalize_crafting_shaped(key, recipe_data) 
             {
                 'filename' => key,
                 'type' => recipe_data['type'],
                 'category' => recipe_data['category'] || 'misc',
-                'pattern' => recipe_data['pattern'],
-                'input' => recipe_data['key'].map { |key, value| normalize_input(value, key)},
+                'pattern' => pattern_to_coordinates(recipe_data['pattern']),
+                'input' => recipe_data['key'].map { |key, value| normalize_input_with_pattern(value, key, recipe_data['pattern'])},
                 'output' => normalize_output(recipe_data)
             }
         end
@@ -131,7 +169,7 @@ module Jekyll
                 'filename' => key,
                 'type' => recipe_data['type'],
                 'category' => recipe_data['category'] || 'misc',
-                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
+                'input' => normalize_combined_input(recipe_data['ingredients']),
                 'output' => normalize_output(recipe_data)
             }
         end
@@ -157,6 +195,8 @@ module Jekyll
                 'filename' => key,
                 'type' => recipe_data['type'],
                 'category' => recipe_data['category'] || 'misc',
+                'cookingtime' => recipe_data['cookingtime'],
+                'experience' => recipe_data['experience'],
                 'input' => normalize_input(recipe_data),
                 'output' => normalize_output(recipe_data)
             }
@@ -191,7 +231,7 @@ module Jekyll
                 'filename' => key,
                 'type' => recipe_data['type'],
                 'tool' => recipe_data['tool']['item'] || recipe_data['tool']['tag'],
-                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
+                'input' => normalize_combined_input(recipe_data['ingredients']),
                 'processing_stages' => recipe_data['processing_stages'].map { |stage| normalize_processing_stages(stage)},
                 'output' => recipe_data['result'].map { |result| normalize_output(result)}
             }
@@ -213,7 +253,7 @@ module Jekyll
                 'type' => recipe_data['type'],
                 'recipe_book_tab' => recipe_data['recipe_book_tab'] || 'misc',
                 'experience' => recipe_data['experience'] || 0.0,
-                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
+                'input' => normalize_combined_input(recipe_data['ingredients']),
                 'output' => normalize_output(recipe_data)
             }
         end

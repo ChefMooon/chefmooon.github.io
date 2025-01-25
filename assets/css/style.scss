@@ -10,11 +10,6 @@ $dropdown-background-color: #212121 !default;
 $dropdown-hover-background-color: #2a2a2a !default;
 
 // Main Navigation
-// .site-banner {
-//     padding: auto;
-//     margin: auto;
-// }
-
 .site-banner-image {
     transform: scale(0.85);
     transform-origin: left center;
@@ -539,18 +534,22 @@ input:hover {
     margin-left: 10px;
 }
 
-.recipe-info p, .recipe-input h4, .recipe-input ul, .recipe-output h4, .recipe-output p {
+.recipe-info p, .recipe-input h4, .recipe-input ul, .recipe-output h4, .recipe-output p, .recipe-output ul {
     margin: 0;
     padding: 5px 0;
 }
 
-.recipe-input ul {
+.recipe-input ul, .recipe-output ul {
     list-style-type: disc;
     padding-left: 20px;
 }
 
-.recipe-input li {
+.recipe-input li, .recipe-output li {
     margin-bottom: 5px;
+}
+
+.tag-info {
+    color: #2196F3;
 }
 
 .crafting-grid {
@@ -562,18 +561,20 @@ input:hover {
     box-sizing: border-box;
     
     .grid-row {
-        height: 46px;          // Reduced from 46px
-        line-height: 42px;     // Matched to height
-        text-align: center;
-        letter-spacing: 22px;
-        padding-left: 22px;
-        margin-top: 2px;
-        margin-bottom: -8px;   // Pull rows closer together
-        
+        height: 46px;
+        line-height: 42px;
+        letter-spacing: 11px;
+        padding-left: 23px;
+        margin-top: 4px;
+        margin-bottom: -12px;
+
         span {
             font-size: 16px;
             color: black;
             text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+            white-space: pre;
+            display: inline-block;
+            width: 21px;
         }
     }
 }
