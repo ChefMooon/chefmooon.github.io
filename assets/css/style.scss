@@ -256,6 +256,15 @@ $dropdown-hover-background-color: #2a2a2a !default;
     text-align: center;
 }
 
+.minecraft-mod-link a img {
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.minecraft-mod-link a img:hover {
+    transform: scale(1.05);
+    filter: brightness(120%);
+}
+
 /* Minecraft Mod Wiki */
 
 .minecraft-mod-wiki-title {

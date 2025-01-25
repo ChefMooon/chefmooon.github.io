@@ -6,7 +6,12 @@ mod_id: breezebounce
 permalink: /breezebounce/
 ---
 
-[![Modfest Carnival](https://raw.githubusercontent.com/ModFest/art/v2/badge/svg/carnival/compact.svg)](https://modfest.net/carnival)
+<div class="minecraft-mod-link">
+    <a href="https://modfest.net/carnival" target="_blank">
+        <img src="https://raw.githubusercontent.com/ModFest/art/v2/badge/svg/carnival/compact.svg" alt="Modfest Carnival">
+    </a>
+</div>
+<br />
 
 Unleash chaos with Wind Charge-Infused blocks! Send your friends (or yourself) flying with bouncy fun! 
 

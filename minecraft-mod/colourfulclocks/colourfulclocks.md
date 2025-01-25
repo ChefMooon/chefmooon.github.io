@@ -6,10 +6,11 @@ mod_id: colourfulclocks
 permalink: /colourfulclocks/
 ---
 
-<a href="https://modfest.net/1.21">
-  <img src="https://raw.githubusercontent.com/ModFest/art/refs/heads/v2/badge/svg/1.21/compact.svg" alt="Modfest 1.21">
-</a>
-<br />
+<div class="minecraft-mod-link">
+    <a href="https://modfest.net/1.21" target="_blank">
+        <img src="https://raw.githubusercontent.com/ModFest/art/refs/heads/v2/badge/svg/1.21/compact.svg" alt="Modfest 1.21">
+    </a>
+</div>
 <br />
 
 Tell time in style with Pocket Watches and Customizable Grandfather Clocks! Mix and match 
