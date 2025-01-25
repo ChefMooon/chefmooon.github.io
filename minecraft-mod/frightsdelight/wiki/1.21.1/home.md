@@ -11,12 +11,12 @@ This mod was originaly created for the demodcontest 2023!
 
 ### Features
 
-<b>Berry Bush:</b> Soul Berry Bush, Cursed Berry Bush<br>
-<b>Food:</b> 28 items to discover!<br>
-<b>Drinks:</b> Rotten Flesh Punch, Slime-Apple Cider, Spider Eye Punch, Ghast Tear Punch, Cobweb Punch, Soul Berry Punch, Wither Berry Punch<br>
-<b>Sweets:</b> Rotten Flesh Cookie, Spider Eye Cookie, Slimeball Cookie, Slime-Apple Cookie, Cobweb Cookie, Ghast Tear Cookie, Soul Berry Cookie, Wither Berry Cookie<br>
-<b>Feasts:</b> Punch Bowls for each drink<br>
-<b>Crates:</b> Rotten Flesh, Bone, Phantom Membrane, Cobweb, Spider Eye, Fermented Spider Eye, Poisonous Potato, Rotten Tomato<br>
+<strong>Berry Bush:</strong> Soul Berry Bush, Cursed Berry Bush<br>
+<strong>Food:</strong> 28 items to discover!<br>
+<strong>Drinks:</strong> Rotten Flesh Punch, Slime-Apple Cider, Spider Eye Punch, Ghast Tear Punch, Cobweb Punch, Soul Berry Punch, Wither Berry Punch<br>
+<strong>Sweets:</strong> Rotten Flesh Cookie, Spider Eye Cookie, Slimeball Cookie, Slime-Apple Cookie, Cobweb Cookie, Ghast Tear Cookie, Soul Berry Cookie, Wither Berry Cookie<br>
+<strong>Feasts:</strong> Punch Bowls for each drink<br>
+<strong>Crates:</strong> Rotten Flesh, Bone, Phantom Membrane, Cobweb, Spider Eye, Fermented Spider Eye, Poisonous Potato, Rotten Tomato<br>
 
 *Food may have adverse effects, check out the advancements to learn more.*
 
