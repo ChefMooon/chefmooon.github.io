@@ -2,6 +2,8 @@
   title: Breeze Bounce
   description: placeholder
   banner: /assets/img/breeze-bounce/banner.png
+  banner_height: 64
+  banner_width: 384
   url_modrinth: https://modrinth.com/mod/breeze-bounce
   url_curseforge: https://www.curseforge.com/minecraft/mc-mods/breeze-bounce
   source: https://github.com/ChefMooon/breeze-bounce
@@ -13,6 +15,8 @@
   title: Colourful Clocks
   description: placeholder
   banner: /assets/img/colourful-clocks/banner.png
+  banner_height: 64
+  banner_width: 482
   url_modrinth: https://modrinth.com/mod/colourful-clocks
   url_curseforge: https://www.curseforge.com/minecraft/mc-mods/colourful-clocks
   source: https://github.com/ChefMooon/colourful-clocks
@@ -24,6 +28,8 @@
   title: Fright's Delight
   description: placeholder
   banner: /assets/img/frights-delight/banner.png
+  banner_height: 87
+  banner_width: 378
   url_modrinth: https://modrinth.com/mod/frights-delight
   url_curseforge: https://www.curseforge.com/minecraft/mc-mods/frights-delight
   source: https://github.com/ChefMooon/frights-delight
@@ -35,6 +41,8 @@
   title: Ube's Delight
   description: placeholder
   banner: /assets/img/ubes-delight/banner.png
+  banner_height: 90
+  banner_width: 345
   url_modrinth: https://modrinth.com/mod/ubes-delight
   url_curseforge: https://www.curseforge.com/minecraft/mc-mods/ubes-delight
   source: https://github.com/ChefMooon/ubes-delight
