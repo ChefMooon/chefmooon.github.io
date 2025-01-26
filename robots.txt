@@ -1,0 +1,4 @@
+User-agent: *
+Disallow:
+
+Sitemap: https://chefmooon.github.io/sitemap.xml
