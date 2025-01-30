@@ -11,20 +11,22 @@ $dropdown-hover-background-color: #2a2a2a !default;
 
 // Main Navigation
 .site-banner-image {
-    transform: scale(0.85);
-    transform-origin: left center;
+    vertical-align: middle;
+    margin-left: 10px;
 }
 
 .site-title {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+
+    img {
+        display: block;
+    }
+
     &:hover {
         outline: none;
         text-decoration: none;
-    }
-
-    img {
-        &:hover {
-            text-decoration: none;
-        }
     }
 }
 
