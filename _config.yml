@@ -21,7 +21,7 @@
 title: ChefMooon's hub
 email: your-email@example.com
 description: >- # this means to ignore newlines until "baseurl:"
-  ChefMooon’s Hub is the central hub for everything ChefMooon! 
+  The central hub for everything ChefMooon! 
   Dive into detailed information about Minecraft mods like 
   Ube's Delight, Fright's Delight, Breeze Bounce, and Colourful Clocks.
 baseurl: "" # the subpath of your site, e.g. /blog
