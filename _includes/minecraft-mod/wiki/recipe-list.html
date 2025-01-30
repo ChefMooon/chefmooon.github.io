@@ -1,21 +1,38 @@
 {%- assign recipes = page.recipes -%}
-{%- assign total_recipes = recipes | size -%}
-{% assign recipe_types = page.recipe_types %}
+{%- assign recipe_types = page.recipe_types -%}
 
-{%- if total_recipes > 0 -%}
+{%- if page.total_recipes > 0 -%}
     <div class="recipe-types">
         <h2><strong>Recipe Types</strong></h2>
         <ul>
             {%- for recipe_type in recipe_types -%}
-                <div class="recipe-type-container">
-                    <li>
-                        <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
-                        <label class="switch">
-                            <input class="toggle-checkbox" data-target="{{ recipe_type }}" type="checkbox" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </li>
-                </div>
+                {%- if recipe_type.loader == nil -%}
+                    {%- assign type = recipe_type | split: "-" | last -%}
+                    <div class="recipe-type-container">
+                        <li>
+                            <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
+                            <label class="switch">
+                                <input id="{{ recipe_type }}-checkbox" class="toggle-checkbox" data-target="{{ recipe_type }}" type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                    </div>
+                {%- endif -%}
+            {%- endfor -%}
+            {%- for recipe_type in recipe_types -%}
+                {%- if recipe_type.loader != nil -%}
+                    {%- assign type = recipe_type.value -%}
+                    {%- assign recipe_type_name = site.data.crafting_types[type] | default: type -%}
+                    <div class="recipe-type-container">
+                        <li>
+                            <a href="#{{ type }}/{{ recipe_type.loader }}">{{ recipe_type_name }} ({{ recipe_type.loader }})</a>
+                            <label class="switch">
+                                <input id="{{ type }}/{{ recipe_type.loader }}-checkbox" class="toggle-checkbox" data-target="{{ type }}/{{ recipe_type.loader }}" type="checkbox" checked>
+                                <span class="slider"></span>
+                            </label>
+                        </li>
+                    </div>
+                {%- endif -%}
             {%- endfor -%}
             <li><a id="open-all" class="toggle-btn">Open All</a></li>
             <li><a id="close-all" class="toggle-btn">Close All</a></li>
@@ -24,139 +41,79 @@
 
     <div class="recipe-list">
         {%- for recipe_type in recipe_types -%}
-            <h2 id="{{ recipe_type }}" class="category-header"><strong>{{ site.data.crafting_types[recipe_type] }}</strong></h2>
-            <div class="category-content">
-                {%- for recipe in recipes -%}
-                    {%- if recipe_type == recipe['type'] -%}
-                        <div class="recipe-card">
-                            <h3 id="{{ recipe_type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }}</strong></h3>
-                            <div class="recipe-details">
-                                <div class="recipe-info">
-                                    {%- if recipe['type'] -%}
-                                        <p><strong>Type:</strong> {{ site.data.crafting_types[recipe_type] }}</p>
-                                    {%- endif -%}
-                                    {%- if recipe['category'] -%}
-                                        <p><strong>Category:</strong> {{ recipe['category'] | capitalize }}</p>
-                                    {%- endif -%}
-                                    {%- if recipe['recipe_book_tab'] -%}
-                                        <p><strong>Recipe Book Tab:</strong> {{ recipe['recipe_book_tab'] | capitalize_all }}</p>
-                                    {%- endif -%}
-                                    {%- if recipe['cookingtime'] -%}
-                                        <p><strong>Cooking Time:</strong> {{ recipe['cookingtime'] }}</p>
-                                    {%- endif -%}
-                                    {%- if recipe['experience'] -%}
-                                        <p><strong>Experience:</strong> {{ recipe['experience'] }}</p>
-                                    {%- endif -%}
-                                    {%- if recipe['tool'] -%}
-                                        {% assign mc_version = page.minecraft_version | replace: ".", "-" %}
-                                        {%- assign tool = recipe['tool'] -%}
-                                        {%- assign tool_tag = site.data.tags[mc_version][tool] -%}
-                                        {%- if tool_tag -%}
-                                            <p><strong>Tool:</strong> <span title="{{ tool }}" style="cursor: pointer;">{{ tool_tag }}<span class="tag-info">*</span></span></p>
-                                        {%- else -%}
-                                            <p><strong>Tool:</strong> {{ recipe['tool'] }}</p>
-                                        {%- endif -%}
-                                    {%- endif -%}
+            {%- if recipe_type.loader == nil -%}
+                <h2 id="{{ recipe_type }}" class="category-header"><strong>{{ site.data.crafting_types[recipe_type] }}</strong></h2>
+                <div class="category-content">
+                    {%- for recipe in recipes -%}
+                        {%- if recipe_type == recipe['type'] and recipe['loader'] == nil -%}
+                            <div class="recipe-card">
+                                <h3 id="{{ recipe_type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }}</strong></h3>
+                                <div class="recipe-details">
+                                    <div class="recipe-info">
+                                        {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                                    </div>
+                                    <div class="recipe-input">
+                                        {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe -%}
+                                    </div>
+                                    <div class="recipe-output">
+                                        {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
+                                    </div>
                                 </div>
-                                <div class="recipe-input">
-                                    {%- if recipe['input'] -%}
-                                        <p><strong>Ingredients:</strong></p>
-                                        <ul>
-                                            {%- if recipe['input'] | kind_of: "array" -%}
-                                                {%- for ingredient in recipe['input'] -%}
-                                                    <li>
-                                                        {%- if ingredient['tag'] -%}
-                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
-                                                        {%- elsif ingredient['item']['id'] -%}
-                                                            {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
-                                                        {%- elsif recipe.input.tag.id -%}
-                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag %}
-                                                        {%- elsif recipe.input.item.id -%}
-                                                            {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.item %}
-                                                        {%- endif -%}
-                                                        {%- if ingredient['key'] -%}
-                                                            ({{ ingredient['key'] }})
-                                                        {%- endif -%}
-                                                    </li>
-                                                {%- endfor -%}
-                                            {%- else -%}
-                                                <li>
-                                                    {%- if recipe['input'].first.item.id -%} 
-                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.first.item %}
-                                                    {%- elsif recipe['input']['tag'] -%}
-                                                        {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag %}
-                                                    {%- elsif recipe['input']['item']['id'] -%}
-                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.input.item %}
-                                                    {%- endif -%}
-                                                </li>
-                                            {%- endif -%}
-                                        </ul>
-                                    {%- endif -%}
-                                    {%- if recipe['pattern'] -%}
-                                        <p><strong>Pattern:</strong></p>
-                                        <p>
-                                            <div class="crafting-grid">
-                                                {% for row in (0..2) %}
-                                                    <div class="grid-row">
-                                                        {% for col in (0..2) %}
-                                                            {% assign coord = col | append: '_' | append: row %}
-                                                            <span>{{ recipe['pattern'][coord] }}</span>
-                                                        {% endfor %}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        </p>
-                                    {%- endif -%}
-                                </div>
-                                <div class="recipe-output">
-                                    {%- if recipe['output'] -%}
-                                        <p><strong>Output:</strong></p>
-                                        <ul>
-                                            {%- assign size = recipe['output'] | size -%}
-                                            {%- if size > 1 -%}
-                                                {%- for ingredient in recipe['output'] -%}
-                                                    <li>
-                                                        {%- if ingredient['tag'] -%}
-                                                            {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
-                                                        {%- else -%}
-                                                            {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
-                                                        {%- endif -%}
-                                                        {%- if ingredient['chance'] -%}
-                                                            ({{ ingredient['chance'] | times: 100 | round }}%)
-                                                        {%- endif -%}
-                                                    </li>
-                                                {%- endfor -%}
-                                            {%- else -%}
-                                                <li>
-                                                    {%- if recipe['output']['tag'] -%}
-                                                        {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
-                                                    {%- elsif recipe['output']['item'] -%}
-                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}
-                                                    {%- elsif recipe['output'].first.item -%}
-                                                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.first.item %}
-                                                    {%- endif -%}
-                                                </li>
-                                            {%- endif -%}
-                                        </ul>
-                                    {%- endif -%}
-                                </div>
+                                <!--  USED FOR DEBUGGING  -->
+                                <!-- <p>{{ recipe }}</p> -->
                             </div>
-                            <!--  USED FOR DEBUGGING  -->
-                            <!-- <p>{{ recipe }}</p> -->
-                        </div>
-                    {%- endif -%}
-                {%- endfor -%}
-            </div>
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
+        {%- endfor -%}
+        {%- for recipe_type in recipe_types -%}
+            {%- if recipe_type.loader != nil -%}
+                {%- assign loader = recipe_type.loader -%}
+                {%- assign type = recipe_type.value -%}
+                {%- assign recipe_type_name = site.data.crafting_types[type] | default: type -%}
+                <h2 id="{{ type }}/{{ loader }}" class="category-header"><strong>{{ recipe_type_name }} ({{ loader }})</strong></h2>
+                <div class="category-content">
+                    <div class="opposite-category">
+                        {%- if loader == 'fabric' -%}
+                            {%- assign opposite_loader = 'neoforge' -%}
+                        {%- elsif loader == 'forge' -%}
+                            {%- assign opposite_loader = 'fabric' -%}
+                        {%- else -%}
+                            {%- assign opposite_loader = 'fabric' -%}
+                        {%- endif -%}
+                        <a href="#{{ type }}/{{ opposite_loader }}">{{ recipe_type_name }} ({{ opposite_loader }})</a>
+                    </div>
+                    {%- for recipe in recipes -%}
+                        {%- if type == recipe['type'] and recipe['loader'] == loader -%}
+                            <div class="recipe-card">
+                                <h3 id="{{ loader }}/{{ type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }} ({{ recipe.loader }})</strong></h3>
+                                <div class="recipe-details">
+                                    <div class="recipe-info">
+                                        {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                                    </div>
+                                    <div class="recipe-input">
+                                        {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe -%}
+                                    </div>
+                                    <div class="recipe-output">
+                                        {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
+                                    </div>
+                                </div>
+                                <!--  USED FOR DEBUGGING  -->
+                                <!-- <p>{{ recipe }}</p> -->
+                            </div>
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+            {%- endif -%}
         {%- endfor -%}
     </div>
 {%- endif -%}
 
 <script>
-    // Handle right-click on Recipe Types List Header
     document.addEventListener('DOMContentLoaded', function() {
-        const categoryLinks = document.querySelectorAll('.recipe-types a');
-
-        categoryLinks.forEach(link => {
+        // Handle right-click on Recipe Types List Header
+        document.querySelectorAll('.recipe-types a').forEach(link => {
             link.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href').substring(1);
@@ -167,25 +124,16 @@
                 checkbox.checked = !categoryHeader.classList.contains('closed');
             });
         });
-    });
 
-    // Handle Click on Recipe Type Headers, left and right click work here
-    document.addEventListener('DOMContentLoaded', function() {
-        var headers = document.querySelectorAll('.category-header');
-        headers.forEach(function(header) {
-            header.addEventListener('click', handleClick);
-            header.addEventListener('contextmenu', handleClick);
-
-            function handleClick(e) {
-            if (e.type === 'contextmenu') {
-                e.preventDefault();
-            }
-            const targetId = this.getAttribute('id');
-            const checkbox = document.querySelector(`.toggle-checkbox[data-target="${targetId}"]`);
-            
-            this.classList.toggle('closed');
-            checkbox.checked = !this.classList.contains('closed');
-        }
+        // Handle left-click on Recipe Type Headers
+        document.querySelectorAll('.category-header').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('id');
+                const checkbox = document.querySelector(`.toggle-checkbox[data-target="${targetId}"]`);
+                
+                this.classList.toggle('closed');
+                checkbox.checked = !this.classList.contains('closed');
+            });
         });
     });
 

@@ -5,10 +5,6 @@ layout: minecraft-mod/wiki/base
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign version_folder = page.minecraft_version | replace: ".", "-" -%}
 {%- assign version_recipes = site.data[page.mod_id].recipes[version_folder] -%}
-{%- assign total_recipes = 0 -%}
-{%- for category in version_recipes -%}
-    {%- assign total_recipes = category[1] | size | plus: total_recipes -%}
-{%- endfor -%}
 
 {% assign type_mapping = site.data.crafting_types %}
 
@@ -19,12 +15,13 @@ layout: minecraft-mod/wiki/base
     </header>
 
     <p>
-        {{ mod_info.title }} has a total of {{ total_recipes }} recipes. Below is a list of all the recipes in the mod.
+        {{ mod_info.title }} has a total of {{ page.total_recipes }} recipes. Below is a list of all the recipes in the mod.
     </p>
 
     <p>
         Left-Click on a recipe type to jump to the list of recipes for that type.<br />
         Toggle recipe type visibility using the toggle or by right-clicking the type.<br />
+        Some recipes and recipe types are specific to a certain mod loader. These recipes will be marked with the loader name in parentheses.<br />
     </p>
 
     <p>

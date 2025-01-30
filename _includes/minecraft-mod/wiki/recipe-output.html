@@ -1,0 +1,30 @@
+{%- if recipe['output'] -%}
+    <p><strong>Output:</strong></p>
+    <ul>
+        {%- assign size = recipe['output'] | size -%}
+        {%- if size > 1 -%}
+            {%- for ingredient in recipe['output'] -%}
+                <li>
+                    {%- if ingredient['tag'] -%}
+                        {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
+                    {%- else -%}
+                        {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
+                    {%- endif -%}
+                    {%- if ingredient['chance'] -%}
+                        ({{ ingredient['chance'] | times: 100 | round }}%)
+                    {%- endif -%}
+                </li>
+            {%- endfor -%}
+        {%- else -%}
+            <li>
+                {%- if recipe['output']['tag'] -%}
+                    {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
+                {%- elsif recipe['output']['item'] -%}
+                    {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}
+                {%- elsif recipe['output'].first.item -%}
+                    {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.first.item %}
+                {%- endif -%}
+            </li>
+        {%- endif -%}
+    </ul>
+{%- endif -%}

@@ -1,0 +1,54 @@
+{%- if recipe['input'] -%}
+    <p><strong>Ingredients:</strong></p>
+    <ul>
+        {%- if recipe['input'] | kind_of: "array" -%}
+            {%- for ingredient in recipe['input'] -%}
+                <li>
+                    {%- if ingredient['tag'] -%}
+                        {%- include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag -%}
+                    {%- elsif ingredient['item']['id'] -%}
+                        {%- include minecraft-mod/wiki/item-renderer.html item=ingredient.item -%}
+                    {%- elsif recipe.input.tag.id -%}
+                        {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag -%}
+                    {%- elsif recipe.input.item.id -%}
+                        {%- include minecraft-mod/wiki/item-renderer.html item=recipe.input.item -%}
+                    {%- endif -%}
+                    {%- if ingredient['key'] -%}
+                        ({{ ingredient['key'] }})
+                    {%- endif -%}
+                </li>
+            {%- endfor -%}
+        {%- else -%}
+            <li>
+                {%- if recipe['input'].first.item.id -%} 
+                    {%- include minecraft-mod/wiki/item-renderer.html item=recipe.input.first.item -%}
+                {%- elsif recipe['input']['tag'] -%}
+                    {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag -%}
+                {%- elsif recipe['input']['item']['id'] -%}
+                    {%- include minecraft-mod/wiki/item-renderer.html item=recipe.input.item -%}
+                {%- endif -%}
+            </li>
+        {%- endif -%}
+        {%- if recipe['addition'] -%}
+            <li>{%- include minecraft-mod/wiki/item-renderer.html item=recipe.addition.item -%}
+        {%- endif -%}
+        {%- if recipe['template'] -%}
+            <li>{%- include minecraft-mod/wiki/item-renderer.html item=recipe.template.item -%}
+        {%- endif -%}
+    </ul>
+{%- endif -%}
+{%- if recipe['pattern'] -%}
+    <p><strong>Pattern:</strong></p>
+    <p>
+        <div class="crafting-grid">
+            {% for row in (0..2) %}
+                <div class="grid-row">
+                    {% for col in (0..2) %}
+                        {% assign coord = col | append: '_' | append: row %}
+                        <span>{{ recipe['pattern'][coord] }}</span>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+        </div>
+    </p>
+{%- endif -%}
