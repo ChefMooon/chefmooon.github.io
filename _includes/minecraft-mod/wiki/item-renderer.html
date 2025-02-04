@@ -1,2 +1,7 @@
 {% if include.item.count %}{{ include.item.count }} x {% endif %}
-{{ include.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}
+{%- assign item_lang = mod_lang | where: "key", include.item.id | first -%}
+{% if item_lang %}
+    {{ item_lang.data }}
+{%- else -%}
+    {{ include.item.id | split: ":" | last | replace: "_", " " | capitalize_all }}
+{%- endif -%}

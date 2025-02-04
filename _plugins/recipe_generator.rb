@@ -14,6 +14,7 @@ module Jekyll
             @recipe_types_by_page = {}
             @recipe_data_by_page = {}
             @total_recipes_by_page = {}
+            @lang_data_by_page = {}
         end
 
         private
@@ -368,6 +369,41 @@ module Jekyll
             end
         end
 
+        def process_item_lang_data(mod_id, key_info, data)
+            {
+                'type' => 'item',
+                'key' => mod_id + ":" + key_info.last,
+                'data' => data
+            }
+        end
+
+        def process_block_lang_data(mod_id, key_info, data)
+            {
+                'type' => 'block',
+                'key' => mod_id + ":" + key_info.last,
+                'data' => data
+            }
+        end
+
+        def process_lang_data(lang, page_key, mod_id)
+            lang&.each do |folder, lang_data|
+                lang_data.each do |key, data|
+                    key_info = key.split(".")
+
+                    # TODO: add support for tags and others if needed
+                    # TODO: enchance add support for multiple locales
+                    normalized_data = case key_info.first
+                        when "item"  then process_item_lang_data(mod_id, key_info, data)
+                        when "block" then process_block_lang_data(mod_id, key_info, data)
+                        else nil
+                    end
+
+                    # Jekyll.logger.info "#{page_key}", "Normalized Data: #{normalized_data}"
+                    @lang_data_by_page[page_key]&.add(normalized_data) if normalized_data
+                end
+            end
+        end
+
         public
     
         def generate(site)
@@ -376,13 +412,22 @@ module Jekyll
             page_data.each do |page_data|
                 next unless page_data.data['minecraft_version'] && page_data.data['mod_id']
                 
+                mod_id = page_data.data['mod_id']
                 version_folder = page_data.data['minecraft_version'].gsub(".", "-")
-                all_recipes = site.data[page_data.data['mod_id']]['recipes'][version_folder]
+                all_recipes = site.data[mod_id]['recipes'][version_folder]
 
-                page_key = "#{page_data.data['mod_id']}_#{version_folder}"
+                begin
+                    lang = site.data[mod_id]['lang'][version_folder]
+                rescue NoMethodError, KeyError => e
+                    Jekyll.logger.warn "Recipe Generator:", "Missing language folder '#{version_folder}' for mod '#{page_data.data['mod_id']}'."
+                    lang = {}
+                end
+
+                page_key = "#{mod_id}_#{version_folder}"
                 @recipe_types_by_page[page_key] = Set.new
                 @recipe_data_by_page[page_key] = Set.new
                 @total_recipes_by_page[page_key] = 0
+                @lang_data_by_page[page_key] = Set.new
 
                 all_recipes&.each do |folder, recipe_list|
                     next unless recipe_list.is_a?(Hash)
@@ -402,10 +447,16 @@ module Jekyll
                     Jekyll.logger.error "Error processing recipe folder '#{folder}': #{e.message}"
                 end
 
+                process_lang_data(lang, page_key, mod_id)
+
                 page_data.data['recipes'] = @recipe_data_by_page[page_key].to_a
                 page_data.data['recipe_types'] = @recipe_types_by_page[page_key].to_a
                 page_data.data['total_recipes'] = @total_recipes_by_page[page_key]
 
+
+                page_data.data['mod_lang'] = @lang_data_by_page[page_key].to_a if @lang_data_by_page[page_key].size > 0
+                
+                # Jekyll.logger.info "#{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
                 # Jekyll.logger.info "Processed #{page_key} with #{@total_recipes_by_page[page_key]} recipes"
             end
         end
