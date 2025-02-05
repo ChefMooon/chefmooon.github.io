@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "ubesdelight:ud_crates_enabled",
+      "values": [
+        "true"
+      ]
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "decoration",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "ubesdelight:garlic"
+    }
+  },
+  "result": {
+    "item": "ubesdelight:garlic_crate"
+  }
+}

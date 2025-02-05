@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "ubesdelight:hopia_munggo"
+    },
+    {
+      "item": "ubesdelight:hopia_munggo"
+    },
+    {
+      "item": "ubesdelight:hopia_munggo"
+    },
+    {
+      "item": "ubesdelight:leaf_feast"
+    }
+  ],
+  "result": {
+    "item": "ubesdelight:leaf_feast_hopia_munggo_half"
+  }
+}

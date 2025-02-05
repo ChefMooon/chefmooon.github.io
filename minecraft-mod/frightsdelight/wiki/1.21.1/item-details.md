@@ -8,7 +8,7 @@ permalink: /frightsdelight/wiki/1.21.1/item-details
 ---
 
 ## Bone Shard
-The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](github.com/ChefMooon/frights-delight/wiki/Recipes#ingredients)).
+The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](https://github.com/ChefMooon/frights-delight/wiki/Recipes#ingredients)).
 
 ## General
 

@@ -1,0 +1,60 @@
+c:tea_ingredients/sweet/weak: Sugar
+c:eggs: Egg
+c:foods/raw_meats/raw_chicken: Raw Chicken
+c:foods/raw_meats/raw_beef: Raw Beef
+c:foods/raw_meats/raw_pork: Raw Pork
+c:foods/raw_fishes: Fish
+c:foods/cooked_meats/cooked_eggs: Cooked Eggs
+c:milks: Milk
+c:milks/milk_bottles: Milk Bottle
+c:salad_ingredients: Salad Ingredients
+c:foods/vegetables: Vegetable
+c:food_wrappers/lumpia_wrapper: Lumpia Wrapper
+c:foods/doughs: Dough
+c:crops/grain: Grain
+c:crops/ginger: Ginger
+c:crops/garlic: Garlic
+c:crops/onion: Onion
+c:crops/cabbage: Cabbage
+c:crops/tomato: Tomato
+c:crops/rice: Rice
+c:crops/lemongrass: Lemongrass
+c:crops/ube: Ube
+c:grains: Grain
+c:tools/rolling_pins: Rolling pin
+c:tools/knives: Knife
+c:bones: Bones
+c:diamonds: Diamond
+c:iron_ingots: Iron Ingot
+c:gold_ingots: Gold Ingot
+farmersdelight:cabbage_roll_ingredients: Cabbage Roll Ingredients
+forge:eggs: Egg
+forge:raw_chicken: Raw Chicken
+forge:raw_beef: Raw Beef
+forge:raw_pork: Raw Pork
+forge:raw_fishes: Fish
+forge:cooked_eggs: Cooked Eggs
+forge:tools/rolling_pins: Rolling pin
+forge:tools/knives: Knife
+forge:milk: Milk
+forge:milk/milk_bottle: Milk Bottle
+forge:salad_ingredients: Salad Ingredients
+forge:vegetables: Vegetable
+forge:crops/ginger: Ginger
+forge:crops/garlic: Garlic
+forge:crops/onion: Onion
+forge:crops/cabbage: Cabbage
+forge:crops/tomato: Tomato
+forge:crops/rice: Rice
+forge:crops/lemongrass: Lemongrass
+forge:crops/ube: Ube
+forge:dough: Dough
+forge:grain: Grain
+forge:bones: Bones
+forge:gems/diamond: Diamond
+forge:ingots/iron: Iron Ingot
+forge:ingots/gold: Gold Ingot
+minecraft:fishes: Fish
+minecraft:terracotta: Terracotta
+minecraft:leaves: Leaves
+minecraft:fences: Fences

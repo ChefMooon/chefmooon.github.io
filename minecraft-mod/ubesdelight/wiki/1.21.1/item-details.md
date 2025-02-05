@@ -21,15 +21,11 @@ Rolling Pins come in 5 tiers, each offering varying durability. They are crafted
 - Other Tiers: Crafted using their respective ingots (e.g., Iron, Gold, or Diamond).
 
 **Durability**
-- Wood Rolling Pin (131 Durability)
-- Iron Rolling Pin (250 Durability)
-- Gold Rolling Pin (32 Durability)
-- Diamond Rolling Pin (1561 Durability)
-- Netherite Rolling Pin (2031 Durability)
-
-**Wood Rolling Pin Recipe**
-
-![craft_wood_rolling_pin](https://i.imgur.com/ec4lTqH.png)
+- Wood Rolling Pin (131 Durability)[[recipe](http://chefmooon.github.io/ubesdelight/wiki/1.21.1/recipes#minecraft:crafting_shaped/rolling_pin_wood)]
+- Iron Rolling Pin (250 Durability)[[recipe](http://chefmooon.github.io/ubesdelight/wiki/1.21.1/recipes#minecraft:crafting_shaped/rolling_pin_iron)]
+- Gold Rolling Pin (32 Durability)[[recipe](http://chefmooon.github.io/ubesdelight/wiki/1.21.1/recipes#minecraft:crafting_shaped/rolling_pin_gold)]
+- Diamond Rolling Pin (1561 Durability)[[recipe](http://chefmooon.github.io/ubesdelight/wiki/1.21.1/recipes#minecraft:crafting_shaped/rolling_pin_diamond)]
+- Netherite Rolling Pin (2031 Durability)[[recipe](http://chefmooon.github.io/ubesdelight/wiki/1.21.1/recipes#minecraft:smithing_transform/rolling_pin_netherite_smithing)]
 
 ### Usage
 

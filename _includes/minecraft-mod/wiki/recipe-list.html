@@ -77,10 +77,12 @@
                 <div class="category-content">
                     <div class="opposite-category">
                         {%- if loader == 'fabric' -%}
-                            {%- assign opposite_loader = 'neoforge' -%}
+                            {%- if page.minecraft_version == "1.21.1" -%}
+                                {%- assign opposite_loader = 'neoforge' -%}
+                            {%- elsif page.minecraft_version == "1.20.1" -%}
+                                {%- assign opposite_loader = 'forge' -%}
+                            {%- endif -%}
                         {%- elsif loader == 'forge' -%}
-                            {%- assign opposite_loader = 'fabric' -%}
-                        {%- else -%}
                             {%- assign opposite_loader = 'fabric' -%}
                         {%- endif -%}
                         <a href="#{{ type }}/{{ opposite_loader }}">{{ recipe_type_name }} ({{ opposite_loader }})</a>

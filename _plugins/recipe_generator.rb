@@ -131,25 +131,50 @@ module Jekyll
         end
         
         def normalize_output(result)
-            output = if result['result'] && result['result'].dig('id')
+            output = if result['item']
+                if result['item'].is_a?(Hash)
+                    if result['item'].dig('item')
+                        {
+                            'item' => {
+                                'id' => result['item']['item'],
+                                'count' => result['item']['count'] || 1
+                            }
+                        }
+                    elsif result['item'].dig('id')
+                        {
+                            'item' => {
+                                'id' => result['item']['id'],
+                                'count' => result['count'] || 1
+                            }
+                        }
+                    end
+                else
+                    {
+                        'item' => {
+                            'id' => result['item'],
+                            'count' => result['count'] || 1
+                        }
+                    }
+                end
+            elsif result['id']
                 {
                     'item' => {
-                        'id' => result['result']['id'],
-                        'count' => result['result']['count'] || 1
+                        'id' => result['id'],
+                        'count' => result['count'] || 1
                     }
                 }
-            elsif result['item'] && result['item'].dig('id')
+            elsif result['result']
                 {
                     'item' => {
-                    'id' => result['item']['id'],
-                    'count' => result['item']['count'] || 1
+                        'id' => result['result'],
+                        'count' => result['count'] || 1
                     }
                 }
-            elsif result['item'] && result['item'].dig('item')
+            elsif result.is_a?(String)
                 {
                     'item' => {
-                    'id' => result['item']['item'],
-                    'count' => result['item']['count'] || 1
+                        'id' => result,
+                        'count' => 1
                     }
                 }
             end
@@ -199,7 +224,7 @@ module Jekyll
                 'category' => recipe_data['category'] || 'misc',
                 'pattern' => pattern_to_coordinates(recipe_data['pattern']),
                 'input' => recipe_data['key'].map { |key, value| normalize_input_with_pattern(value, key, recipe_data['pattern'])},
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -210,7 +235,7 @@ module Jekyll
                 'type' => recipe_data['type'],
                 'category' => recipe_data['category'] || 'misc',
                 'input' => normalize_combined_input(recipe_data['ingredients']),
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -237,7 +262,7 @@ module Jekyll
                         'count' => recipe_data['base']['count'] || 1
                     }
                 },
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
         
@@ -250,7 +275,7 @@ module Jekyll
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
                 'input' => normalize_input(recipe_data),
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -263,7 +288,7 @@ module Jekyll
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
                 'input' => normalize_input(recipe_data),
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -276,7 +301,7 @@ module Jekyll
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
                 'input' => normalize_input(recipe_data),
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -311,7 +336,7 @@ module Jekyll
                 'recipe_book_tab' => recipe_data['recipe_book_tab'] || 'misc',
                 'experience' => recipe_data['experience'] || 0.0,
                 'input' => normalize_combined_input(recipe_data['ingredients']),
-                'output' => normalize_output(recipe_data)
+                'output' => normalize_output(recipe_data['result'])
             }
         end
 
@@ -398,8 +423,23 @@ module Jekyll
                         else nil
                     end
 
-                    # Jekyll.logger.info "#{page_key}", "Normalized Data: #{normalized_data}"
                     @lang_data_by_page[page_key]&.add(normalized_data) if normalized_data
+                end
+            end
+        end
+
+        def run_test(page_key, version_folder)
+            @recipe_data_by_page[page_key].each do |recipe|
+                unless recipe['type'] && recipe['input'] && recipe['output']
+                    Jekyll.logger.warn "Incomplete recipe data (#{version_folder}): #{recipe}"
+                end
+
+                unless recipe['output']
+                    recipe['output']&.each do |output|
+                        unless output['item'] && output['item']['id'] && output['item']['id'].is_a?(String)
+                            Jekyll.logger.warn "Incomplete recipe output data (#{version_folder}): #{recipe}"
+                        end
+                    end
                 end
             end
         end
@@ -456,8 +496,12 @@ module Jekyll
 
                 page_data.data['mod_lang'] = @lang_data_by_page[page_key].to_a if @lang_data_by_page[page_key].size > 0
                 
-                # Jekyll.logger.info "#{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
-                # Jekyll.logger.info "Processed #{page_key} with #{@total_recipes_by_page[page_key]} recipes"
+                test = true
+                if test
+                    run_test(page_key, version_folder)
+                    Jekyll.logger.info "Language Data #{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
+                    Jekyll.logger.info "Recipe's Processed #{page_key} with #{@total_recipes_by_page[page_key]} recipes"
+                end
             end
         end
     end

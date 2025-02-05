@@ -2,7 +2,15 @@ fabric:all_mods_loaded:
   id: Mod(s) Loaded
   description: "Available if the mod is loaded."
 
+fabric:any_mod_loaded:
+  id: Mod(s) Loaded
+  description: "Available if the mod is loaded."
+
 neoforge:mod_loaded:
+  id: Mod(s) Loaded
+  description: "Available if the mod is loaded."
+
+forge:mod_loaded:
   id: Mod(s) Loaded
   description: "Available if the mod is loaded."
 
