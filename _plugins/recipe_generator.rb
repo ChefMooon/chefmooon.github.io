@@ -496,7 +496,7 @@ module Jekyll
 
                 page_data.data['mod_lang'] = @lang_data_by_page[page_key].to_a if @lang_data_by_page[page_key].size > 0
                 
-                test = true
+                test = false
                 if test
                     run_test(page_key, version_folder)
                     Jekyll.logger.info "Language Data #{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
