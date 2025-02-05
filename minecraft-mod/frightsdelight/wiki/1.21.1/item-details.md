@@ -35,7 +35,7 @@ Each food item has the chance to apply at least 1 negative Effect. The chance to
 **NOTE:** General rules implemented in V1.1.0
 
 ## Bone Shard
-The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](https://https://chefmooon.github.io/frightsdelight/wiki/1.21.1/recipes#farmersdelight:cutting/bone_shard)).
+The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](https://chefmooon.github.io/frightsdelight/wiki/1.21.1/recipes#farmersdelight:cutting/bone_shard)).
 
 ***
 
