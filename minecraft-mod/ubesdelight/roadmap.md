@@ -24,6 +24,7 @@ permalink: /ubesdelight/roadmap
 - Calamansi Cake/Pie (+Block)
 - Calamansi Cookie
 - Calamansi Juice
+- Pandan Cake
 - Bistek
 - Adobo (+Feast)
 - Paksiw
