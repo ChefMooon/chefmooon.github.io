@@ -5,3 +5,51 @@ title: Roadmap \| Ube's Delight
 mod_id: ubesdelight
 permalink: /ubesdelight/roadmap
 ---
+
+*subject to change*
+
+### V0.4.0 - Calamansi Update
+
+**Ingredients**
+- Calamansi
+- Annatto
+- Pandan Leaves
+- Rice Noodle
+
+**Blocks**
+- Fermenting Jar
+
+**Food Items**
+- Ube Halaya
+- Calamansi Cake/Pie (+Block)
+- Calamansi Cookie
+- Calamansi Juice
+- Bistek
+- Adobo (+Feast)
+- Paksiw
+- Pinakbet
+- Pancit
+
+### V0.5.0 - Steamer Update
+
+**Blocks**
+- Steamer
+
+**Food Items**
+- Puto - Multiple Flavours
+
+### V0.6.0 - Tea Update
+
+**Blocks**
+- Palayok (Clay Pot)
+
+**Food Items**
+- Lemongrass Tea
+
+### Long Term Goals
+*Items I would like to figure out how to add*
+- Atchara
+- Champorado
+- Turon
+- Pastil
+- Milkfish Dishes
