@@ -35,21 +35,56 @@ Punch Bowls are large versions of drinks you are able to place, providing multip
 
 ### Usage
 
-- Slime Apple Punch
-- Spider Eye Punch
-- Ghast Tear Punch
-- Soul Berry Punch
-- Wither Berry Punch
+- Rotten Flesh Punch Bowl
+- Slime Apple Cider Bowl*
+- Spider Eye Punch Bowl
+- Ghast Tear Punch Bowl
+- Soul Berry Punch Bowl
+- Wither Berry Punch Bowl
+- Cobweb Punch Bowl
 
 The block must be placed to retrieve the servings. When placed, with a glass bottle in the main hand, players can use (right click) on the block to retrieve a serving. Servings can also be added back if there is space.
 
 Each Punch Bowl provides 4 servings, when no servings are left the last drops of the contained liquid will remain. The block can be broken with a knife, servings will drop when broken.
+
+*Gives off light. Light level is dependant on number of servings.
 
 ### Redstone
 
 This block gives off a redstone signal that can be interpreted by a redstone comparator. The signal strength depends on the amount of servings in the block. 4 Servings = 8 Signal Strength.
 
 A Dispenser can be used to add servings to a Punch Bowl.
+
+***
+
+## Glass Cup
+
+This is a placeable version of drinks. It can contain 1-4 servings and face any direction.
+
+### Usage
+
+**Supported Drinks**
+- Rotten Flesh Punch
+- Spider Eye Punch
+- Ghast Tear Punch
+- Soul Berry Punch
+- Wither Berry Punch
+- Cobweb Punch
+- Slime-Apple Cider*
+
+**Placing**
+- Shift-Right Click on a block to place.
+
+**Picking Up**
+- Right-Click the placed Glass Cup with an empty hand to pick up.
+- Servings also drop when the block is broken. 
+
+**Rotating**
+- Right-Click the placed Glass Cup with any tool to rotate.
+
+*Gives off light. Light level is dependant on number of servings.
+
+***
 
 **Minor Mechanics**
 

@@ -22,3 +22,7 @@ Unleash chaos with Wind Charge-Infused blocks! Send your friends (or yourself) f
 Breeze Bounce has a set of Wind Charge-infused, wool-like blocks that will bounce entities that touch any side. When struck by a wind charge the block becomes ‘Inflated’ for a short duration, while inflated bounce power is increased. They are available as full blocks, stairs, slabs, and posts. 
    
 ![Bounce Blocks](https://i.imgur.com/9tb0JN4.gif)
+
+### **Inflation Machine**
+
+A functional block that keeps a group of connected Bounce Blocks ‘Inflated’ as long as it is fueled. Inflation can extend 5 blocks to the side and 1 block above/below in a 11x11x3 area. It can also be placed on its side allowing for greater vertical Inflation(3x11x11).  

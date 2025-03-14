@@ -76,7 +76,8 @@ This is a placeable version of drinks. It can contain 1-4 servings and face any 
 - Shift-Right Click on a block to place.
 
 **Picking Up**
-- Right-Click the placed Glass Cup with an empty hand to pick up. 
+- Right-Click the placed Glass Cup with an empty hand to pick up.
+- Servings also drop when the block is broken. 
 
 **Rotating**
 - Right-Click the placed Glass Cup with any tool to rotate.

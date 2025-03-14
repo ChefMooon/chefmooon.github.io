@@ -16,8 +16,16 @@ These blocks are Wind Charge-infused, wool-like blocks that will bounce entities
 - Posts can be placed horizontally
 - Stairs, Slabs, and Posts can be waterlogged
 
+**Double Bounce**
+If a player is sneaking and falls from a height of 2.8 blocks or more and lands on a non-inflated Bounce Block. The Bounce Block and those connected within a 1 block radius will be ‘Inflated’ for a short duration(4s/80ticks).
+
+Double Bounce Activation Details
+- Player is sneaking
+- Falls 2.8 blocks or more
+- Block landed on is not ‘Inflated’
+
 ***Technical Details***
-- When struck by a Wind Charge becomes inflated for 80 ticks
+- When struck by a Wind Charge becomes inflated for 4s(80 ticks)
 - Flammable and can be ignited by Lava
 - Custom Sounds
   - When Player jumps
@@ -25,3 +33,14 @@ These blocks are Wind Charge-infused, wool-like blocks that will bounce entities
     - Pitch increase with greater velocity
   - Player Step
   - Inflate / Deflate
+
+### Inflation Machine
+A functional block that keeps a group of connected Bounce Blocks ‘Inflated’ as long as it is fueled. Inflation can extend 5 blocks to the side and 1 block above/below in a 11x11x3 area. It can also be placed on its side allowing for greater vertical Inflation(3x11x11).
+
+ **Fuel**
+- Breeze Rod ⇒ 60s(1200ticks)
+- Wind Charge ⇒ 12s(240ticks)
+
+**Redstone**
+
+When receiving a Redstone signal the block will stop ‘Inflation’. Additionally, A Comparator signal can be obtained from this block. When storage is full it will emit a max signal strength. 
