@@ -16,8 +16,8 @@ These blocks are Wind Charge-infused, wool-like blocks that will bounce entities
 - Posts can be placed horizontally
 - Stairs, Slabs, and Posts can be waterlogged
 
-**Double Bounce**
-If a player is sneaking and falls from a height of 2.8 blocks or more and lands on a non-inflated Bounce Block. The Bounce Block and those connected within a 1 block radius will be ‘Inflated’ for a short duration(4s/80ticks).
+**Double Bounce**  
+If a sneaking player falls from a height of 2.8 blocks or more onto a non-inflated Bounce Block, the block—along with any connected within a 1-block radius—will become 'Inflated' for a short duration (4 seconds / 80 ticks)
 
 Double Bounce Activation Details
 - Player is sneaking
