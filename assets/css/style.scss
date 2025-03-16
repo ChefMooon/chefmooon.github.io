@@ -35,6 +35,8 @@ $dropdown-hover-background-color: #2a2a2a !default;
     padding: 0;
     margin: 0;
     display: flex;
+    position: relative;
+    z-index: 1000;
 
     li {
         position: relative;
@@ -67,7 +69,7 @@ $dropdown-hover-background-color: #2a2a2a !default;
     left: -32px;
     background-color: $dropdown-background-color;
     min-width: 180px;
-    z-index: 1;
+    z-index: 1001;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 
@@ -97,6 +99,8 @@ $dropdown-hover-background-color: #2a2a2a !default;
     left: 100%;
     top: 0;
     margin-left: 0;
+    position: absolute;
+    z-index: 1002;
 
     &.submenu {
         min-width: 150px;
@@ -648,5 +652,17 @@ input:hover {
     
     &:hover {
         background-color: rgba(0, 0, 0, 0.7);
+    }
+}
+
+.site-header {
+    z-index: 1000;
+}
+
+.site-nav {
+    z-index: 1000;
+    
+    .trigger {
+        z-index: 1000;
     }
 }
