@@ -51,8 +51,32 @@
 </header>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        const navTrigger = document.getElementById('nav-trigger');
+        const dropdowns = document.querySelectorAll('.dropdown');
         const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-    
+
+        navTrigger.addEventListener('change', function() {
+            // Close all dropdowns when the main menu is closed
+            if (!this.checked) {
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const submenus = dropdown.querySelectorAll('.submenu');
+                    submenus.forEach(submenu => submenu.classList.remove('active'));
+                });
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.site-nav')) {
+                navTrigger.checked = false;
+                dropdowns.forEach(dropdown => {
+                    dropdown.classList.remove('active');
+                    const submenus = dropdown.querySelectorAll('.submenu');
+                    submenus.forEach(submenu => submenu.classList.remove('active'));
+                });
+            }
+        });
+
         dropdownToggles.forEach(toggle => {
             toggle.addEventListener('click', function(event) {
             event.preventDefault();
