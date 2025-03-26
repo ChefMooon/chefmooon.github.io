@@ -188,3 +188,79 @@ Vanilla:
 - Cookie: 8 + 4(25%)
 - Pumpkin Pie: 1 + 1(25%)
 - Cake: 1 + 1 (50%)
+
+### Custom Recipes
+
+#### Template
+
+**No Processing Stages, Single Result, Tool Item**
+
+```
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    {
+      "item": "namespace:item"
+    },
+    {
+      "tag": "namespace:tag"
+    }
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": "namespace:item"
+    }
+  ],
+  "tool": {
+    "item": "namespace:item"
+  }
+}
+```
+
+**Processing Stages, Multiple Results, Tool Tag**
+
+```
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    {
+      "item": "namespace:item"
+    },
+    {
+      "tag": "namespace:tag"
+    }
+  ],
+  "processing_stages": [
+    {
+      "item": "namespace:item"
+    }
+  ],
+  "result": [
+    {
+      "item": "namespace:item"
+    },
+    {
+      "chance": 0.25,
+      "count": 2,
+      "item": "namespace:item"
+    }
+  ],
+  "tool": {
+    "tag": "namespace:tag"
+  }
+}
+```
+
+#### Elements
+
+**Required**
+
+- **ingredients**: The input items needed for the recipe. You must specify between 1-9 ingredients. Each ingredient can be either a specific item or an item tag.
+- **processing_stages**: An array of intermediate items that appear during recipe crafting. While this field is required, it can be empty ([]) for simple recipes. For multi-stage recipes, you can specify up to 5 stages. Each stage requires one use of the specified tool to progress, and the final result is only produced after completing all stages.
+- **tool**: Specifies which tool must be used to process this recipe. Can be either a specific item or an item tag.
+- **result**: An array of items produced by the recipe. Each recipe must specify 1-4 result items. For each item, a "count" value can be specified (defaults to 1 if not set).
+
+**Optional**
+
+- **result/chance**: A probability value between 0.0 (0%) and 1.0 (100%) that determines how likely the result item(s) will drop when processing completes. For example, 0.25 means a 25% chance to get the item.
