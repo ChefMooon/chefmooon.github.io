@@ -3,22 +3,19 @@
 
     <div class="wrapper">
 
-        <div class="social-links">
+        <!-- <div class="social-links">
             {%- include social.html -%}
-        </div>
+        </div> -->
 
         <div class="footer-col-wrapper">
             <div class="footer-col">
                 <p class="feed-subscribe center-content">
-                    <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}">
-                        <svg class="svg-icon orange">
-                            <use xlink:href="{{ 'assets/minima-social-icons.svg#rss' | relative_url }}"></use>
-                        </svg><span>Subscribe</span>
+                    <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}" target="_blank">
+                        <img src="{{ 'assets/img/social-icons/icon_rss.png' | relative_url }}" alt="RSS feed icon">
                     </a>
                 </p>
             </div>
         </div>
-
 
     </div>
 
