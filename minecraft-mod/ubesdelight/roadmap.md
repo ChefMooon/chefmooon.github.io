@@ -8,7 +8,7 @@ permalink: /ubesdelight/roadmap
 
 *subject to change*
 
-### V0.4.0 - Calamansi Update
+### V0.5.0 - Calamansi Update
 
 **Ingredients**
 - Calamansi
@@ -31,7 +31,7 @@ permalink: /ubesdelight/roadmap
 - Pinakbet
 - Pancit
 
-### V0.5.0 - Steamer Update
+### V0.6.0 - Steamer Update
 
 **Blocks**
 - Steamer
@@ -39,7 +39,7 @@ permalink: /ubesdelight/roadmap
 **Food Items**
 - Puto - Multiple Flavours
 
-### V0.6.0 - Tea Update
+### V0.7.0 - Tea Update
 
 **Blocks**
 - Palayok (Clay Pot)
