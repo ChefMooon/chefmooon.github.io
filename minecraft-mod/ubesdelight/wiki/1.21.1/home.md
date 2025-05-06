@@ -37,16 +37,18 @@ As this mod is still in development, it's possible to encounter issues and insta
 - Report issues [here](https://github.com/ChefMooon/ubes-delight/issues). Appreciate your time!
 
 ### Compatible Versions
-As of V0.2.0 Ube's Delight is compatible with the following versions of Minecraft and Farmer's Delight
 
-**Minecraft 1.21-1.21.1**
-- Farmer's Delight ([Modrinth](https://modrinth.com/mod/farmers-delight) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight))
-- Farmer's Delight Refabricated ([Modrinth](https://modrinth.com/mod/farmers-delight-refabricated) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated))
+| Minecraft Version    | [Fabric](https://fabricmc.net) | [NeoForge](https://neoforged.net) | Forge                     |
+| -------------------- | ------------------------------ | --------------------------------- | ------------------------- |
+| 1.21-1.21.1          | :heavy_check_mark: v0.4.0      | :heavy_check_mark: v0.4.0         | :x:                       |
+| 1.20.1               | :heavy_check_mark: v0.3.4*     | :heavy_check_mark: v0.3.4         | :heavy_check_mark: v0.3.4 |
 
-**Minecraft 1.20-1.20.1**
-- Farmer's Delight ([Modrinth](https://modrinth.com/mod/farmers-delight) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight))
-- Farmer's Delight Fabric ([Modrinth](https://modrinth.com/mod/farmers-delight-fabric) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-fabric))
-- Farmer's Delight Refabricated ([Modrinth](https://modrinth.com/mod/farmers-delight-refabricated) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated))
+:heavy_check_mark: Supported Version
+:x: Not Supported
+:heavy_plus_sign: Bug Fix Only
+:heavy_minus_sign: Planned
+
+\* Compatible with Farmer's Delight Fabric ([Modrinth](https://modrinth.com/mod/farmers-delight-fabric) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-fabric)) and Farmer's Delight Refabricated ([Modrinth](https://modrinth.com/mod/farmers-delight-refabricated) \| [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated))
 
 ### Translation
 

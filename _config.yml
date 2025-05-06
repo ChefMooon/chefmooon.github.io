@@ -44,6 +44,7 @@ plugins:
   - jekyll-feed
   - jekyll-sitemap
   - jekyll-seo-tag
+  - jemoji
 
 modrinth_url: &modrinth_url https://modrinth.com/user/ChefMooon
 curseforge_url: &curseforge_url https://www.curseforge.com/members/chefmooon/projects

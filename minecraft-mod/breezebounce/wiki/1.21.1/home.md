@@ -15,7 +15,17 @@ permalink: /breezebounce/wiki/1.21.1/home
 
 ### Compatible Versions
 
-Breeze Bounce supports [Fabric](https://fabricmc.net) and [NeoForge](https://neoforged.net) for Minecraft 1.21-1.21.1 and 1.21.2-1.21.3.
+| Minecraft Version    | [Fabric](https://fabricmc.net) | [NeoForge](https://neoforged.net) |
+| -------------------- | ------------------------------ | --------------------------------- |
+| 1.21.5               | :heavy_check_mark: v1.2.1      | :heavy_check_mark: v1.2.1         |
+| 1.21.4               | :heavy_plus_sign: v1.2.1       | :heavy_plus_sign: v1.2.1          |
+| 1.21.2-1.21.3        | :heavy_plus_sign: v1.2.1       | :heavy_plus_sign: v1.2.1          |
+| 1.21-1.21.1          | :heavy_check_mark: v1.2.1      | :heavy_check_mark: v1.2.1         |
+
+:heavy_check_mark: Supported Version
+:x: Not Supported
+:heavy_plus_sign: Bug Fix Only
+:heavy_minus_sign: Planned
 
 ### Translation
 
