@@ -44,6 +44,7 @@ This mod was originaly created for the demodcontest 2023!
 | -------------------- | ------------------------------ | --------------------------------- | ------------------------- |
 | 1.21-1.21.1          | :heavy_check_mark: v1.3.2      | :heavy_check_mark: v1.3.1         | :x:                       |
 | 1.20.1               | :heavy_check_mark: v1.3.2*     | :heavy_check_mark: v1.3.1         | :heavy_check_mark: v1.3.1 |
+| 1.19.2               | :heavy_check_mark: v1.3.3      | :x:                               | :heavy_check_mark: v1.3.3 |
 
 :heavy_check_mark: Supported Version
 :x: Not Supported
