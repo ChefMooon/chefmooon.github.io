@@ -49,7 +49,7 @@ plugins:
 modrinth_url: &modrinth_url https://modrinth.com/user/ChefMooon
 curseforge_url: &curseforge_url https://www.curseforge.com/members/chefmooon/projects
 github_url: &github_url "https://github.com/ChefMooon"
-blueksy_url: &bluesky_url "https://bsky.app/profile/chefmooon.bsky.social"
+bluesky_url: &bluesky_url "https://bsky.app/profile/chefmooon.bsky.social"
 
 minima:
   skin: dark
