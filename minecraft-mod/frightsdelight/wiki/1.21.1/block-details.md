@@ -15,19 +15,74 @@ quick_links:
       href: punch-bowls
 ---
 
-## Soul Berry Bush
+## Berry Bushes
+
+The following bushes can grow in any dimension when light and block requirements are met. 
+
+### Soul Berry Bush
 
 Soul Berry Bushes are rare plants that naturally spawn anywhere in the Nether, thriving on Soul Sand and Soul Soil, with the highest concentrations found in Soul Sand Valleys. The berries can also be found in Bastion chests scattered across the Nether. The bush can be planted on any block that provides soul speed(Soul Sand, Soul Soil). The Soul Berry Bush requires a source of “Soul Light”(Soul Fire, Soul Torch, Soul Lantern, Soul Campfire) within 5 blocks(1 Above/Below) and a light level of 9 or higher. Berries will shimmer if growing.
 
 When using Bone Meal the light requirement is ignored, however a source of "Soul Light" is still required within 5 blocks.
 
-## Wither Berry Bush
+### Wither Berry Bush
 
 The Wither Berry Bush can only be created from a fully grown Soul Berry Bush. To Turn a Soul Berry Bush Into a Wither Berry bush you must place a source of “Wither Essence”(Wither Rose, Wither Skeleton Skull) within 1 block(1 Above/Below) and a light level of 7 or below.
 
 The Wither Berry Bush requires a source of Wither Essence within 1 block and a light level of 7 or below.  Berries will smoke if growing.
 
 When using Bone Meal the light requirement is ignored, however a source of "Wither Essence" is still required within 1 block.
+
+### Resurgent/Soul Soil Compatibility
+
+Berry bushes can be planted on some Resurgent/Soul Soil. Expand dropdown for details.
+
+<details>
+<summary>Resurgent/Soul Soil Compatibility</summary>
+<h4>1.19.2</h4>
+<strong>Fabric</strong>
+<p>
+✅ Nether's Delight (Fabric) - StevePlayzz_ [<a href="https://www.curseforge.com/minecraft/mc-mods/nethers-delight-fabric" target="_blank">CurseForge</a>]
+</p>
+
+<a href="" target="_blank"></a>
+
+<strong>Forge</strong>
+<p>
+❌ Nether's Delight - Umpaz [<a href="https://modrinth.com/mod/nethers-delight" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/nethers-delight" target="_blank">CurseForge</a>]
+<br>
+✅ My Nether's Delight - soytutta [<a href="https://modrinth.com/mod/my-nethers-delight" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/my-nethers-delight" target="_blank">CurseForge</a>]
+</p>
+
+<h4>1.20.1</h4>
+<strong>Fabric</strong>
+<p>
+✅ Nether's Delight (Fabric) - StevePlayzz_ [<a href="https://www.curseforge.com/minecraft/mc-mods/nethers-delight-fabric" target="_blank">CurseForge</a>]
+<br>
+❌ Nether's Delight Refabricated - RaymondBlaze [<a href="https://modrinth.com/mod/nethers-delight-refabricated" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/nethers-delight-refabricated" target="_blank">CurseForge</a>]
+<br>
+✅ My Nether's Delight Refabricated - MerchantCalicio [<a href="https://modrinth.com/mod/my-nethers-delight-refabricated" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/my-nethers-delight-refabricated" target="_blank">CurseForge</a>]
+</p>
+
+<strong>Forge</strong>
+<p>
+❌ Nether's Delight - Umpaz [<a href="https://modrinth.com/mod/nethers-delight" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/nethers-delight" target="_blank">CurseForge</a>]
+<br>
+✅ My Nether's Delight - soytutta [<a href="https://modrinth.com/mod/my-nethers-delight" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/my-nethers-delight" target="_blank">CurseForge</a>]
+</p>
+
+<h4>1.21.1</h4>
+<strong>Fabric</strong>
+<p>
+✅ My Nether's Delight Refabricated - MerchantCalicio [<a href="https://modrinth.com/mod/my-nethers-delight-refabricated" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/my-nethers-delight-refabricated" target="_blank">CurseForge</a>]
+</p>
+
+<strong>NeoForge</strong>
+<p>
+✅ My Nether's Delight - soytutta [<a href="https://modrinth.com/mod/my-nethers-delight" target="_blank">Modrinth</a> | <a href="https://www.curseforge.com/minecraft/mc-mods/my-nethers-delight" target="_blank">CurseForge</a>]
+</p>
+<em>Big shout out and thank you to the developers of each mod!</em>
+</details>
 
 ## Punch Bowls
 
@@ -47,7 +102,7 @@ The block must be placed to retrieve the servings. When placed, with a glass bot
 
 Each Punch Bowl provides 4 servings, when no servings are left the last drops of the contained liquid will remain. The block can be broken with a knife, servings will drop when broken.
 
-*Gives off light. Light level is dependant on number of servings.
+*Gives off light. Light level is dependent on number of servings.
 
 ### Redstone
 
