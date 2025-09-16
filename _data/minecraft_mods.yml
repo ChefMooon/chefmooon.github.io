@@ -37,6 +37,19 @@
   wiki_default_minecraft_version: 1.21.1
   wiki_available_minecraft_versions: 1.21.1
 
+- id: playfulplanes
+  title: Playful Planes
+  description: placeholder
+  banner: /assets/img/playful-planes/banner.png
+  banner_height: 64
+  banner_width: 410
+  url_modrinth: https://modrinth.com/mod/playful-planes
+  # url_curseforge: https://www.curseforge.com/minecraft/mc-mods/playful-planes # Change after CF release
+  source: https://github.com/ChefMooon/playful-planes
+  issues: https://github.com/ChefMooon/playful-planes/issues
+  wiki_default_minecraft_version: 1.21.8
+  wiki_available_minecraft_versions: 1.21.8
+
 - id: ubesdelight
   title: Ube's Delight
   description: placeholder

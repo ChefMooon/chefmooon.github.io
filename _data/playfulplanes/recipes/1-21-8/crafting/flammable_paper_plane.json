@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:fire_charge",
+    "B": "playful_planes:paper_plane"
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "components": {
+      "playful_planes:paper_plane_data": {
+        "type": "fire"
+      }
+    },
+    "count": 1,
+    "id": "playful_planes:paper_plane"
+  }
+}

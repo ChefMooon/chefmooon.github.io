@@ -87,9 +87,14 @@ module Jekyll
           end
 
         def normalize_input_with_pattern(ingredient, key, pattern)
-            data = ingredient['ingredient'] || ingredient
-            type = data['item'] ? 'item' : 'tag'
-            id = data[type]
+            if ingredient.is_a?(String)
+                type = 'item'
+                id = ingredient
+            else
+                data = ingredient['ingredient'] || ingredient
+                type = data['item'] ? 'item' : 'tag'
+                id = data[type]
+            end
             count = count_key_occurrences(pattern)[key] || 1
           
             output = {

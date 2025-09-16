@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": "minecraft:tnt",
+    "B": "playful_planes:paper_plane"
+  },
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "result": {
+    "components": {
+      "playful_planes:paper_plane_data": {
+        "type": "tnt"
+      }
+    },
+    "count": 1,
+    "id": "playful_planes:paper_plane"
+  }
+}

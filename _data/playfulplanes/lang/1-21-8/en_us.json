@@ -1,0 +1,14 @@
+{
+  "death.attack.playful_planes.paper_plane": "%1$s failed the paper plane safety test",
+  "item.playful_planes.paper_plane": "Paper Plane",
+  "itemGroup.playful_planes": "Playful Planes",
+  "playful_planes.paper_plane.type.fire": "Flammable",
+  "playful_planes.paper_plane.type.firework": "Firework",
+  "playful_planes.paper_plane.type.potion": "Potion",
+  "playful_planes.paper_plane.type.tnt": "TNT",
+  "playful_planes.subtitle.paper_plane.hit": "Paper Plane cuts",
+  "playful_planes.subtitle.paper_plane.hit_ground": "Paper Plane crunches",
+  "playful_planes.subtitle.paper_plane.return": "Paper Plane returns",
+  "playful_planes.subtitle.paper_plane.throw": "Paper Plane flies",
+  "tag.item.playful_planes.paper_plane": "Paper Planes"
+}
