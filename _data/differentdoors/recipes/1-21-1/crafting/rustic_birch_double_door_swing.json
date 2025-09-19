@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "key": {
+    "A": {
+      "item": "minecraft:crimson_door"
+    },
+    "B": {
+      "item": "minecraft:birch_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:rustic_birch_double_door"
+  }
+}

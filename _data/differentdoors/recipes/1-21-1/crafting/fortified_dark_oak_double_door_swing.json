@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "key": {
+    "A": {
+      "item": "minecraft:spruce_door"
+    },
+    "B": {
+      "item": "minecraft:dark_oak_planks"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:fortified_dark_oak_double_door"
+  }
+}

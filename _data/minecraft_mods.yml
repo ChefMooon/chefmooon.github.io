@@ -24,6 +24,19 @@
   wiki_default_minecraft_version: 1.21.1
   wiki_available_minecraft_versions: 1.21.1
 
+- id: differentdoors
+  title: Different Doors
+  description: placeholder
+  banner: /assets/img/different-doors/banner.png
+  banner_height: 76
+  banner_width: 511
+  url_modrinth: https://modrinth.com/mod/different-doors
+  url_curseforge: https://www.curseforge.com/minecraft/mc-mods/different-doors
+  source: https://github.com/ChefMooon/different-doors
+  issues: https://github.com/ChefMooon/different-doors/issues
+  wiki_default_minecraft_version: 1.21.1
+  wiki_available_minecraft_versions: 1.21.1
+
 - id: frightsdelight
   title: Fright's Delight
   description: placeholder

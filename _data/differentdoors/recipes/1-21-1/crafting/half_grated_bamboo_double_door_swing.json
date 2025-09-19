@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "key": {
+    "A": {
+      "item": "minecraft:bamboo_door"
+    },
+    "B": {
+      "item": "minecraft:bamboo_block"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:half_grated_bamboo_double_door"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "key": {
+    "A": {
+      "item": "minecraft:iron_door"
+    },
+    "B": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:iron_double_door"
+  }
+}

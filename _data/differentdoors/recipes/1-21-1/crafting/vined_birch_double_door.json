@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "key": {
+    "A": {
+      "item": "minecraft:warped_door"
+    },
+    "B": {
+      "item": "minecraft:birch_planks"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:vined_birch_double_door"
+  }
+}

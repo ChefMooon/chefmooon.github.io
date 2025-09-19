@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "key": {
+    "A": {
+      "item": "minecraft:copper_door"
+    },
+    "B": {
+      "item": "minecraft:copper_ingot"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "ABA"
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:copper_double_door"
+  }
+}

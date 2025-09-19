@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "key": {
+    "A": {
+      "item": "minecraft:jungle_door"
+    },
+    "B": {
+      "item": "minecraft:acacia_planks"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:half_moon_acacia_double_door"
+  }
+}
