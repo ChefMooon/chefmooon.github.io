@@ -13,6 +13,10 @@ quick_links:
       href: wither-berry-bush
     - alt: Punch Bowls
       href: punch-bowls
+    - alt: Candy Mold
+      href: candy-mold
+    - alt: Candy Basket
+      href: candy-basket
 ---
 
 ## Berry Bushes
@@ -138,6 +142,84 @@ This is a placeable version of drinks. It can contain 1-4 servings and face any 
 - Right-Click the placed Glass Cup with any tool to rotate.
 
 *Gives off light. Light level is dependant on number of servings.
+
+## Candy Mold
+
+This a block that is used to make candy items. Unfired Molds are made on the cutting board and then smelted. 
+
+Variations:
+- Lollipop Mold*
+- Ring Candy Mold
+
+### Usage
+
+Add Syrup to the mold and wait until the syrup hardens. Harden time is 45s (900 ticks). Particles will be emitted from the syrup as it hardens. A sound will be made when the process is complete.
+
+*The Lollipop mold will require 4 Bone shards to be added to the mold
+
+### Redstone
+
+This block gives off a redstone signal that can be interpreted by a redstone comparator. The signal strength depends on the amount of items in the block.
+
+**Ring Candy Mold**
+Block State -> Signal Strength
+Empty -> 0
+Any Syrup -> 6
+Any Hardened Syrup -> 10
+
+**Lollipop Mold**
+Block State -> Signal Strength
+Empty -> 0
+1 x Shard -> 1
+2 x Shard -> 2
+3 x Shard -> 3
+4 x Shard -> 4
+4 x Shards + Any Syrup -> 6
+4 x Shards + Any Hardened Syrup -> 10
+
+****
+
+## Candy Basket
+
+This is a container that can hold up to 9 edible food items. It can be in item or block form and will keep the contents when placed/broken. Items can be added, removed and shuffled. It is broken with an Axe or Knife.
+
+Variants:
+- Melon
+- Pumpkin
+- Jack o'Lantern
+
+### Usage
+
+**Add Item**
+- Item: Items can be added from either hand*
+- Block: Items can be from the main hand or the offhand if the main hand is empty
+
+**Remove Item**
+- Item: Items can be removed while the basket is in either hand, the other hand must be empty
+- Block: Items can be removed if both hands are empty
+
+**Shuffle Item(s)**
+*The Basket must have at least 2 items to shuffle*
+- Item: Shift Right-Click while the basket is in any hand
+- Block: Shift Right-Click
+
+*Food items will always try to be eaten first, this may cause issues when adding items if the player is hungry. Foods that are always edible will need to be added from the off-hand.
+
+### Redstone
+
+This block gives off a redstone signal that can be interpreted by a redstone comparator. The signal strength depends on the amount of items in the block.
+
+Item(s) -> Signal Strength
+0 -> 0
+1 -> 2
+2 -> 4
+3 -> 5
+4 -> 7
+5 -> 8
+6 -> 10
+7 -> 11
+8 -> 13
+9 -> 15
 
 ***
 
