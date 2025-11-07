@@ -47,8 +47,8 @@ This mod was originaly created for the demodcontest 2023!
 
 | Minecraft Version    | [Fabric](https://fabricmc.net) | [NeoForge](https://neoforged.net) | Forge                     |
 | -------------------- | ------------------------------ | --------------------------------- | ------------------------- |
-| 1.21.9-1.21.10       | :heavy_minus_sign:             | :heavy_minus_sign:                | :x:                       |
-| 1.21.8               | :heavy_minus_sign:             | :heavy_minus_sign:                | :x:                       |
+| 1.21.9-1.21.10       | :heavy_check_mark: v1.4.1      | :heavy_minus_sign:                | :x:                       |
+| 1.21.8               | :heavy_check_mark: v1.4.1      | :heavy_minus_sign:                | :x:                       |
 | 1.21.5               | :heavy_check_mark: v1.4.0      | :heavy_check_mark: v1.4.0         | :x:                       |
 | 1.21-1.21.1          | :heavy_check_mark: v1.3.2      | :heavy_check_mark: v1.3.1         | :x:                       |
 | 1.20.1               | :heavy_check_mark: v1.3.2*     | :heavy_check_mark: v1.3.1         | :heavy_check_mark: v1.3.1 |
