@@ -1,0 +1,18 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "meals",
+  "container": {
+    "count": 1,
+    "id": "frightsdelight:bone_shard"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "frightsdelight:soul_berry",
+    "frightsdelight:soul_berry"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:bone_kebab_soul_berry"
+  }
+}

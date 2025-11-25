@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "frightsdelight:punch_soul_berry"
+  },
+  "pattern": [
+    " A ",
+    "A A",
+    " A "
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:punchbowl_soul_berry"
+  },
+  "show_notification": false
+}

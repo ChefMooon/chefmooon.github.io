@@ -46,6 +46,10 @@ module Jekyll
                     normalize_create_milling(key, recipe_data)
                 when 'create:mixing'
                     normalize_create_mixing(key, recipe_data)
+                when 'create:emptying'
+                    normalize_create_emptying(key, recipe_data)
+                when 'create:filling'
+                    normalize_create_filling(key, recipe_data)
                 else
                     Jekyll.logger.warn "Unknown recipe type: #{recipe_data['type']}"
                     nil
@@ -69,17 +73,36 @@ module Jekyll
         end
 
         def normalize_input(ingredient)
-            data = ingredient['ingredient'] || ingredient
-            type = data['item'] ? 'item' : 'tag'
-            id = data[type]
-            count = data['count'] || 1
-
-            {
-                type => {
-                'id' => id,
-                'count' => count
+            if ingredient.is_a?(String)
+                {
+                    'item' => {
+                        'id' => ingredient,
+                        'count' => 1
+                    }
                 }
-            }
+            else
+                data = ingredient['ingredient'] || ingredient
+                if data['fluid']
+                    {
+                        'fluid' => {
+                            'id' => data['fluid'],
+                            'amount' => data['amount'] || 1,
+                            'nbt' => data['nbt'] || {}
+                        }
+                    }
+                else
+                    type = data['item'] ? 'item' : 'tag'
+                    id = data[type]
+                    count = data['count'] || 1
+
+                    {
+                        type => {
+                            'id' => id,
+                            'count' => count
+                        }
+                    }
+                end
+            end
         end
 
         def count_key_occurrences(pattern)
@@ -109,23 +132,53 @@ module Jekyll
         end
 
         def normalize_combined_input(ingredients)
-            grouped = ingredients.group_by do |ingredient|
-              if ingredient['item']
-                ['item', ingredient['item']]
-              elsif ingredient['tag']
-                ['tag', ingredient['tag']]
-              end
+            normalized = ingredients.map do |ingredient|
+                if ingredient.is_a?(String)
+                    { 'item' => ingredient, 'count' => 1 }
+                elsif ingredient.is_a?(Hash)
+                    if ingredient['item'] || ingredient['tag'] || ingredient['fluid']
+                        ingredient
+                    elsif ingredient['ingredient']
+                        ingredient['ingredient']
+                    else
+                        ingredient
+                    end
+                else
+                    ingredient
+                end
             end
-          
+        
+            grouped = normalized.group_by do |ingredient|
+                if ingredient['item']
+                    ['item', ingredient['item']]
+                elsif ingredient['tag']
+                    ['tag', ingredient['tag']]
+                elsif ingredient['fluid']
+                    ['fluid', ingredient['fluid']]
+                end
+            end
+        
             grouped.map do |(type, id), items|
-              {
-                type => {
-                  'id' => id,
-                  'count' => items.length
-                }
-              }
+                case type
+                when 'item', 'tag'
+                    {
+                        type => {
+                            'id' => id,
+                            'count' => items.sum { |i| i['count'] || 1 }
+                        }
+                    }
+                when 'fluid'
+                    total_amount = items.sum { |i| i['amount'] || 1 }
+                    {
+                        'fluid' => {
+                            'id' => id,
+                            'amount' => total_amount,
+                            'nbt' => items.first['nbt'] || {}
+                        }
+                    }
+                end
             end
-          end
+        end
         
         def normalize_processing_stages(stage)
             {
@@ -189,12 +242,22 @@ module Jekyll
         end
 
         def normalize_create_output(result)
-            output = {
-                'item' => {
-                    'id' => result['item'],
-                    'count' => result['count'] || 1
+            if result['amount']
+                output = {
+                    'fluid' => {
+                        'id' => result['fluid'] || result['id'],
+                        'amount' => result['amount'],
+                        'nbt' => result['nbt'] || {}
+                    }
                 }
-            }
+            else
+                output = {
+                    'item' => {
+                        'id' => result['item'] || result['id'],
+                        'count' => result['count'] || 1
+                    }
+                }
+            end
 
             output['chance'] = result['chance'] if result['chance']
             output
@@ -361,6 +424,26 @@ module Jekyll
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
+                'input' => normalize_combined_input(recipe_data['ingredients']),
+                'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
+            }
+        end
+
+        def normalize_create_emptying(key, recipe_data)
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
+                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
+                'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
+            }
+        end
+
+        def normalize_create_filling(key, recipe_data)
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
                 'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
                 'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
             }
@@ -434,18 +517,29 @@ module Jekyll
         end
 
         def run_test(page_key, version_folder)
+            if @recipe_data_by_page[page_key].nil? || @recipe_data_by_page[page_key].empty?
+                Jekyll.logger.info "Recipe Test - #{page_key} - No recipes found to test."
+                return
+            end
+            
+            errors_found = false
             @recipe_data_by_page[page_key].each do |recipe|
                 unless recipe['type'] && recipe['input'] && recipe['output']
                     Jekyll.logger.warn "Incomplete recipe data (#{version_folder}): #{recipe}"
+                    errors_found = true
                 end
-
+        
                 unless recipe['output']
                     recipe['output']&.each do |output|
                         unless output['item'] && output['item']['id'] && output['item']['id'].is_a?(String)
                             Jekyll.logger.warn "Incomplete recipe output data (#{version_folder}): #{recipe}"
+                            errors_found = true
                         end
                     end
                 end
+            end
+            unless errors_found
+                Jekyll.logger.info "Recipe Test - #{page_key} - All recipes validated successfully."
             end
         end
 
@@ -503,9 +597,10 @@ module Jekyll
                 
                 test = false
                 if test
-                    run_test(page_key, version_folder)
                     Jekyll.logger.info "Language Data #{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
                     Jekyll.logger.info "Recipe's Processed #{page_key} with #{@total_recipes_by_page[page_key]} recipes"
+                    run_test(page_key, version_folder)
+                    Jekyll.logger.info "\n"
                 end
             end
         end

@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "drinks",
+  "container": {
+    "count": 1,
+    "id": "minecraft:glass_bottle"
+  },
+  "experience": 1.0,
+  "ingredients": [
+    "frightsdelight:soul_berry",
+    "frightsdelight:soul_berry",
+    "minecraft:sugar",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "count": 4,
+    "id": "frightsdelight:punch_soul_berry"
+  }
+}

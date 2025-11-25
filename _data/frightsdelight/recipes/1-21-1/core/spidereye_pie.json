@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_spidereye_pie",
+  "key": {
+    "A": {
+      "item": "minecraft:spider_eye"
+    },
+    "B": {
+      "tag": "c:foods/milk"
+    },
+    "C": {
+      "item": "farmersdelight:pie_crust"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:spidereye_pie"
+  }
+}

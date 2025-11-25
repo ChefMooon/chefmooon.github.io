@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:any_mod_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "amount": 27000,
+      "fluid": "frightsdelight:rotten_flesh_syrup",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "frightsdelight:rotten_flesh_syrup_bottle"
+    }
+  ]
+}

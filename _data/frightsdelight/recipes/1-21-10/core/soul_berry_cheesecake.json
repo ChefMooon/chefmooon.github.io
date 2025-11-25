@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_soul_berry_cheesecake",
+  "key": {
+    "A": "frightsdelight:soul_berry",
+    "B": "#c:foods/milk",
+    "C": "farmersdelight:pie_crust"
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:soul_berry_cheesecake"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "frightsdelight:cobweb_pie"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "frightsdelight:cobweb_pie_slice"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

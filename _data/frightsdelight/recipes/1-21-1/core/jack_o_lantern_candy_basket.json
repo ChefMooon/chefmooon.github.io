@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "farmersdelight:rope"
+    },
+    "B": {
+      "item": "minecraft:jack_o_lantern"
+    }
+  },
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:jack_o_lantern_candy_basket"
+  }
+}

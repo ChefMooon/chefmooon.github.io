@@ -1,0 +1,30 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 300,
+  "experience": 1.0,
+  "ingredients": [
+    {
+      "item": "frightsdelight:wither_berry"
+    },
+    {
+      "item": "frightsdelight:wither_berry"
+    },
+    {
+      "item": "frightsdelight:wither_berry"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "recipe_book_tab": "drinks",
+  "result": {
+    "count": 4,
+    "id": "frightsdelight:wither_berry_syrup_bottle"
+  }
+}

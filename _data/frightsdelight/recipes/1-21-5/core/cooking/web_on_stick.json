@@ -1,0 +1,18 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "meals",
+  "container": {
+    "count": 1,
+    "id": "frightsdelight:bone_shard"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:cobweb",
+    "minecraft:cobweb"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:web_on_stick"
+  }
+}

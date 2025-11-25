@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_cobweb_pie",
+  "key": {
+    "A": {
+      "item": "frightsdelight:cobweb_pie_slice"
+    }
+  },
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:cobweb_pie"
+  }
+}

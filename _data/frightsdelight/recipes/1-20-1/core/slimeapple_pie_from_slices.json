@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_slimeapple_pie",
+  "key": {
+    "A": {
+      "item": "frightsdelight:slimeapple_pie_slice"
+    }
+  },
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "result": {
+    "item": "frightsdelight:slimeapple_pie"
+  },
+  "show_notification": true
+}

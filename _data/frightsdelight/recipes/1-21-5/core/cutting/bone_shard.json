@@ -1,0 +1,22 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:bone"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 2,
+        "id": "frightsdelight:bone_shard"
+      }
+    },
+    {
+      "chance": 0.5,
+      "item": {
+        "count": 1,
+        "id": "frightsdelight:bone_shard"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

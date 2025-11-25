@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "frightsdelight:spider_eye_crate"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "item": "minecraft:spider_eye"
+  }
+}

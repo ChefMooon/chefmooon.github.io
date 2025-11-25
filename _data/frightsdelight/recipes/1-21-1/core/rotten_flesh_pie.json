@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_rotten_flesh_pie",
+  "key": {
+    "A": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "B": {
+      "tag": "c:foods/milk"
+    },
+    "C": {
+      "item": "farmersdelight:pie_crust"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:rotten_flesh_pie"
+  }
+}

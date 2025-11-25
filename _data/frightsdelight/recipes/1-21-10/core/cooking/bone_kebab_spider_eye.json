@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "frightsdelight:bone_shard"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:spider_eye",
+    "minecraft:spider_eye",
+    "minecraft:spider_eye"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:bone_kebab_spider_eye"
+  }
+}

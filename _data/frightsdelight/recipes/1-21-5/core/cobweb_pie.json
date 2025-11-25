@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_cobweb_pie",
+  "key": {
+    "A": "minecraft:cobweb",
+    "B": "#c:foods/milk",
+    "C": "farmersdelight:pie_crust"
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:cobweb_pie"
+  }
+}

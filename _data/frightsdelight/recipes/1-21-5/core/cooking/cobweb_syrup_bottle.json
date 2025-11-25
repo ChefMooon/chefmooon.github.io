@@ -1,0 +1,22 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "drinks",
+  "container": {
+    "count": 1,
+    "id": "minecraft:glass_bottle"
+  },
+  "cookingtime": 300,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:cobweb",
+    "minecraft:cobweb",
+    "minecraft:cobweb",
+    "minecraft:sugar",
+    "minecraft:sugar",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "count": 4,
+    "id": "frightsdelight:cobweb_syrup_bottle"
+  }
+}

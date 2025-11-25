@@ -5,7 +5,9 @@
         {%- if size > 1 -%}
             {%- for ingredient in recipe['output'] -%}
                 <li>
-                    {%- if ingredient['tag'] -%}
+                    {%- if ingredient['fluid'] -%}
+                        {% include minecraft-mod/wiki/fluid-renderer.html fluid=ingredient.fluid %}
+                    {%- elsif ingredient['tag'] -%}
                         {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
                     {%- else -%}
                         {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
@@ -17,7 +19,9 @@
             {%- endfor -%}
         {%- else -%}
             <li>
-                {%- if recipe['output']['tag'] -%}
+                {%- if recipe['output'][0]['fluid'] -%}
+                    {% include minecraft-mod/wiki/fluid-renderer.html fluid=recipe.output.first.fluid %}
+                {%- elsif recipe['output'][0]['tag'] -%}
                     {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
                 {%- elsif recipe['output']['item'] -%}
                     {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}

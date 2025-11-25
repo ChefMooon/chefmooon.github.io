@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "frightsdelight:punch_rotten_flesh"
+    }
+  },
+  "pattern": [
+    " A ",
+    "A A",
+    " A "
+  ],
+  "result": {
+    "item": "frightsdelight:punchbowl_rotten_flesh"
+  },
+  "show_notification": false
+}

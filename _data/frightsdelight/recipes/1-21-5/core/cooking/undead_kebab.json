@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "meals",
+  "container": {
+    "count": 1,
+    "id": "frightsdelight:bone_shard"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:rotten_flesh",
+    "minecraft:ghast_tear",
+    "minecraft:spider_eye"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:undead_kebab"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "frd_ghasttear_pie",
+  "key": {
+    "A": {
+      "item": "minecraft:ghast_tear"
+    },
+    "B": {
+      "tag": "c:foods/milk"
+    },
+    "C": {
+      "item": "farmersdelight:pie_crust"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BCB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:ghasttear_pie"
+  }
+}

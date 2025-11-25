@@ -4,10 +4,14 @@
         {%- if recipe['input'] | kind_of: "array" -%}
             {%- for ingredient in recipe['input'] -%}
                 <li>
-                    {%- if ingredient['tag'] -%}
+                    {%- if ingredient['fluid'] -%}
+                        {% include minecraft-mod/wiki/fluid-renderer.html fluid=ingredient.fluid %}
+                    {%- elsif ingredient['tag'] -%}
                         {%- include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag -%}
                     {%- elsif ingredient['item']['id'] -%}
                         {%- include minecraft-mod/wiki/item-renderer.html item=ingredient.item -%}
+                    {%- elsif recipe.input.fluid -%}
+                        {% include minecraft-mod/wiki/fluid-renderer.html fluid=recipe.input.fluid %}
                     {%- elsif recipe.input.tag.id -%}
                         {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag -%}
                     {%- elsif recipe.input.item.id -%}
@@ -20,7 +24,10 @@
             {%- endfor -%}
         {%- else -%}
             <li>
-                {%- if recipe['input'].first.item.id -%} 
+                {%- if recipe['input'][0]['fluid'] -%}
+                    <p>fluid</p>
+                    {% include minecraft-mod/wiki/fluid-renderer.html fluid=recipe.input.first.fluid %}
+                {%- elsif recipe['input'].first.item.id -%} 
                     {%- include minecraft-mod/wiki/item-renderer.html item=recipe.input.first.item -%}
                 {%- elsif recipe['input']['tag'] -%}
                     {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.input.tag -%}

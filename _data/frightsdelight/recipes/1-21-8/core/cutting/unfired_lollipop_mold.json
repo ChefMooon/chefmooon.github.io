@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "minecraft:clay"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "frightsdelight:unfired_lollipop_mold"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

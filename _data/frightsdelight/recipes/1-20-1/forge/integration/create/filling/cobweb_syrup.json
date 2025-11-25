@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "amount": 250,
+      "fluid": "frightsdelight:cobweb_syrup",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "frightsdelight:cobweb_syrup_bottle"
+    }
+  ]
+}

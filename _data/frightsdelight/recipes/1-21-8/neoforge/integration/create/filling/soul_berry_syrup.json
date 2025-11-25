@@ -1,0 +1,24 @@
+{
+  "conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "create"
+    }
+  ],
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "type": "neoforge:single",
+      "amount": 250,
+      "fluid": "frightsdelight:soul_berry_syrup"
+    }
+  ],
+  "results": [
+    {
+      "id": "frightsdelight:soul_berry_syrup_bottle"
+    }
+  ]
+}

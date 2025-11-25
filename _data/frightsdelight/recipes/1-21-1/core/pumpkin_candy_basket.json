@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "farmersdelight:rope"
+    },
+    "B": {
+      "item": "minecraft:pumpkin"
+    }
+  },
+  "pattern": [
+    "A",
+    "B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:pumpkin_candy_basket"
+  }
+}

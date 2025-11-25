@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cooking",
+  "category": "meals",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bowl"
+  },
+  "experience": 2.0,
+  "ingredients": [
+    "#c:foods/vegetable",
+    "minecraft:rotten_flesh"
+  ],
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:soup_rotten_flesh"
+  }
+}

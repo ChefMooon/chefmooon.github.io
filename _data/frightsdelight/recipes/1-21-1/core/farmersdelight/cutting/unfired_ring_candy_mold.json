@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "minecraft:clay"
+    }
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "frightsdelight:unfired_ring_candy_mold"
+      }
+    }
+  ],
+  "tool": {
+    "item": "minecraft:glass_bottle"
+  }
+}
