@@ -134,9 +134,19 @@ module Jekyll
         def normalize_combined_input(ingredients)
             normalized = ingredients.map do |ingredient|
                 if ingredient.is_a?(String)
-                    { 'item' => ingredient, 'count' => 1 }
+                    if ingredient.start_with?('#')
+                        { 'tag' => ingredient[1..], 'count' => 1 }
+                    else
+                        { 'item' => ingredient, 'count' => 1 }
+                    end
                 elsif ingredient.is_a?(Hash)
-                    if ingredient['item'] || ingredient['tag'] || ingredient['fluid']
+                    if ingredient['item'].is_a?(String) && ingredient['item'].start_with?('#')
+                        { 'tag' => ingredient['item'][1..], 'count' => ingredient['count'] || 1 }
+                    elsif ingredient['tag']
+                        { 'tag' => ingredient['tag'], 'count' => ingredient['count'] || 1 }
+                    elsif ingredient['item']
+                        { 'item' => ingredient['item'], 'count' => ingredient['count'] || 1 }
+                    elsif ingredient['fluid']
                         ingredient
                     elsif ingredient['ingredient']
                         ingredient['ingredient']
