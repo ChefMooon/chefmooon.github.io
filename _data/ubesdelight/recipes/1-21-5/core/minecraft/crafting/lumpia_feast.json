@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "ud_leaf_feast",
+  "key": {
+    "A": "ubesdelight:lumpia",
+    "B": "#minecraft:leaves"
+  },
+  "pattern": [
+    "AAA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:lumpia_feast"
+  }
+}

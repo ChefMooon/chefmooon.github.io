@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#minecraft:leaves",
+    "#minecraft:leaves",
+    "#minecraft:leaves"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:leaf_feast"
+  }
+}

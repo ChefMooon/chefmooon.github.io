@@ -1,0 +1,25 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:sweet_berries",
+    "minecraft:wheat",
+    "minecraft:wheat"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 8,
+        "id": "farmersdelight:sweet_berry_cookie"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 4,
+        "id": "farmersdelight:sweet_berry_cookie"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

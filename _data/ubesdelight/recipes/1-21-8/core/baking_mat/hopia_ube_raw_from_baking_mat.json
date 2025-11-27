@@ -1,0 +1,29 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "#c:foods/dough",
+    "#c:tea_ingredients/sweet/weak",
+    "#c:crops/ube"
+  ],
+  "processing_stages": [
+    "ubesdelight:hopia_ube_stage0",
+    "ubesdelight:hopia_ube_stage1",
+    "ubesdelight:hopia_ube_stage2"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 2,
+        "id": "ubesdelight:hopia_ube_raw"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 1,
+        "id": "ubesdelight:hopia_ube_raw"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

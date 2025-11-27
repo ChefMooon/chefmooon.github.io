@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "#c:drinks/milk",
+    "B": "#c:tea_ingredients/sweet/weak",
+    "C": "minecraft:wheat",
+    "E": "#c:eggs",
+    "F": "#c:crops/ube"
+  },
+  "pattern": [
+    "AAA",
+    "BEB",
+    "CFC"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:ube_cake"
+  }
+}

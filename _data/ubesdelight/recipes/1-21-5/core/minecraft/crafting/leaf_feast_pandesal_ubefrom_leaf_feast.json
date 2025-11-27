@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:pandesal_ube",
+    "ubesdelight:leaf_feast"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:leaf_feast_pandesal_ube"
+  }
+}

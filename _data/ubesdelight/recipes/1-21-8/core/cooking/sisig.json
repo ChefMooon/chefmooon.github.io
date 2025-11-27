@@ -1,0 +1,16 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 4.0,
+  "ingredients": [
+    "#c:foods/raw_pork",
+    "#c:foods/raw_chicken",
+    "#c:crops/onion",
+    "#c:crops/garlic",
+    "ubesdelight:fish_sauce_bottle"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:sisig"
+  }
+}

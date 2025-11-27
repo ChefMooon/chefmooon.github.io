@@ -1,0 +1,31 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:egg",
+    "#c:tea_ingredients/sweet/weak",
+    "#c:tea_ingredients/sweet/weak",
+    "#c:drinks/milk",
+    "minecraft:wheat",
+    "#c:drinks/milk",
+    "#c:drinks/milk",
+    "minecraft:wheat",
+    "minecraft:wheat"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "minecraft:cake"
+      }
+    },
+    {
+      "chance": 0.5,
+      "item": {
+        "count": 1,
+        "id": "minecraft:cake"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

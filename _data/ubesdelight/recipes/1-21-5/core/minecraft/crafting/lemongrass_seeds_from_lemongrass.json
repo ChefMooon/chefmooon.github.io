@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:lemongrass"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:lemongrass_seeds"
+  }
+}

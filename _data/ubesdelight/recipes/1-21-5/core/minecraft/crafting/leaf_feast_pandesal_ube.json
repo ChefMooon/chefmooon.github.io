@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": "ubesdelight:pandesal_ube",
+    "B": "#minecraft:leaves"
+  },
+  "pattern": [
+    "AAA",
+    "AAA",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:leaf_feast_pandesal_ube"
+  }
+}

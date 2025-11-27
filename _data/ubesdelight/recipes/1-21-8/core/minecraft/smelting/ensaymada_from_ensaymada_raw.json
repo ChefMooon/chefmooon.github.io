@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.5,
+  "ingredient": "ubesdelight:ensaymada_raw",
+  "result": {
+    "id": "ubesdelight:ensaymada"
+  }
+}

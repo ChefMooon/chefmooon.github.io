@@ -1,0 +1,31 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:sweet_berries",
+    "minecraft:sweet_berries",
+    "minecraft:sweet_berries",
+    "minecraft:sweet_berries",
+    "farmersdelight:pie_crust",
+    "minecraft:sweet_berries",
+    "minecraft:sweet_berries",
+    "#c:drinks/milk",
+    "#c:drinks/milk"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "farmersdelight:sweet_berry_cheesecake"
+      }
+    },
+    {
+      "chance": 0.5,
+      "item": {
+        "count": 1,
+        "id": "farmersdelight:sweet_berry_cheesecake"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

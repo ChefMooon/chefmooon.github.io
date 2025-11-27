@@ -1,0 +1,29 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "#c:foods/dough",
+    "#c:tea_ingredients/sweet/weak",
+    "minecraft:cocoa_beans"
+  ],
+  "processing_stages": [
+    "ubesdelight:hopia_munggo_stage0",
+    "ubesdelight:hopia_munggo_stage1",
+    "ubesdelight:hopia_munggo_stage2"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 2,
+        "id": "ubesdelight:hopia_munggo_raw"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 1,
+        "id": "ubesdelight:hopia_munggo_raw"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

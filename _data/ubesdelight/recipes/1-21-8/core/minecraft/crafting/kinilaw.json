@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#c:foods/safe_raw_fish",
+    "#c:crops/onion",
+    "#c:crops/garlic",
+    "#c:crops/ginger",
+    "#c:crops/lemongrass",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:kinilaw"
+  }
+}
