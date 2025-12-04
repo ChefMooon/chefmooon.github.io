@@ -1,0 +1,33 @@
+---
+layout: base
+---
+
+<header class="post-header">
+    <h1 class="post-title">{{ page.title | escape }}</h1>
+</header>
+
+<p>
+    Here you will find an overview of all planned updates for the
+    Minecraft mods developed by ChefMooon.
+    Updates are listed in the order they will be addressed.
+    For more detailed information on updates, please refer to the individual
+    roadmaps linked at the bottom of this page.
+</p>
+
+<p><em>This roadmap will be updated with major mod releases.</em></p>
+
+{{ content }}
+
+<hr>
+
+<h1>Mod Roadmaps</h1>
+
+<div class="quick-links">
+    <ul>
+        {%- for mod in site.data.minecraft_mods -%}
+            <li>
+                <a href="/{{ mod.id }}/roadmap/">{{ mod.title }} Roadmap</a>
+            </li>
+        {%- endfor -%}
+    </ul>
+</div>
