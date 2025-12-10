@@ -17,7 +17,7 @@ These blocks are Wind Charge-infused, wool-like blocks that will bounce entities
 - Stairs, Slabs, and Posts can be waterlogged
 
 **Double Bounce**  
-If a sneaking player falls from a height of 2.8 blocks or more onto a non-inflated Bounce Block, the block—along with any connected within a 1-block radius—will become 'Inflated' for a short duration (4 seconds / 80 ticks)
+If a sneaking player falls from a height of 2.8 blocks or more onto a non-inflated Bounce Block, the block along with any connected within a 1-block radius will become 'Inflated' for a short duration (4 seconds / 80 ticks). Entities on affected blocks bounce upward immediately.
 
 Double Bounce Activation Details
 - Player is sneaking
@@ -34,7 +34,7 @@ Double Bounce Activation Details
   - Player Step
   - Inflate / Deflate
 
-### Inflation Machine
+### **Inflation Machine**
 A functional block that keeps a group of connected Bounce Blocks ‘Inflated’ as long as it is fueled. Inflation can extend 5 blocks to the side and 1 block above/below in a 11x11x3 area. It can also be placed on its side allowing for greater vertical Inflation(3x11x11).
 
  **Fuel**

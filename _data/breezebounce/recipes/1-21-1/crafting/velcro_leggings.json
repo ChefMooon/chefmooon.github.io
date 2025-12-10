@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "A": {
+      "item": "minecraft:leather"
+    },
+    "B": {
+      "item": "minecraft:cactus"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "A A",
+    "B B"
+  ],
+  "result": {
+    "count": 1,
+    "id": "breezebounce:velcro_leggings"
+  }
+}
