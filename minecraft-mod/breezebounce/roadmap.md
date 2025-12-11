@@ -8,7 +8,4 @@ permalink: /breezebounce/roadmap
 
 *subject to change*
 
-### V1.3.0
-
-- Velcro Armour
-  - Player can 'stick' to Bounce Blocks when shifting
+New features are in the planning stages. If you have suggestions or feedback please join the [discord](https://discord.gg/mbuDBHHUws) or open a github issue.

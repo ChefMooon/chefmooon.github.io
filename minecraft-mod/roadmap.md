@@ -7,13 +7,6 @@ permalink: /roadmap/
 
 # Major Projects
 
-## Breeze Bounce
-- V1.3.0
-- Support More Minecraft Versions
-    - 1.21.8
-    - 1.21.10
-    - 1.21.11
-
 ## Colourful Clocks
 - V0.2.0
 - Support More Minecraft Versions
