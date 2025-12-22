@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "frd_soul_berry_cheesecake",
+  "group": "frd_slimeapple_pie",
   "key": {
     "C": {
       "item": "farmersdelight:pie_crust"
@@ -19,7 +19,7 @@
     "BCB"
   ],
   "result": {
-    "item": "frightsdelight:soul_berry_cheesecake"
+    "item": "frightsdelight:slimeapple_pie"
   },
   "show_notification": true
 }
