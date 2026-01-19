@@ -1,0 +1,14 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 2.0,
+  "ingredients": [
+    "#c:foods/raw_chicken",
+    "#c:crops/lemongrass",
+    "#c:tea_ingredients/sweet/weak"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:chicken_inasal"
+  }
+}

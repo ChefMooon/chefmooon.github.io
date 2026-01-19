@@ -1,0 +1,33 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "frightsdelight"
+      ]
+    }
+  ],
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:slime_ball",
+    "minecraft:wheat",
+    "minecraft:wheat"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 8,
+        "id": "frightsdelight:cookie_slime"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 4,
+        "id": "frightsdelight:cookie_slime"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

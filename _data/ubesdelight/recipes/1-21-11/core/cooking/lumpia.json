@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 2.0,
+  "ingredients": [
+    "#farmersdelight:cabbage_roll_ingredients",
+    "#c:foods/leafy_green",
+    "#c:crops/lemongrass",
+    "#c:food_wrappers/lumpia_wrapper"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:lumpia"
+  }
+}

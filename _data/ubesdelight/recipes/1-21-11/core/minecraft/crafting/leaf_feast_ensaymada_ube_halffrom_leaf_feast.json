@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:ensaymada_ube",
+    "ubesdelight:ensaymada_ube",
+    "ubesdelight:ensaymada_ube",
+    "ubesdelight:leaf_feast"
+  ],
+  "result": {
+    "count": 1,
+    "id": "ubesdelight:leaf_feast_ensaymada_ube_half"
+  }
+}
