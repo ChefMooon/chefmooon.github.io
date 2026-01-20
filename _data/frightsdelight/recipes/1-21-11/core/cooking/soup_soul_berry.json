@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bowl"
+  },
+  "experience": 2.0,
+  "ingredients": [
+    "#c:foods/vegetable",
+    "frightsdelight:soul_berry"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:soup_soul_berry"
+  }
+}

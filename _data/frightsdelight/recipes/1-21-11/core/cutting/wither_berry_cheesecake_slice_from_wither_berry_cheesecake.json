@@ -1,0 +1,15 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "frightsdelight:wither_berry_cheesecake"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 4,
+        "id": "frightsdelight:wither_berry_cheesecake_slice"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

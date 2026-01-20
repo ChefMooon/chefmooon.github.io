@@ -1,0 +1,20 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bowl"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:ghast_tear",
+    "minecraft:spider_eye",
+    "minecraft:spider_eye",
+    "minecraft:rotten_flesh"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:monster_mash"
+  }
+}

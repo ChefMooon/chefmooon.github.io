@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "frightsdelight:flesh_crate"
+  ],
+  "result": {
+    "count": 9,
+    "id": "minecraft:rotten_flesh"
+  }
+}

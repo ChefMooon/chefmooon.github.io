@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "frightsdelight:bone_shard"
+  },
+  "cookingtime": 100,
+  "experience": 1.0,
+  "ingredients": [
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "minecraft:slime_ball"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:bone_kebab_slime"
+  }
+}

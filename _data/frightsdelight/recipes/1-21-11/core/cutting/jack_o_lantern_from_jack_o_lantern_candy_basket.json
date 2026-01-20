@@ -1,0 +1,21 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    "frightsdelight:jack_o_lantern_candy_basket"
+  ],
+  "result": [
+    {
+      "item": {
+        "count": 1,
+        "id": "minecraft:jack_o_lantern"
+      }
+    },
+    {
+      "item": {
+        "count": 1,
+        "id": "farmersdelight:rope"
+      }
+    }
+  ],
+  "tool": "#c:tools/knife"
+}

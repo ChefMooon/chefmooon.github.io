@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "create"
+      ]
+    }
+  ],
+  "type": "create:filling",
+  "ingredients": [
+    {
+      "item": "minecraft:glass_bottle"
+    },
+    {
+      "amount": 27000,
+      "fluid": "frightsdelight:soul_berry_syrup",
+      "nbt": {}
+    }
+  ],
+  "results": [
+    {
+      "item": "frightsdelight:soul_berry_syrup_bottle"
+    }
+  ]
+}

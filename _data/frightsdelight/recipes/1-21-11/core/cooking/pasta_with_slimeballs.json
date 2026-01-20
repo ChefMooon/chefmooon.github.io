@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cooking",
+  "container": {
+    "count": 1,
+    "id": "minecraft:bowl"
+  },
+  "cookingtime": 75,
+  "experience": 2.0,
+  "ingredients": [
+    "minecraft:slime_ball",
+    "minecraft:slime_ball",
+    "farmersdelight:raw_pasta"
+  ],
+  "recipe_book_tab": "meals",
+  "result": {
+    "count": 1,
+    "id": "frightsdelight:pasta_with_slimeballs"
+  }
+}
