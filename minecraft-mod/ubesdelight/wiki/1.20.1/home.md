@@ -40,9 +40,9 @@ As this mod is still in development, it's possible to encounter issues and insta
 
 | Minecraft Version    | [Fabric](https://fabricmc.net) | [NeoForge](https://neoforged.net) | Forge                     |
 | -------------------- | ------------------------------ | --------------------------------- | ------------------------- |
-| 1.21.11              | :heavy_check_mark: v1.4.8      | :heavy_minus_sign:                | :x:                       |
-| 1.21.9-1.21.10       | :heavy_check_mark: v1.4.7      | :heavy_minus_sign:                | :x:                       |
-| 1.21.8               | :heavy_check_mark: v1.4.7      | :heavy_minus_sign:                | :x:                       |
+| 1.21.11              | :heavy_check_mark: v0.4.8      | :heavy_minus_sign:                | :x:                       |
+| 1.21.9-1.21.10       | :heavy_check_mark: v0.4.7      | :heavy_minus_sign:                | :x:                       |
+| 1.21.8               | :heavy_check_mark: v0.4.7      | :heavy_minus_sign:                | :x:                       |
 | 1.21.5               | :heavy_check_mark: v0.4.6      | :heavy_minus_sign:                | :x:                       |
 | 1.21-1.21.1          | :heavy_check_mark: v0.4.0      | :heavy_check_mark: v0.4.0         | :x:                       |
 | 1.20.1               | :heavy_check_mark: v0.3.4*     | :heavy_check_mark: v0.3.4         | :heavy_check_mark: v0.3.4 |
