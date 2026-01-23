@@ -72,28 +72,64 @@ module Jekyll
             recipe_data[key]
         end
 
+        def extract_ingredient(recipe_data)
+            # Handle single-input recipes (smelting, smoking, campfire_cooking)
+            # Supports both old format (wrapped in 'ingredient') and new format (direct)
+            return recipe_data['ingredient'] if recipe_data['ingredient']
+            return recipe_data  # Fallback for direct ingredient format
+        end
+
         def normalize_input(ingredient)
+            # Safety: extract ingredient if wrapped in a recipe_data object
+            if ingredient.is_a?(Hash) && ingredient['ingredient'] && !ingredient['item'] && !ingredient['tag'] && !ingredient['fluid']
+                ingredient = ingredient['ingredient']
+            end
+
             if ingredient.is_a?(String)
-                {
-                    'item' => {
-                        'id' => ingredient,
-                        'count' => 1
-                    }
-                }
-            else
-                data = ingredient['ingredient'] || ingredient
-                if data['fluid']
+                # Direct item ID: "minecraft:furnace" or "#minecraft:logs"
+                if ingredient.start_with?('#')
                     {
-                        'fluid' => {
-                            'id' => data['fluid'],
-                            'amount' => data['amount'] || 1,
-                            'nbt' => data['nbt'] || {}
+                        'tag' => {
+                            'id' => ingredient[1..],
+                            'count' => 1
                         }
                     }
                 else
-                    type = data['item'] ? 'item' : 'tag'
-                    id = data[type]
-                    count = data['count'] || 1
+                    {
+                        'item' => {
+                            'id' => ingredient,
+                            'count' => 1
+                        }
+                    }
+                end
+            elsif ingredient.is_a?(Hash)
+                # Object format
+                if ingredient['fluid']
+                    {
+                        'fluid' => {
+                            'id' => ingredient['fluid'],
+                            'amount' => ingredient['amount'] || 1,
+                            'nbt' => ingredient['nbt'] || {}
+                        }
+                    }
+                else
+                    # Determine if it's item or tag
+                    type = if ingredient['item']
+                        ingredient['item'].start_with?('#') ? 'tag' : 'item'
+                    elsif ingredient['tag']
+                        'tag'
+                    else
+                        'item'  # Default fallback
+                    end
+                    
+                    # Extract ID (remove # prefix if present)
+                    id = if type == 'tag'
+                        ingredient['item']&.sub(/^#/, '') || ingredient['tag']
+                    else
+                        ingredient['item']
+                    end
+                    
+                    count = ingredient['count'] || 1
 
                     {
                         type => {
@@ -102,6 +138,10 @@ module Jekyll
                         }
                     }
                 end
+            else
+                # Unexpected format - log and provide fallback
+                Jekyll.logger.warn "Unexpected ingredient format: #{ingredient.class} - #{ingredient.inspect}"
+                { 'item' => { 'id' => 'unknown', 'count' => 1 } }
             end
         end
 
@@ -352,7 +392,7 @@ module Jekyll
                 'category' => recipe_data['category'] || 'misc',
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
-                'input' => normalize_input(recipe_data),
+                'input' => normalize_input(extract_ingredient(recipe_data)),
                 'output' => normalize_output(recipe_data['result'])
             }
         end
@@ -365,7 +405,7 @@ module Jekyll
                 'category' => recipe_data['category'] || 'misc',
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
-                'input' => normalize_input(recipe_data),
+                'input' => normalize_input(extract_ingredient(recipe_data)),
                 'output' => normalize_output(recipe_data['result'])
             }
         end
@@ -378,7 +418,7 @@ module Jekyll
                 'category' => recipe_data['category'] || 'misc',
                 'cookingtime' => recipe_data['cookingtime'],
                 'experience' => recipe_data['experience'],
-                'input' => normalize_input(recipe_data),
+                'input' => normalize_input(extract_ingredient(recipe_data)),
                 'output' => normalize_output(recipe_data['result'])
             }
         end
