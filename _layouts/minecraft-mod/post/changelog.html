@@ -1,10 +1,11 @@
 ---
 layout: minecraft-mod/base
 ---
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+<article class="post h-entry mod-changelog-post" itemscope itemtype="http://schema.org/BlogPosting">
 
     <header class="post-header">
-        <h1 class="post-title p-name" itemprop="name headline">V{{ page.mod_version | escape }}</h1>
+        <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+        <h2 class="post-subtitle">V{{ page.mod_version | escape }}</h2>
         <p class="post-meta">
             {% assign minecraft_versions = page.minecraft_version | split: ", " %}
             {% assign minecraft_loaders = page.minecraft_loader | split: ", " %}

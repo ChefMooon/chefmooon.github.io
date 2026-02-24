@@ -682,3 +682,34 @@ input:hover {
         z-index: 1000;
     }
 }
+
+/* Minecraft Mod Changelog Post */
+.mod-changelog-post {
+    .post-header {
+        margin-bottom: 1.75rem;
+    }
+
+    .post-title {
+        margin-bottom: 0.2rem;
+        line-height: 1.2;
+    }
+
+    .post-subtitle {
+        @include relative-font-size(1.35);
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        line-height: 1.2;
+        opacity: 0.92;
+    }
+
+    .post-meta {
+        @include relative-font-size(0.95);
+        margin-top: 0.35rem;
+        line-height: 1.5;
+        opacity: 0.88;
+    }
+
+    .post-content {
+        margin-top: 1.75rem;
+    }
+}
