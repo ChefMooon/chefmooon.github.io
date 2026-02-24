@@ -1,0 +1,118 @@
+{%- assign section = include.section -%}
+{%- assign kind = section.kind | default: "text" -%}
+
+{%- if kind == "intro" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.lines and section.lines.size > 0 -%}
+        {%- for line in section.lines -%}
+        <p>{{ line }}</p>
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if section.bullets and section.bullets.size > 0 -%}
+    <ul>
+        {%- for bullet in section.bullets -%}
+        <li>{{ bullet }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+
+{%- elsif kind == "key_values" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.key_values and section.key_values.size > 0 -%}
+        {%- for row in section.key_values -%}
+        <strong>{{ row.label }}:</strong> {{ row.value }}<br>
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if section.note and section.note != "" -%}
+    {{ section.note | markdownify }}
+    {%- endif -%}
+
+{%- elsif kind == "integrations" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.current and section.current != "" -%}
+    <p><strong>Current:</strong> {{ section.current }}</p>
+    {%- endif -%}
+
+    {%- if section.planned and section.planned != "" -%}
+    <p><strong>Planned:</strong> {{ section.planned }}</p>
+    {%- endif -%}
+
+{%- elsif kind == "development" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.intro and section.intro != "" -%}
+    <p>{{ section.intro }}</p>
+    {%- endif -%}
+
+    {%- if section.bullets and section.bullets.size > 0 -%}
+    <ul>
+        {%- for bullet in section.bullets -%}
+        <li>{{ bullet | markdownify | remove: '<p>' | remove: '</p>' }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+
+{%- elsif kind == "effects" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.bullets and section.bullets.size > 0 -%}
+    <ul>
+        {%- for bullet in section.bullets -%}
+        <li>{{ bullet }}</li>
+        {%- endfor -%}
+    </ul>
+    {%- endif -%}
+
+    {%- if section.link_label and section.link_url and section.link_label != "" and section.link_url != "" -%}
+    {%- assign effects_link_url = section.link_url | replace: "{version}", page.minecraft_version | replace: "{mod_id}", page.mod_id -%}
+    <p><a href="{{ effects_link_url | relative_url }}">{{ section.link_label }}</a></p>
+    {%- endif -%}
+
+{%- elsif kind == "compatibility" -%}
+    {%- include minecraft-mod/wiki/home-section-compatibility.html section=section -%}
+
+{%- elsif kind == "translation" -%}
+    {%- include minecraft-mod/wiki/home-section-translation.html section=section -%}
+
+{%- elsif kind == "links" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.items and section.items.size > 0 -%}
+        {%- for item in section.items -%}
+        <a href="{{ item.url }}">{{ item.label }}</a><br>
+        {%- endfor -%}
+    {%- endif -%}
+
+    {%- if section.closing_text and section.closing_text != "" -%}
+    <p>{{ section.closing_text }}</p>
+    {%- endif -%}
+
+{%- elsif kind == "text" -%}
+    {%- if section.title and section.title != "" -%}
+    <h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+    {%- endif -%}
+
+    {%- if section.lines and section.lines.size > 0 -%}
+        {%- for line in section.lines -%}
+        <p>{{ line }}</p>
+        {%- endfor -%}
+    {%- endif -%}
+
+{%- endif -%}

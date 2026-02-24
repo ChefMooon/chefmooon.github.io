@@ -1,0 +1,68 @@
+mod_id: colourfulclocks
+
+announcements:
+  top: []
+  bottom: []
+
+section_order:
+  - features
+  - compatibility
+
+sections:
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Pocket Watch
+        value: Handheld watch that shows in-game time
+      - label: Bornholm Grandfather Clock
+        value: Multi-block structure used to display in-game time
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+    rows:
+      - minecraft: 1.21.5
+        loaders:
+          fabric:
+            status: planned
+          neoforge:
+            status: planned
+      - minecraft: 1.21.4
+        loaders:
+          fabric:
+            status: unsupported
+          neoforge:
+            status: unsupported
+      - minecraft: 1.21.2-1.21.3
+        loaders:
+          fabric:
+            status: unsupported
+          neoforge:
+            status: unsupported
+      - minecraft: 1.21-1.21.1
+        loaders:
+          fabric:
+            status: supported
+            version: v0.1.4
+          neoforge:
+            status: supported
+            version: v0.1.4
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+
+version_overrides: {}

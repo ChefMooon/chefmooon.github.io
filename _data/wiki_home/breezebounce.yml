@@ -1,0 +1,116 @@
+mod_id: breezebounce
+
+announcements:
+  top: []
+  bottom: []
+
+section_order:
+  - intro
+  - features
+  - compatibility
+  - translation
+
+sections:
+  intro:
+    kind: intro
+    lines:
+      - The information on this wiki covers all Minecraft versions.
+
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Velcro Armour
+        value: Provides the "Velcro" effect when wearing a full set. Allowing the player to stick to wool tagged blocks.
+      - label: Bounce Blocks
+        value: Full Block, Stairs, Slabs, and Posts (16 colours)
+      - label: Inflation Machine
+        value: A functional block that keeps a group of connected Bounce Blocks ‘Inflated’ while fueled.
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+    rows:
+      - minecraft: 1.21.11
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.0
+          neoforge:
+            status: supported
+            version: v1.3.0
+      - minecraft: 1.21.10
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.0
+          neoforge:
+            status: supported
+            version: v1.3.0
+      - minecraft: 1.21.8
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.0
+          neoforge:
+            status: supported
+            version: v1.3.0
+      - minecraft: 1.21.5
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.0
+          neoforge:
+            status: supported
+            version: v1.3.0
+      - minecraft: 1.21.4
+        loaders:
+          fabric:
+            status: bugfix
+            version: v1.2.1
+          neoforge:
+            status: bugfix
+            version: v1.2.1
+      - minecraft: 1.21.2-1.21.3
+        loaders:
+          fabric:
+            status: bugfix
+            version: v1.2.1
+          neoforge:
+            status: bugfix
+            version: v1.2.1
+      - minecraft: 1.21-1.21.1
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.0
+          neoforge:
+            status: supported
+            version: v1.3.0
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+
+  translation:
+    kind: translation
+    title: Translation
+    entries:
+      - language: zh_cn
+        status: Done
+        version: 1.1.1
+        authors: Qiu_Shui
+
+version_overrides: {}

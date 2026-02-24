@@ -1,0 +1,32 @@
+{%- assign section = include.section -%}
+
+{%- if section.title and section.title != "" -%}
+<h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+{%- endif -%}
+
+{%- if section.entries and section.entries.size > 0 -%}
+<table>
+    <thead>
+        <tr>
+            <th>Language</th>
+            <th>Status</th>
+            <th>Version</th>
+            <th>Authors</th>
+        </tr>
+    </thead>
+    <tbody>
+        {%- for entry in section.entries -%}
+        <tr>
+            <td>{{ entry.language }}</td>
+            <td>{{ entry.status }}</td>
+            <td>{{ entry.version }}</td>
+            <td>{{ entry.authors }}</td>
+        </tr>
+        {%- endfor -%}
+    </tbody>
+</table>
+{%- endif -%}
+
+{%- if section.closing_text and section.closing_text != "" -%}
+<p>{{ section.closing_text }}</p>
+{%- endif -%}

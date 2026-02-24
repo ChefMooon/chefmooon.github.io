@@ -1,0 +1,7 @@
+{%- if include.announcements and include.announcements.size > 0 -%}
+    {%- for message in include.announcements -%}
+    <div>
+        {{ message | markdownify }}
+    </div>
+    {%- endfor -%}
+{%- endif -%}

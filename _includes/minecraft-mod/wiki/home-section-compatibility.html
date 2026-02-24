@@ -1,0 +1,78 @@
+{%- assign section = include.section -%}
+
+{%- if section.title and section.title != "" -%}
+<h3 id="{{ section.title | downcase | replace: ' ', '-' | replace: "'", '' }}">{{ section.title }}</h3>
+{%- endif -%}
+
+{%- if section.columns and section.columns.size > 0 and section.rows and section.rows.size > 0 -%}
+<table>
+    <thead>
+        <tr>
+            <th>Minecraft Version</th>
+            {%- for column in section.columns -%}
+            <th>
+                {%- if column.url and column.url != "" -%}
+                <a href="{{ column.url }}">{{ column.label }}</a>
+                {%- else -%}
+                {{ column.label }}
+                {%- endif -%}
+            </th>
+            {%- endfor -%}
+        </tr>
+    </thead>
+    <tbody>
+        {%- for row in section.rows -%}
+        <tr>
+            <td>{{ row.minecraft }}</td>
+            {%- for column in section.columns -%}
+                {%- assign loader_value = row.loaders[column.id] -%}
+                <td>
+                    {%- if loader_value.status == "supported" -%}
+                        ✅
+                    {%- elsif loader_value.status == "planned" -%}
+                        ➖
+                    {%- elsif loader_value.status == "bugfix" -%}
+                        ➕
+                    {%- else -%}
+                        ❌
+                    {%- endif -%}
+                    {%- if loader_value.version and loader_value.version != "" -%}
+                        {{ loader_value.version }}
+                    {%- elsif loader_value.text and loader_value.text != "" -%}
+                        {{ loader_value.text }}
+                    {%- endif -%}
+                </td>
+            {%- endfor -%}
+        </tr>
+        {%- endfor -%}
+    </tbody>
+</table>
+{%- endif -%}
+
+{%- if section.legend and section.legend.size > 0 -%}
+<p>
+    {%- for item in section.legend -%}
+        {%- if item.status == "supported" -%}
+<span>✅ {{ item.label }}</span>
+        {%- elsif item.status == "unsupported" -%}
+<span>❌ {{ item.label }}</span>
+        {%- elsif item.status == "bugfix" -%}
+<span>➕ {{ item.label }}</span>
+        {%- elsif item.status == "planned" -%}
+<span>➖ {{ item.label }}</span>
+        {%- endif -%}
+        {%- unless forloop.last -%} <span>&nbsp;</span> {%- endunless -%}
+    {%- endfor -%}
+</p>
+{%- endif -%}
+
+{%- if section.notes and section.notes.size > 0 -%}
+    {%- for note in section.notes -%}
+        {%- assign note_text = note -%}
+        {%- if note_text and note_text | slice: 0, 2 == "* " -%}
+            {%- assign note_text = note_text | replace_first: "* ", "\\* " -%}
+        {%- endif -%}
+        {%- assign note_text = note_text | replace: " | ", " &#124; " -%}
+{{ note_text | markdownify }}
+    {%- endfor -%}
+{%- endif -%}

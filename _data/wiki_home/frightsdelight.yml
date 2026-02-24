@@ -1,0 +1,196 @@
+mod_id: frightsdelight
+
+announcements:
+  top: []
+  bottom: []
+
+section_order:
+  - intro
+  - features
+  - effects
+  - mod_integrations
+  - compatibility
+  - translation
+  - links
+
+sections:
+  intro:
+    kind: intro
+    lines:
+      - This mod was originaly created for the demodcontest 2023!
+
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Berry Bush
+        value: Soul Berry Bush, Cursed Berry Bush
+      - label: Food
+        value: 56 items to discover!
+      - label: Drinks
+        value: Rotten Flesh Punch, Slime-Apple Cider, Spider Eye Punch, Ghast Tear Punch, Cobweb Punch, Soul Berry Punch, Wither Berry Punch
+      - label: Cookies
+        value: Rotten Flesh Cookie, Spider Eye Cookie, Slimeball Cookie, Slime-Apple Cookie, Cobweb Cookie, Ghast Tear Cookie, Soul Berry Cookie, Wither Berry Cookie
+      - label: Syrups
+        value: Rotten Flesh Syrup, Slime-Apple Syrup, Spider Eye Syrup, Ghast Tear Syrup, Cobweb Syrup, Soul Berry Syrup, Wither Berry Syrup
+      - label: Lollipops
+        value: Rotten Flesh Lollipop, Slime-Apple Lollipop, Spider Eye Lollipop, Ghast Tear Lollipop, Cobweb Lollipop, Soul Berry Lollipop, Wither Berry Lollipop
+      - label: Ring Candy
+        value: Rotten Flesh Ring Candy, Slime-Apple Ring Candy, Spider Eye Ring Candy, Ghast Tear Ring Candy, Cobweb Ring Candy, Soul Berry Ring Candy, Wither Berry Ring Candy
+      - label: Pie
+        value: Rotten Flesh Pie, Slime-Apple Pie, Spider Eye Pie, Ghast Tear Pie, Cobweb Pie, Soul Berry Cheesecake, Wither Berry Cheesecake
+      - label: Feasts
+        value: Punch Bowls for each drink
+      - label: Crates
+        value: Rotten Flesh, Bone, Phantom Membrane, Cobweb, Spider Eye, Fermented Spider Eye, Poisonous Potato, Rotten Tomato
+      - label: "Candy Basket"
+        value: Melon Candy Basket, Pumpkin Candy Basket, Jack o'Lantern Candy Basket
+    note: "*Food may have adverse effects, check out the advancements to learn more.*"
+
+  effects:
+    kind: effects
+    title: Effects
+    bullets:
+      - "Undead Hunger: Immune to food poisoning and infected"
+      - "Fortified Mind: Immune to hysteria and chills"
+      - "Hysteria: Voices all around … (subtitles supported)"
+      - "Chills: You feel a spectral presence nearby, you may feel a chill if they pass through you"
+      - "Slime Walk: Slowed movement and slimy steps"
+      - "Cobwebbed: Slowed movement"
+      - "Infected: Similar to hunger, but worse"
+    link_label: Effect Details
+    link_url: /{mod_id}/wiki/{version}/item-details#effect-details
+
+  mod_integrations:
+    kind: integrations
+    title: Mod Integrations
+    current: Presence Footsteps, Supplementaries, Create, Origins, Dehydration, WTHIT/WAILA, REI, Just Enough Items, Just Enough Effect Descriptions, EMI, EMIffect
+    planned: Eating Animations
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+      - id: forge
+        label: Forge
+    rows:
+      - minecraft: 1.21.11
+        loaders:
+          fabric:
+            status: supported
+            version: v1.4.5
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.9-1.21.10
+        loaders:
+          fabric:
+            status: supported
+            version: v1.4.1
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.8
+        loaders:
+          fabric:
+            status: supported
+            version: v1.4.1
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.5
+        loaders:
+          fabric:
+            status: supported
+            version: v1.4.0
+          neoforge:
+            status: supported
+            version: v1.4.0
+          forge:
+            status: unsupported
+      - minecraft: 1.21-1.21.1
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.2
+          neoforge:
+            status: supported
+            version: v1.3.1
+          forge:
+            status: unsupported
+      - minecraft: 1.20.1
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.2*
+          neoforge:
+            status: supported
+            version: v1.3.1
+          forge:
+            status: supported
+            version: v1.3.1
+      - minecraft: 1.19.2
+        loaders:
+          fabric:
+            status: supported
+            version: v1.3.3
+          neoforge:
+            status: unsupported
+          forge:
+            status: supported
+            version: v1.3.3
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+    notes:
+      - "* Compatible with Farmer's Delight Fabric ([Modrinth](https://modrinth.com/mod/farmers-delight-fabric) | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-fabric)) and Farmer's Delight Refabricated ([Modrinth](https://modrinth.com/mod/farmers-delight-refabricated) | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated))"
+
+  translation:
+    kind: translation
+    title: Translation
+    entries:
+      - language: zh_cn
+        status: Done
+        version: 1.0.2
+        authors: Qiu_Shui
+      - language: ru_ru
+        status: Partial
+        version: 1.0.3
+        authors: Tkhakiro
+      - language: uk_ua
+        status: Partial
+        version: 1.1.0
+        authors: unroman
+      - language: ko_kr
+        status: Done
+        version: 1.4.3
+        authors: Copy-TT
+
+  links:
+    kind: links
+    title: Links
+    items:
+      - label: Farmer's Delight Refabricated
+        url: https://modrinth.com/mod/farmers-delight-refabricated
+      - label: "[Deprecated]Farmer's Delight Fabric"
+        url: https://modrinth.com/mod/farmers-delight-fabric
+      - label: Original Forge Farmer's Delight
+        url: https://modrinth.com/mod/farmers-delight
+    closing_text: Thank you Farmer's Delight Developers and Community!
+
+version_overrides: {}

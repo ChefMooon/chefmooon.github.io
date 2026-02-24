@@ -1,0 +1,47 @@
+mod_id: playfulplanes
+
+announcements:
+  top: []
+  bottom: []
+
+section_order:
+  - features
+  - compatibility
+
+sections:
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Paper Plane
+        value: A throwable item/entity that can be combined with various items to create unique effects when thrown.
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+    rows:
+      - minecraft: 1.21.8
+        loaders:
+          fabric:
+            status: supported
+            version: v0.1.3
+          neoforge:
+            status: unsupported
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+
+version_overrides: {}

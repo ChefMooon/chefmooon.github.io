@@ -1,0 +1,174 @@
+mod_id: ubesdelight
+
+announcements:
+  top: []
+  bottom: []
+
+section_order:
+  - intro
+  - features
+  - mod_integrations
+  - development
+  - compatibility
+  - translation
+  - links
+
+sections:
+  intro:
+    kind: intro
+    lines:
+      - Main goals of Ube’s Delight
+    bullets:
+      - Add authentic cuisine from the Philippines with respect and in a similar style to Vanilla and Farmer’s Delight food items
+      - Create GUI-less ways to craft Ube’s Delight recipes as well as alternative ways to craft Vanilla items
+
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Crops
+        value: Ube, Garlic, Ginger, Lemongrass
+      - label: Ingredients
+        value: Condensed Milk, Fish Sauce, Milk Powder, Brown Sugar
+      - label: Drinks
+        value: Ube Milk Tea and Halo Halo
+      - label: Sweets
+        value: Ube Cake, Leche Flan, Ube Cookie, Ginger Cookie, 4 Flavours of Polvorone to discover!
+      - label: Feasts
+        value: Leche Flan, Halo Halo, Ube Milk Tea, 10 Leaf Feasts
+      - label: Heat Source
+        value: Kalan
+      - label: Food
+        value: 12 new dishes to discover!
+      - label: Rolling Pin
+        value: Wood, Iron, Gold, Diamond, and Netherite Rolling Pins
+      - label: Baking Mat
+        value: 27 Recipes
+
+  mod_integrations:
+    kind: integrations
+    title: Mod Integrations
+    current: Eating Animation, Mod Menu, Fabric Seasons, Serene Seasons, Botany Pots, Create, Dehydration, Supplementaries, Origins, Presence Footsteps, WTHIT/WAILA, REI, JEI, EMI, Better Combat
+
+  development:
+    kind: development
+    title: Development
+    intro: "As this mod is still in development, it's possible to encounter issues and instabilities. When updating to the latest version:"
+    bullets:
+      - Back-up your saves
+      - Ensure no conflicts before updating Modpacks
+      - Report issues [here](https://github.com/ChefMooon/ubes-delight/issues). Appreciate your time!
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+      - id: forge
+        label: Forge
+    rows:
+      - minecraft: 1.21.11
+        loaders:
+          fabric:
+            status: supported
+            version: v0.4.8
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.9-1.21.10
+        loaders:
+          fabric:
+            status: supported
+            version: v0.4.7
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.8
+        loaders:
+          fabric:
+            status: supported
+            version: v0.4.7
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21.5
+        loaders:
+          fabric:
+            status: supported
+            version: v0.4.6
+          neoforge:
+            status: planned
+          forge:
+            status: unsupported
+      - minecraft: 1.21-1.21.1
+        loaders:
+          fabric:
+            status: supported
+            version: v0.4.0
+          neoforge:
+            status: supported
+            version: v0.4.0
+          forge:
+            status: unsupported
+      - minecraft: 1.20.1
+        loaders:
+          fabric:
+            status: supported
+            version: v0.3.4*
+          neoforge:
+            status: supported
+            version: v0.3.4
+          forge:
+            status: supported
+            version: v0.3.4
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+    notes:
+      - "* Compatible with Farmer's Delight Fabric ([Modrinth](https://modrinth.com/mod/farmers-delight-fabric) | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-fabric)) and Farmer's Delight Refabricated ([Modrinth](https://modrinth.com/mod/farmers-delight-refabricated) | [CurseForge](https://www.curseforge.com/minecraft/mc-mods/farmers-delight-refabricated))"
+
+  translation:
+    kind: translation
+    title: Translation
+    entries:
+      - language: zh_cn
+        status: Done
+        version: 0.1.5.3
+        authors: Qiu_Shui
+      - language: ru_ru
+        status: Done
+        version: 0.2.0
+        authors: mpustovoi
+      - language: em_mx
+        status: Partial
+        version: 0.2.0
+        authors: TheLegendofSaram
+    closing_text: Greatly appreciate all translations!
+
+  links:
+    kind: links
+    title: Links
+    items:
+      - label: Farmer's Delight Refabricated
+        url: https://modrinth.com/mod/farmers-delight-refabricated
+      - label: "[Deprecated]Farmer's Delight Fabric"
+        url: https://modrinth.com/mod/farmers-delight-fabric
+      - label: Original Forge Farmer's Delight
+        url: https://modrinth.com/mod/farmers-delight
+    closing_text: Thank you Farmer's Delight Developers and Community!
+
+version_overrides: {}

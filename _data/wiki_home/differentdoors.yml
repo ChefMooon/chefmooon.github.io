@@ -1,0 +1,61 @@
+mod_id: differentdoors
+
+announcements:
+  top:
+    - "*Currently, this wiki contains only basic information. Additional details will be included in future updates.*"
+  bottom: []
+
+section_order:
+  - features
+  - compatibility
+
+sections:
+  features:
+    kind: key_values
+    title: Features
+    key_values:
+      - label: Double Doors
+        value: 3x3 multi-block doors.
+
+  compatibility:
+    kind: compatibility
+    title: Compatible Versions
+    columns:
+      - id: fabric
+        label: Fabric
+        url: https://fabricmc.net
+      - id: neoforge
+        label: NeoForge
+        url: https://neoforged.net
+      - id: forge
+        label: Forge
+    rows:
+      - minecraft: 1.21-1.21.1
+        loaders:
+          fabric:
+            status: supported
+            version: v1.0.0
+          neoforge:
+            status: supported
+            version: v1.0.0
+          forge:
+            status: unsupported
+      - minecraft: 1.20.1
+        loaders:
+          fabric:
+            status: planned
+          neoforge:
+            status: unsupported
+          forge:
+            status: planned
+    legend:
+      - status: supported
+        label: Supported Version
+      - status: unsupported
+        label: Not Supported
+      - status: bugfix
+        label: Bug Fix Only
+      - status: planned
+        label: Planned
+
+version_overrides: {}

@@ -3,6 +3,11 @@ layout: minecraft-mod/wiki/base
 ---
 
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+{%- assign wiki_home = site.data.wiki_home[page.mod_id] -%}
+{%- assign version_override = nil -%}
+{%- if wiki_home and wiki_home.version_overrides and wiki_home.version_overrides[page.minecraft_version] -%}
+    {%- assign version_override = wiki_home.version_overrides[page.minecraft_version] -%}
+{%- endif -%}
 
 <article class="post">
 
@@ -14,8 +19,58 @@ layout: minecraft-mod/wiki/base
         Please check back with each update as this wiki will be updated with each release.
     </p>
 
+    {%- if page.wiki_top_note and page.wiki_top_note != "" -%}
+    <div>
+        {{ page.wiki_top_note | markdownify }}
+    </div>
+    {%- endif -%}
+
+    {%- if wiki_home and wiki_home.announcements and wiki_home.announcements.top -%}
+    {%- include minecraft-mod/wiki/home-announcements.html announcements=wiki_home.announcements.top -%}
+    {%- endif -%}
+
+    {%- if version_override and version_override.announcements and version_override.announcements.top -%}
+    {%- include minecraft-mod/wiki/home-announcements.html announcements=version_override.announcements.top -%}
+    {%- endif -%}
+
     <div class="post-content">
-        {{ content }}
+        {%- if wiki_home and wiki_home.section_order -%}
+            {%- for section_id in wiki_home.section_order -%}
+                {%- assign section_data = wiki_home.sections[section_id] -%}
+                {%- assign section_override = nil -%}
+                {%- if version_override and version_override.sections and version_override.sections[section_id] -%}
+                    {%- assign section_override = version_override.sections[section_id] -%}
+                {%- endif -%}
+
+                {%- if section_override and section_override.hide == true -%}
+                    {%- continue -%}
+                {%- endif -%}
+
+                {%- if section_override and section_override.mode == "replace" -%}
+                    {%- assign section_data = section_override -%}
+                {%- endif -%}
+
+                {%- if section_data -%}
+                    {%- include minecraft-mod/wiki/home-section.html section=section_data -%}
+                {%- endif -%}
+            {%- endfor -%}
+        {%- else -%}
+            {{ content }}
+        {%- endif -%}
+
+        {%- if page.wiki_bottom_note and page.wiki_bottom_note != "" -%}
+        <div>
+            {{ page.wiki_bottom_note | markdownify }}
+        </div>
+        {%- endif -%}
+
+        {%- if version_override and version_override.announcements and version_override.announcements.bottom -%}
+        {%- include minecraft-mod/wiki/home-announcements.html announcements=version_override.announcements.bottom -%}
+        {%- endif -%}
+
+        {%- if wiki_home and wiki_home.announcements and wiki_home.announcements.bottom -%}
+        {%- include minecraft-mod/wiki/home-announcements.html announcements=wiki_home.announcements.bottom -%}
+        {%- endif -%}
     </div>
 
 </article>
