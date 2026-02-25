@@ -13,6 +13,11 @@ Guide to the `check_wiki_status.rb` script that scans the repository to identify
 ### [release-info-updater.md](release-info-updater.md)
 Guide to the `update_release_info_from_recent_posts.rb` script that inspects recent changelog posts and adds missing Minecraft versions to release data in `_data/minecraft_mod_release_info.yml`.
 
+## Build & Validation
+
+### [htmlproofer.md](htmlproofer.md)
+Guide to HTMLProofer link validation tool. Explains how to run HTMLProofer, why we disable external link checking, what errors we validate, and how to fix common link issues.
+
 ---
 
 **Quick Links:**
