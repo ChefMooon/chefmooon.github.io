@@ -16,8 +16,8 @@ Guide to the `update_release_info_from_recent_posts.rb` script that inspects rec
 ---
 
 **Quick Links:**
-- [Wiki Status Checker Script](../check_wiki_status.rb)
-- [Release Info Updater Script](../update_release_info_from_recent_posts.rb)
+- [Wiki Status Checker Script](../scripts/check_wiki_status.rb)
+- [Release Info Updater Script](../scripts/update_release_info_from_recent_posts.rb)
 - [Release Info Data](../_data/minecraft_mod_release_info.yml)
 - [Wiki Home Data](../_data/wiki_home/)
 - [Wiki Layouts](../_layouts/minecraft-mod/wiki/)

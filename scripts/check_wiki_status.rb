@@ -5,7 +5,8 @@ require 'yaml'
 require 'fileutils'
 
 # Load release info data
-release_info_path = File.join(__dir__, '_data', 'minecraft_mod_release_info.yml')
+REPO_ROOT = File.expand_path(File.join(__dir__, '..'))
+release_info_path = File.join(REPO_ROOT, '_data', 'minecraft_mod_release_info.yml')
 unless File.exist?(release_info_path)
   puts "Error: Could not find #{release_info_path}"
   exit 1
@@ -49,7 +50,7 @@ release_data.each do |entry|
     end
 
     minecraft_versions.each do |version|
-      wiki_path = File.join(__dir__, 'minecraft-mod', mod_name, 'wiki', version, 'home.md')
+      wiki_path = File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, 'home.md')
       exists = File.exist?(wiki_path)
       versions_with_wiki += 1 if exists
 

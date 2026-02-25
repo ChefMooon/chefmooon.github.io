@@ -6,9 +6,9 @@ require 'optparse'
 require 'set'
 require 'yaml'
 
-ROOT_DIR = File.expand_path(__dir__)
-POSTS_GLOB = File.join(ROOT_DIR, '_posts', '*', '*.md')
-RELEASE_INFO_PATH = File.join(ROOT_DIR, '_data', 'minecraft_mod_release_info.yml')
+REPO_ROOT = File.expand_path(File.join(__dir__, '..'))
+POSTS_GLOB = File.join(REPO_ROOT, '_posts', '*', '*.md')
+RELEASE_INFO_PATH = File.join(REPO_ROOT, '_data', 'minecraft_mod_release_info.yml')
 
 def normalize_mod_id(value)
   value.to_s.strip.downcase.tr('_', '-')

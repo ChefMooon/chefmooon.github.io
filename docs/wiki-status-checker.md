@@ -16,7 +16,7 @@ This tool helps maintain wiki completeness by:
 From the repository root:
 
 ```bash
-ruby check_wiki_status.rb
+ruby scripts/check_wiki_status.rb
 ```
 
 The script requires no arguments and will output a formatted report to your terminal.
@@ -107,7 +107,7 @@ If the script shows versions without wikis (marked with `✗`):
 
 3. **Re-run the script**: Verify the file now shows `✓`
    ```bash
-   ruby check_wiki_status.rb
+   ruby scripts/check_wiki_status.rb
    ```
 
 4. **Build and test**: Verify the wiki page renders correctly

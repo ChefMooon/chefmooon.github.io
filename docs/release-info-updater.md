@@ -21,17 +21,17 @@ It scans the most recent posts in `_posts/*/*.md`, reads `mod_id` and `minecraft
 From the repository root:
 
 ```bash
-ruby update_release_info_from_recent_posts.rb
+ruby scripts/update_release_info_from_recent_posts.rb
 ```
 
 ### Optional Flags
 
 ```bash
 # Check the latest 10 posts instead of 5
-ruby update_release_info_from_recent_posts.rb --limit 10
+ruby scripts/update_release_info_from_recent_posts.rb --limit 10
 
 # Preview changes without writing the file
-ruby update_release_info_from_recent_posts.rb --dry-run
+ruby scripts/update_release_info_from_recent_posts.rb --dry-run
 ```
 
 ## Output Example
