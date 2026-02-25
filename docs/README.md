@@ -10,10 +10,14 @@ Comprehensive guide to the wiki home system. Explains how wiki pages are rendere
 ### [wiki-status-checker.md](wiki-status-checker.md)
 Guide to the `check_wiki_status.rb` script that scans the repository to identify which Minecraft mod versions have wiki pages. Explains how to run the script, interpret its output, and handle missing wikis.
 
+### [release-info-updater.md](release-info-updater.md)
+Guide to the `update_release_info_from_recent_posts.rb` script that inspects recent changelog posts and adds missing Minecraft versions to release data in `_data/minecraft_mod_release_info.yml`.
+
 ---
 
 **Quick Links:**
 - [Wiki Status Checker Script](../check_wiki_status.rb)
+- [Release Info Updater Script](../update_release_info_from_recent_posts.rb)
 - [Release Info Data](../_data/minecraft_mod_release_info.yml)
 - [Wiki Home Data](../_data/wiki_home/)
 - [Wiki Layouts](../_layouts/minecraft-mod/wiki/)
