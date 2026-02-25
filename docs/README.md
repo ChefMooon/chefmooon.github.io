@@ -2,6 +2,11 @@
 
 This directory contains documentation for the ChefMoon website wiki system and maintenance tools.
 
+## Using Scripts
+
+1. run `release-info-updater.md` to update data file with information about released mods
+2. run `wiki-status-checker.md` to get an overview to of all wikis
+
 ## Wiki Documentation
 
 ### [wiki-home-system.md](wiki-home-system.md)
