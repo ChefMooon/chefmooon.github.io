@@ -1,0 +1,120 @@
+name: Wiki Status Report
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-wiki-status:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Prepare wiki-status branch from main
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Fetching latest branches..."
+          git fetch origin main wiki-status || true
+
+          if git show-ref --verify --quiet refs/remotes/origin/wiki-status; then
+            echo "Checking out existing wiki-status branch..."
+            git switch -C wiki-status origin/wiki-status
+          else
+            echo "Creating new wiki-status branch from main..."
+            git switch -c wiki-status
+          fi
+
+          echo "Merging latest main into wiki-status..."
+          if ! git merge --no-edit origin/main; then
+            echo "Error: merge conflict while updating wiki-status from main."
+            git merge --abort || true
+            exit 1
+          fi
+
+      - name: Verify required scripts exist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Verifying required scripts..."
+          test -f scripts/update_release_info_from_recent_posts.rb || { echo "Missing script: scripts/update_release_info_from_recent_posts.rb"; exit 1; }
+          test -f scripts/check_wiki_status.rb || { echo "Missing script: scripts/check_wiki_status.rb"; exit 1; }
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.3'
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Installing Ruby dependencies..."
+          bundle install
+
+      - name: Run release info updater
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Running release info updater..."
+          ruby scripts/update_release_info_from_recent_posts.rb
+
+      - name: Commit and push release info changes if needed
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          TARGET_FILE="_data/minecraft_mod_release_info.yml"
+
+          if git diff --quiet -- "$TARGET_FILE"; then
+            echo "No data changes detected in $TARGET_FILE; skipping commit."
+            exit 0
+          fi
+
+          echo "Changes detected in $TARGET_FILE; committing to wiki-status..."
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add "$TARGET_FILE"
+          git commit -m "chore: update minecraft mod release info"
+          git push origin wiki-status
+          echo "Committed and pushed updated release info to wiki-status."
+
+      - name: Run wiki status checker and save report
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          echo "Running wiki status checker..."
+          ruby scripts/check_wiki_status.rb | tee wiki-status-report.txt
+
+          if [ ! -s wiki-status-report.txt ]; then
+            echo "Error: wiki-status-report.txt was not created or is empty."
+            exit 1
+          fi
+
+          echo "Wiki status report generated and printed to logs."
+
+      - name: Upload wiki status report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: wiki-status-report
+          path: wiki-status-report.txt
+          if-no-files-found: error
+
+      - name: Workflow summary
+        shell: bash
+        run: |
+          echo "Workflow finished successfully."
+          echo "Report is available in the workflow logs and as the wiki-status-report artifact."
