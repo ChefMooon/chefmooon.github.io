@@ -35,7 +35,7 @@ Each food item has the chance to apply at least 1 negative Effect. The chance to
 **NOTE:** General rules implemented in V1.1.0
 
 ## Bone Shard
-The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](https://chefmooon.github.io/frightsdelight/wiki/1.21.1/recipes#farmersdelight:cutting/bone_shard)).
+The Bone Shard is a throwable item that is used in the kebab recipe's. It is made by putting a Bone into a cutting board and using a Knife([recipe](/frightsdelight/wiki/1.21.1/recipes.html#farmersdelight:cutting/bone_shard)).
 
 ***
 
@@ -63,7 +63,7 @@ The Bone Shard is a throwable item that is used in the kebab recipe's. It is mad
 
 7 Status Effects add a psychological “horror” element to each dish. 5 harmful Status Effects help balance each dish to add minor inconveniences or non-intrusive psychological horror elements while still providing good quality food. 2 beneficial Status Effects help by giving immunity to certain effects. 
 
-The information about the duration and chance of effects from food is found in [Item Details](https://chefmooon.github.io/frightsdelight/wiki/1.21.1/item-details#general)
+The information about the duration and chance of effects from food is found in [Item Details](/frightsdelight/wiki/1.21.1/item-details.html#general)
 
 ***
 

@@ -4,4 +4,4 @@
 
 Here you can find detailed information about each mod created by ChefMooon.
 
-[To the Hub!](https://chefmooon.github.io)
+[To the Hub!](/)
