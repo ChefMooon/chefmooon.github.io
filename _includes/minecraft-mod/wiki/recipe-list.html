@@ -77,15 +77,28 @@
                 <div class="category-content">
                     <div class="opposite-category">
                         {%- if loader == 'fabric' -%}
-                            {%- if page.minecraft_version == "1.21.1" -%}
-                                {%- assign opposite_loader = 'neoforge' -%}
-                            {%- elsif page.minecraft_version == "1.20.1" -%}
+                            {%- if page.minecraft_version < "1.21.0" -%}
                                 {%- assign opposite_loader = 'forge' -%}
+                            {%- else -%}
+                                {%- assign opposite_loader = 'neoforge' -%}
                             {%- endif -%}
                         {%- elsif loader == 'forge' -%}
                             {%- assign opposite_loader = 'fabric' -%}
+                        {%- elsif loader == 'neoforge' -%}
+                            {%- assign opposite_loader = 'fabric' -%}
                         {%- endif -%}
-                        <a href="#{{ type }}/{{ opposite_loader }}">{{ recipe_type_name }} ({{ opposite_loader }})</a>
+                        {%- if opposite_loader -%}
+                            {%- assign has_opposite = false -%}
+                            {%- for rt in recipe_types -%}
+                                {%- if rt.value == type and rt.loader == opposite_loader -%}
+                                    {%- assign has_opposite = true -%}
+                                {%- break -%}
+                                {%- endif -%}
+                            {%- endfor -%}
+                            {%- if has_opposite -%}
+                                <a href="#{{ type }}/{{ opposite_loader }}">{{ recipe_type_name }} ({{ opposite_loader }})</a>
+                            {%- endif -%}
+                        {%- endif -%}
                     </div>
                     {%- for recipe in recipes -%}
                         {%- if type == recipe['type'] and recipe['loader'] == loader -%}
