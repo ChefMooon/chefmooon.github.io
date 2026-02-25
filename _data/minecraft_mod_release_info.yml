@@ -1,0 +1,38 @@
+- breezebounce:
+    minecraft_versions:
+      - 1.21.1
+      - 1.21.5
+      - 1.21.8
+      - 1.21.10
+      - 1.21.11
+
+- colourfulclocks:
+    minecraft_versions:
+      - 1.21.1
+
+- different-doors:
+    minecraft_versions:
+      - 1.21.1
+
+- frightsdelight:
+    minecraft_versions:
+      - 1.19.2
+      - 1.20.1
+      - 1.21.1
+      - 1.21.5
+      - 1.21.8
+      - 1.21.10
+      - 1.21.11
+
+- playfulplanes:
+    minecraft_versions:
+      - 1.21.8
+
+- ubesdelight:
+    minecraft_versions:
+      - 1.20.1
+      - 1.21.1
+      - 1.21.5
+      - 1.21.8
+      - 1.21.10
+      - 1.21.11
