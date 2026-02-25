@@ -29,13 +29,14 @@
                                 {%- assign my_page = site.pages | where: "path", path | first -%}
                                 {%- assign mod_info = site.data.minecraft_mods | where: "id", my_page.mod_id | first -%}
                                 {%- if my_page.layout == "minecraft-mod/page" -%}
+                                    {%- assign mod_base_url = my_page.url | relative_url -%}
                                     <li class="dropdown">
                                         <a class="page-link" onclick="handleSubMenuClick(event, this)">{{ mod_info.title | escape }}</a>
                                         <ul class="dropdown-content submenu">
-                                            <li><a class="page-link" href="{{ my_page.url | relative_url }}">Home</a></li>
-                                            <li><a href="{{ my_page.url | relative_url }}/wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home">Wiki</a></li>
-                                            <li><a href="{{ my_page.url | relative_url }}changelog">Changelog</a></li>
-                                            <li><a href="{{ my_page.url | relative_url }}roadmap">Roadmap</a></li>
+                                            <li><a class="page-link" href="{{ mod_base_url }}">Home</a></li>
+                                            <li><a href="{{ mod_base_url }}wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home.html">Wiki</a></li>
+                                            <li><a href="{{ mod_base_url }}changelog.html">Changelog</a></li>
+                                            <li><a href="{{ mod_base_url }}roadmap.html">Roadmap</a></li>
                                         </ul>
                                     </li>
                                 {%- endif -%}

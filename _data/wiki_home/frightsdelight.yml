@@ -59,7 +59,7 @@ sections:
       - "Cobwebbed: Slowed movement"
       - "Infected: Similar to hunger, but worse"
     link_label: Effect Details
-    link_url: /{mod_id}/wiki/{version}/item-details#effect-details
+    link_url: /{mod_id}/wiki/{version}/item-details.html#effect-details
 
   mod_integrations:
     kind: integrations
