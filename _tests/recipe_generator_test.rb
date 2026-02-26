@@ -268,6 +268,63 @@ class RecipeGeneratorTest < Minitest::Test
     assert_equal 0.5, result['output'][2]['chance']
   end
 
+  # ========== SMITHING RECIPE TESTS ==========
+
+  def test_normalize_smithing_v12111
+    recipe = load_fixture('smithing_v12111.json')
+    result = call_private(:normalize_smithing, 'rolling_pin_netherite', recipe)
+
+    assert_equal 'minecraft:smithing_transform', result['type']
+    assert result['addition']
+    assert result['input']
+    assert result['template']
+    assert result['output']
+
+    # Addition should be parsed from direct string (tag reference with #)
+    assert_equal 'c:ingots/netherite', result['addition']['tag']['id']
+    assert_equal 1, result['addition']['tag']['count']
+
+    # Input (base) should be parsed from direct string (item)
+    assert_equal 'ubesdelight:rolling_pin_diamond', result['input']['item']['id']
+    assert_equal 1, result['input']['item']['count']
+
+    # Template should be parsed from direct string (item)
+    assert_equal 'minecraft:netherite_upgrade_smithing_template', result['template']['item']['id']
+    assert_equal 1, result['template']['item']['count']
+
+    # Output should be correct
+    assert_equal 'ubesdelight:rolling_pin_netherite', result['output']['item']['id']
+    assert_equal 1, result['output']['item']['count']
+  end
+
+  def test_smithing_addition_with_tag_prefix
+    recipe = load_fixture('smithing_v12111.json')
+    result = call_private(:normalize_smithing, 'rolling_pin_netherite', recipe)
+    
+    # Verify addition field correctly handles tag prefix removal
+    addition_id = result['addition']['tag']['id']
+    assert_equal 'c:ingots/netherite', addition_id
+    refute addition_id.start_with?('#'), "Addition ID should not contain '#' prefix"
+  end
+
+  def test_smithing_base_item_parsing
+    recipe = load_fixture('smithing_v12111.json')
+    result = call_private(:normalize_smithing, 'rolling_pin_netherite', recipe)
+    
+    # Verify base (input) is correctly parsed
+    assert_equal 'ubesdelight:rolling_pin_diamond', result['input']['item']['id']
+    assert_equal 1, result['input']['item']['count']
+  end
+
+  def test_smithing_template_parsing
+    recipe = load_fixture('smithing_v12111.json')
+    result = call_private(:normalize_smithing, 'rolling_pin_netherite', recipe)
+    
+    # Verify template is correctly parsed
+    assert_equal 'minecraft:netherite_upgrade_smithing_template', result['template']['item']['id']
+    assert_equal 1, result['template']['item']['count']
+  end
+
   # ========== EDGE CASES & ERROR HANDLING ==========
 
   def test_ingredient_with_default_count
