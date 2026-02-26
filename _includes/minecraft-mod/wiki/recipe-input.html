@@ -37,10 +37,22 @@
             </li>
         {%- endif -%}
         {%- if recipe['addition'] -%}
-            <li>{%- include minecraft-mod/wiki/item-renderer.html item=recipe.addition.item -%}
+            <li>
+                {%- if recipe['addition']['item'] and recipe.addition.item.id -%}
+                    {%- include minecraft-mod/wiki/item-renderer.html item=recipe.addition.item -%}
+                {%- elsif recipe['addition']['tag'] and recipe.addition.tag.id -%}
+                    {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.addition.tag -%}
+                {%- endif -%}
+            </li>
         {%- endif -%}
         {%- if recipe['template'] -%}
-            <li>{%- include minecraft-mod/wiki/item-renderer.html item=recipe.template.item -%}
+            <li>
+                {%- if recipe['template']['item'] and recipe.template.item.id -%}
+                    {%- include minecraft-mod/wiki/item-renderer.html item=recipe.template.item -%}
+                {%- elsif recipe['template']['tag'] and recipe.template.tag.id -%}
+                    {%- include minecraft-mod/wiki/tag-renderer.html tag=recipe.template.tag -%}
+                {%- endif -%}
+            </li>
         {%- endif -%}
     </ul>
 {%- endif -%}

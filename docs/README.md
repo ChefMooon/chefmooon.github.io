@@ -42,6 +42,9 @@ Guide to the `update_release_info_from_recent_posts.rb` script that inspects rec
 ### [htmlproofer.md](htmlproofer.md)
 Guide to HTMLProofer link validation tool. Explains how to run HTMLProofer, why we disable external link checking, what errors we validate, and how to fix common link issues.
 
+### [recipe-validation-system.md](recipe-validation-system.md)
+Guide to the Recipe Validation System in the recipe generator plugin. Explains how validation schemas work, what errors mean, how to fix invalid recipe data, and how to add support for new recipe types.
+
 ---
 
 **Quick Links:**

@@ -9,15 +9,165 @@ module Jekyll
         safe true
         VALID_LOADERS = Set.new(['fabric', 'neoforge', 'forge']).freeze
 
+        # Recipe validation schemas - defines required fields and their expected types
+        RECIPE_SCHEMAS = {
+            'minecraft:crafting_shaped' => {
+                required_fields: ['pattern', 'key', 'result'],
+                field_types: { 'pattern' => [Array], 'key' => [Hash], 'result' => [Hash, String] }
+            },
+            'minecraft:crafting_shapeless' => {
+                required_fields: ['ingredients', 'result'],
+                field_types: { 'ingredients' => [Array], 'result' => [Hash, String] }
+            },
+            'minecraft:smithing_transform' => {
+                required_fields: ['addition', 'base', 'template', 'result'],
+                field_types: { 'addition' => [Hash, String], 'base' => [Hash, String], 'template' => [Hash, String], 'result' => [Hash, String] }
+            },
+            'minecraft:smelting' => {
+                required_fields: ['ingredient', 'result'],
+                field_types: { 'ingredient' => [Hash, String], 'result' => [Hash, String] }
+            },
+            'minecraft:smoking' => {
+                required_fields: ['ingredient', 'result'],
+                field_types: { 'ingredient' => [Hash, String], 'result' => [Hash, String] }
+            },
+            'minecraft:campfire_cooking' => {
+                required_fields: ['ingredient', 'result'],
+                field_types: { 'ingredient' => [Hash, String], 'result' => [Hash, String] }
+            },
+            'ubesdelight:baking_mat' => {
+                required_fields: ['tool', 'ingredients', 'processing_stages', 'result'],
+                field_types: { 'tool' => [Hash], 'ingredients' => [Array], 'processing_stages' => [Array], 'result' => [Array] }
+            },
+            'farmersdelight:cutting' => {
+                required_fields: ['tool', 'ingredients', 'result'],
+                field_types: { 'tool' => [Hash], 'ingredients' => [Array], 'result' => [Array] }
+            },
+            'farmersdelight:cooking' => {
+                required_fields: ['ingredients', 'result'],
+                field_types: { 'ingredients' => [Array], 'result' => [Hash, String] }
+            },
+            'create:milling' => {
+                required_fields: ['ingredients', 'results', 'processingTime'],
+                field_types: { 'ingredients' => [Array], 'results' => [Array], 'processingTime' => [Integer, Float] }
+            },
+            'create:mixing' => {
+                required_fields: ['ingredients', 'results'],
+                field_types: { 'ingredients' => [Array], 'results' => [Array] }
+            },
+            'create:emptying' => {
+                required_fields: ['ingredients', 'results'],
+                field_types: { 'ingredients' => [Array], 'results' => [Array] }
+            },
+            'create:filling' => {
+                required_fields: ['ingredients', 'results'],
+                field_types: { 'ingredients' => [Array], 'results' => [Array] }
+            }
+        }.freeze
+
         def initialize(config = {})
             super(config)
             @recipe_types_by_page = {}
             @recipe_data_by_page = {}
             @total_recipes_by_page = {}
             @lang_data_by_page = {}
+            @validation_errors = {}
+            @tags_used_by_page = {}
+            @missing_tag_definitions = {}
         end
 
         private
+
+        def validate_recipe(recipe_key, recipe_data, recipe_type)
+            # Validates recipe data against its schema
+            # Returns: { valid: true } or { valid: false, errors: ['error1', 'error2'] }
+            
+            schema = RECIPE_SCHEMAS[recipe_type]
+            return { valid: true } unless schema  # Schema doesn't exist for this type, can't validate
+            
+            errors = []
+            
+            # Check required fields
+            schema[:required_fields].each do |field|
+                if recipe_data[field].nil?
+                    errors << "missing required field '#{field}'"
+                elsif schema[:field_types] && schema[:field_types][field]
+                    expected_types = schema[:field_types][field]
+                    actual_type = recipe_data[field].class
+                    unless expected_types.include?(actual_type)
+                        errors << "field '#{field}' is #{actual_type} but expected #{expected_types.map(&:to_s).join(' or ')}"
+                    end
+                end
+            end
+            
+            if errors.any?
+                { valid: false, errors: errors }
+            else
+                { valid: true }
+            end
+        end
+
+        def log_validation_error(recipe_key, recipe_type, page_key, validation_result)
+            # Logs a validation error and tracks it
+            error_msg = validation_result[:errors].join('; ')
+            Jekyll.logger.warn "Recipe validation failed for '#{recipe_key}' (#{recipe_type}): #{error_msg}"
+            
+            @validation_errors[page_key] ||= []
+            @validation_errors[page_key] << {
+                recipe_key: recipe_key,
+                type: recipe_type,
+                errors: validation_result[:errors]
+            }
+        end
+
+        def collect_tags_from_ingredient(ingredient, page_key)
+            # Extracts a tag id from a normalized ingredient hash and records it
+            return unless ingredient.is_a?(Hash) && ingredient['tag'].is_a?(Hash)
+
+            tag_id = ingredient['tag']['id']
+            return unless tag_id
+
+            @tags_used_by_page[page_key] ||= Set.new
+            @tags_used_by_page[page_key].add(tag_id)
+        end
+
+        def collect_tags_from_recipe(recipe, page_key)
+            # Walks all ingredient fields of a normalized recipe and collects tag ids
+            return unless recipe.is_a?(Hash)
+
+            # input can be a single ingredient hash or an array
+            inputs = recipe['input'].is_a?(Array) ? recipe['input'] : [recipe['input']]
+            inputs.each { |ing| collect_tags_from_ingredient(ing, page_key) }
+
+            # smithing-specific fields
+            collect_tags_from_ingredient(recipe['addition'], page_key)
+            collect_tags_from_ingredient(recipe['template'], page_key)
+
+            # output can be a single hash or an array
+            outputs = recipe['output'].is_a?(Array) ? recipe['output'] : [recipe['output']]
+            outputs.each { |out| collect_tags_from_ingredient(out, page_key) }
+        end
+
+        def validate_tags(page_key, version_folder, mod_id, site)
+            # Compares all tags collected in recipes against the version-specific tag definition file
+            tags_used = @tags_used_by_page[page_key] || Set.new
+            return if tags_used.empty?
+
+            tag_definitions = site.data.dig('tags', version_folder) || {}
+
+            if tag_definitions.empty?
+                Jekyll.logger.warn "Tag Validation: No tag definition file found for version '#{version_folder}' (#{mod_id}). Expected _data/tags/#{version_folder}.yml"
+                return
+            end
+
+            missing = tags_used.reject { |tag| tag_definitions.key?(tag) }.sort
+
+            @missing_tag_definitions[page_key] = missing
+
+            missing.each do |tag|
+                Jekyll.logger.warn "Missing tag definition '#{tag}' (#{mod_id} v#{version_folder})"
+            end
+        end
 
         def normalize_recipe_data(key, recipe_data)
             return nil unless recipe_data['type']
@@ -55,7 +205,7 @@ module Jekyll
                     nil
                 end
             rescue => e
-                Jekyll.logger.error "Error normalizing recipe for #{recipe_data}: #{e.message}"
+                Jekyll.logger.error "Error normalizing recipe '#{key}' (#{recipe_data['type']}): #{e.class} - #{e.message}"
                 nil
             end
         end
@@ -358,30 +508,99 @@ module Jekyll
         end
 
         def normalize_smithing(key, recipe_data)
+            # Handle both string format ("#tag:id" or "item:id") and object format ({"tag": "id"} or {"item": "id"})
+            addition = normalize_smithing_input(recipe_data['addition'])
+            template = normalize_smithing_input(recipe_data['template'])
+            base = normalize_smithing_input(recipe_data['base'])
+            
             {
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'addition' => {
-                    'item' => {
-                        'id' => recipe_data['addition']['item'],
-                        'count' =>  1
-                    }
-                },
-                'template' => {
-                    'item' => {
-                        'id' => recipe_data['template']['item'],
-                        'count' => 1
-                    }
-                },
-                'input' => {
-                    'item' => {
-                        'id' => recipe_data['base']['item'],
-                        'count' => recipe_data['base']['count'] || 1
-                    }
-                },
+                'addition' => addition,
+                'template' => template,
+                'input' => base,
                 'output' => normalize_output(recipe_data['result'])
             }
+        end
+
+        def normalize_smithing_input(input_data)
+            # Handles both string format and object format for smithing inputs
+            # String format: "#tag:id" or "item:id"
+            # Object format: {"tag": "id"} or {"item": "id"} or {"tag": {"id": "..."}} 
+            
+            return nil if input_data.nil?
+            
+            if input_data.is_a?(String)
+                # Direct string format
+                if input_data.start_with?('#')
+                    # Tag format: "#tag:id" -> remove # prefix
+                    {
+                        'tag' => {
+                            'id' => input_data[1..],
+                            'count' => 1
+                        }
+                    }
+                else
+                    # Item format: "item:id"
+                    {
+                        'item' => {
+                            'id' => input_data,
+                            'count' => 1
+                        }
+                    }
+                end
+            elsif input_data.is_a?(Hash)
+                # Object format - can have nested or flat structure
+                if input_data['item']
+                    item_val = input_data['item']
+                    if item_val.is_a?(String)
+                        # Flat structure: {"item": "id"}
+                        if item_val.start_with?('#')
+                            {
+                                'tag' => {
+                                    'id' => item_val[1..],
+                                    'count' => input_data['count'] || 1
+                                }
+                            }
+                        else
+                            {
+                                'item' => {
+                                    'id' => item_val,
+                                    'count' => input_data['count'] || 1
+                                }
+                            }
+                        end
+                    elsif item_val.is_a?(Hash)
+                        # Nested structure: {"item": {"id": "..."}}
+                        {
+                            'item' => {
+                                'id' => item_val['id'],
+                                'count' => item_val['count'] || input_data['count'] || 1
+                            }
+                        }
+                    end
+                elsif input_data['tag']
+                    tag_val = input_data['tag']
+                    if tag_val.is_a?(String)
+                        {
+                            'tag' => {
+                                'id' => tag_val,
+                                'count' => input_data['count'] || 1
+                            }
+                        }
+                    elsif tag_val.is_a?(Hash)
+                        {
+                            'tag' => {
+                                'id' => tag_val['id'],
+                                'count' => tag_val['count'] || input_data['count'] || 1
+                            }
+                        }
+                    end
+                end
+            else
+                nil
+            end
         end
         
         def normalize_smelting(key, recipe_data)
@@ -509,9 +728,29 @@ module Jekyll
                 next unless data.is_a?(Hash)
 
                 if data['type']
+                    # Validate raw recipe data before normalization
+                    validation = validate_recipe(key, data, data['type'])
+                    unless validation[:valid]
+                        log_validation_error(key, data['type'], page_key, validation)
+                        next  # Skip this recipe
+                    end
+
                     # Found a recipe file
                     normalized_data = normalize_recipe_data(key, data)
                     if normalized_data
+                        # Validate normalized output has required structure
+                        unless normalized_data['type'] && normalized_data['input'] && normalized_data['output']
+                            error_msg = "normalized recipe missing required fields"
+                            Jekyll.logger.warn "Recipe validation failed for '#{key}' (#{data['type']}): #{error_msg}"
+                            @validation_errors[page_key] ||= []
+                            @validation_errors[page_key] << {
+                                recipe_key: key,
+                                type: data['type'],
+                                errors: [error_msg]
+                            }
+                            next  # Skip this recipe
+                        end
+
                         normalized_data['loader'] = current_loader if current_loader
                         @recipe_data_by_page[page_key]&.add(normalized_data)
                         if current_loader
@@ -521,6 +760,7 @@ module Jekyll
                           end
                         @recipe_types_by_page[page_key]&.add(data['type'])
                         @total_recipes_by_page[page_key] = (@total_recipes_by_page[page_key] || 0) + 1
+                        collect_tags_from_recipe(normalized_data, page_key)
                     end
                 elsif loader_folder?(key)
                     # Found a loader folder, recurse with loader info
@@ -617,14 +857,41 @@ module Jekyll
                 @recipe_data_by_page[page_key] = Set.new
                 @total_recipes_by_page[page_key] = 0
                 @lang_data_by_page[page_key] = Set.new
+                @validation_errors[page_key] = []
+                @tags_used_by_page[page_key] = Set.new
+                @missing_tag_definitions[page_key] = []
 
                 all_recipes&.each do |folder, recipe_list|
                     next unless recipe_list.is_a?(Hash)
 
                     if recipe_list['type']
+                        # Single recipe file - validate before normalization
+                        validation = validate_recipe(folder, recipe_list, recipe_list['type'])
+                        unless validation[:valid]
+                            log_validation_error(folder, recipe_list['type'], page_key, validation)
+                            next
+                        end
+
                         # Single recipe file
-                        @recipe_data_by_page[page_key].add(normalize_recipe_data(folder, recipe_list))
-                        @recipe_types_by_page[page_key].add(recipe_list['type'])
+                        normalized_data = normalize_recipe_data(folder, recipe_list)
+                        if normalized_data
+                            # Validate normalized output
+                            unless normalized_data['type'] && normalized_data['input'] && normalized_data['output']
+                                error_msg = "normalized recipe missing required fields"
+                                Jekyll.logger.warn "Recipe validation failed for '#{folder}' (#{recipe_list['type']}): #{error_msg}"
+                                @validation_errors[page_key] << {
+                                    recipe_key: folder,
+                                    type: recipe_list['type'],
+                                    errors: [error_msg]
+                                }
+                                next
+                            end
+
+                            @recipe_data_by_page[page_key].add(normalized_data)
+                            @recipe_types_by_page[page_key].add(recipe_list['type'])
+                            @total_recipes_by_page[page_key] += 1
+                            collect_tags_from_recipe(normalized_data, page_key)
+                        end
                     elsif loader_folder?(folder)
                         # Loader folder (fabric/forge/etc)
                         process_nested_recipes(recipe_list, page_key, folder)
@@ -642,17 +909,40 @@ module Jekyll
                 page_data.data['recipe_types'] = @recipe_types_by_page[page_key].to_a
                 page_data.data['total_recipes'] = @total_recipes_by_page[page_key]
 
-
                 page_data.data['mod_lang'] = @lang_data_by_page[page_key].to_a if @lang_data_by_page[page_key].size > 0
                 
-                test = false
-                if test
-                    Jekyll.logger.info "Language Data #{page_key}", "Size: #{@lang_data_by_page[page_key].size}"
-                    Jekyll.logger.info "Recipe's Processed #{page_key} with #{@total_recipes_by_page[page_key]} recipes"
-                    run_test(page_key, version_folder)
-                    Jekyll.logger.info "\n"
-                end
+                # Log validation summary for this page
+                log_validation_summary(page_key, mod_id, version_folder)
+                validate_tags(page_key, version_folder, mod_id, site)
+                log_tag_validation_summary(page_key, mod_id, version_folder)
             end
+        end
+
+        def log_tag_validation_summary(page_key, mod_id, version_folder)
+            missing = @missing_tag_definitions[page_key] || []
+            return if missing.empty?
+
+            Jekyll.logger.warn "Tag Validation Summary: #{missing.length} undefined tag(s) in [#{mod_id} v#{version_folder}]: #{missing.join(', ')}"
+        end
+
+        def log_validation_summary(page_key, mod_id, version_folder)
+            # Logs a summary of all validation errors found for this page
+            errors = @validation_errors[page_key] || []
+            total_processed = @total_recipes_by_page[page_key] || 0
+            
+            return if errors.empty?
+
+            # Group errors by recipe type
+            errors_by_type = errors.group_by { |err| err[:type] }
+            
+            # Build summary message
+            summary_parts = ["[#{mod_id} v#{version_folder}]"]
+            errors_by_type.each do |type, type_errors|
+                summary_parts << "#{type_errors.length} #{type}"
+            end
+            
+            summary_msg = "Recipe Validation Summary: #{summary_parts.join(' | ')} (#{total_processed} processed successfully)"
+            Jekyll.logger.warn summary_msg
         end
     end
 end

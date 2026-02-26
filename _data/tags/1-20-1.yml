@@ -27,6 +27,7 @@ c:bones: Bones
 c:diamonds: Diamond
 c:iron_ingots: Iron Ingot
 c:gold_ingots: Gold Ingot
+c:netherite_ingots: Netherite Ingot
 farmersdelight:cabbage_roll_ingredients: Cabbage Roll Ingredients
 forge:eggs: Egg
 forge:raw_chicken: Raw Chicken
@@ -54,6 +55,7 @@ forge:bones: Bones
 forge:gems/diamond: Diamond
 forge:ingots/iron: Iron Ingot
 forge:ingots/gold: Gold Ingot
+forge:ingots/netherite: Netherite Ingot
 minecraft:fishes: Fish
 minecraft:terracotta: Terracotta
 minecraft:leaves: Leaves
