@@ -60,8 +60,10 @@
                                         {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
                                     </div>
                                 </div>
-                                <!--  USED FOR DEBUGGING  -->
-                                <!-- <p>{{ recipe }}</p> -->
+                                {%- if site.debug -%}
+                                    <!--  DEBUGGING OUTPUT  -->
+                                    <p><code>{{ recipe }}</code></p>
+                                {%- endif -%}
                             </div>
                         {%- endif -%}
                     {%- endfor -%}
@@ -115,8 +117,10 @@
                                         {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
                                     </div>
                                 </div>
-                                <!--  USED FOR DEBUGGING  -->
-                                <!-- <p>{{ recipe }}</p> -->
+                                {%- if site.debug -%}
+                                    <!--  DEBUGGING OUTPUT  -->
+                                    <p><code>{{ recipe }}</code></p>
+                                {%- endif -%}
                             </div>
                         {%- endif -%}
                     {%- endfor -%}

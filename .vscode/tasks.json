@@ -2,12 +2,28 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Run localhost (Debug)",
+            "type": "shell",
+            "command": "bundle exec jekyll serve --config _config.yml,_config_debug.yml",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "Run localhost",
             "type": "shell",
             "command": "bundle exec jekyll serve",
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "presentation": {
                 "echo": true,
