@@ -37,11 +37,11 @@ module Jekyll
             },
             'ubesdelight:baking_mat' => {
                 required_fields: ['tool', 'ingredients', 'processing_stages', 'result'],
-                field_types: { 'tool' => [Hash], 'ingredients' => [Array], 'processing_stages' => [Array], 'result' => [Array] }
+                field_types: { 'tool' => [Hash, String], 'ingredients' => [Array], 'processing_stages' => [Array], 'result' => [Array] }
             },
             'farmersdelight:cutting' => {
                 required_fields: ['tool', 'ingredients', 'result'],
-                field_types: { 'tool' => [Hash], 'ingredients' => [Array], 'result' => [Array] }
+                field_types: { 'tool' => [Hash, String], 'ingredients' => [Array], 'result' => [Array] }
             },
             'farmersdelight:cooking' => {
                 required_fields: ['ingredients', 'result'],
@@ -647,7 +647,7 @@ module Jekyll
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'tool' => recipe_data['tool']['item'] || recipe_data['tool']['tag'],
+                'tool' => normalize_tool(recipe_data['tool']),
                 'input' => normalize_combined_input(recipe_data['ingredients']),
                 'processing_stages' => recipe_data['processing_stages'].map { |stage| normalize_processing_stages(stage)},
                 'output' => recipe_data['result'].map { |result| normalize_output(result)}
@@ -659,7 +659,7 @@ module Jekyll
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'tool' => recipe_data['tool']['item'] || recipe_data['tool']['tag'],
+                'tool' => normalize_tool(recipe_data['tool']),
                 'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
                 'output' => recipe_data['result'].map { |result| normalize_output(result)}
             }
@@ -716,6 +716,29 @@ module Jekyll
                 'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
                 'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
             }
+        end
+
+        def normalize_tool(tool_data)
+            # Handles both string and hash formats for tool field
+            # String format: "#c:tools/knife" or "c:tools/knife"
+            # Hash format: {"tag": "c:tools/knife"} or {"item": "c:tools/knife"}
+            return nil if tool_data.nil?
+
+            if tool_data.is_a?(String)
+                # String format
+                if tool_data.start_with?('#')
+                    # Tag format: remove # prefix
+                    tool_data[1..]
+                else
+                    # Item format
+                    tool_data
+                end
+            elsif tool_data.is_a?(Hash)
+                # Hash format - extract the value
+                tool_data['item'] || tool_data['tag']
+            else
+                nil
+            end
         end
 
         def loader_folder?(folder)

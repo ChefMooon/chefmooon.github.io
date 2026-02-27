@@ -268,6 +268,88 @@ class RecipeGeneratorTest < Minitest::Test
     assert_equal 0.5, result['output'][2]['chance']
   end
 
+  def test_normalize_fd_cutting_v1215
+    recipe = load_fixture('fd_cutting_v1215.json')
+    result = call_private(:normalize_fd_cutting, 'ginger', recipe)
+
+    assert_equal 'farmersdelight:cutting', result['type']
+    assert_equal 'c:tools/knives', result['tool']
+    assert_instance_of Array, result['input']
+    assert_equal 'ubesdelight:ginger', result['input'][0]['item']['id']
+    assert_equal 1, result['input'][0]['item']['count']
+    assert_instance_of Array, result['output']
+    assert_equal 1, result['output'].length
+    assert_equal 'ubesdelight:ginger_chop', result['output'][0]['item']['id']
+    assert_equal 2, result['output'][0]['item']['count']
+  end
+
+  def test_fd_cutting_result_with_explicit_count
+    recipe = load_fixture('fd_cutting_v1215.json')
+    result = call_private(:normalize_fd_cutting, 'ginger', recipe)
+
+    # Ensure explicit count in result is properly parsed
+    output = result['output'][0]
+    assert_equal 'ubesdelight:ginger_chop', output['item']['id']
+    assert_equal 2, output['item']['count'], "Result with explicit count should be parsed correctly"
+  end
+
+  def test_fd_cutting_single_ingredient_parsing
+    recipe = load_fixture('fd_cutting_v1215.json')
+    result = call_private(:normalize_fd_cutting, 'ginger', recipe)
+
+    # Ensure input with implicit count defaults to 1
+    input = result['input'][0]
+    assert_equal 'ubesdelight:ginger', input['item']['id']
+    assert_equal 1, input['item']['count'], "Input without explicit count should default to 1"
+  end
+
+  def test_normalize_tool_with_string_tag_format
+    tool = "#c:tools/knife"
+    result = call_private(:normalize_tool, tool)
+    
+    assert_equal 'c:tools/knife', result, "String tag format should have # prefix removed"
+  end
+
+  def test_normalize_tool_with_string_item_format
+    tool = "minecraft:diamond_sword"
+    result = call_private(:normalize_tool, tool)
+    
+    assert_equal 'minecraft:diamond_sword', result
+  end
+
+  def test_normalize_tool_with_hash_tag_format
+    tool = { 'tag' => 'c:tools/knives' }
+    result = call_private(:normalize_tool, tool)
+    
+    assert_equal 'c:tools/knives', result
+  end
+
+  def test_normalize_tool_with_hash_item_format
+    tool = { 'item' => 'minecraft:diamond_sword' }
+    result = call_private(:normalize_tool, tool)
+    
+    assert_equal 'minecraft:diamond_sword', result
+  end
+
+  def test_fd_cutting_with_string_tool_tag
+    recipe = {
+      'type' => 'farmersdelight:cutting',
+      'ingredients' => [
+        'ubesdelight:wild_ginger'
+      ],
+      'result' => [
+        { 'item' => { 'count' => 1, 'id' => 'ubesdelight:ginger' } }
+      ],
+      'tool' => '#c:tools/knife'
+    }
+    result = call_private(:normalize_fd_cutting, 'ginger_from_wild_ginger', recipe)
+    
+    assert_equal 'farmersdelight:cutting', result['type']
+    assert_equal 'c:tools/knife', result['tool'], "String tag tool format should normalize correctly"
+    assert_equal 'ubesdelight:wild_ginger', result['input'][0]['item']['id']
+    assert_equal 'ubesdelight:ginger', result['output'][0]['item']['id']
+  end
+
   # ========== SMITHING RECIPE TESTS ==========
 
   def test_normalize_smithing_v12111
