@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "frightsdelight:frd_vanilla_crates_enabled"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:poisonous_potato"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "frightsdelight:poisonous_potato_crate"
+  },
+  "show_notification": true
+}

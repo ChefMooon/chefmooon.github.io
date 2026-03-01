@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "frightsdelight:frd_vanilla_crates_enabled"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:fermented_spider_eye"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "frightsdelight:fermented_spider_eye_crate"
+  },
+  "show_notification": true
+}

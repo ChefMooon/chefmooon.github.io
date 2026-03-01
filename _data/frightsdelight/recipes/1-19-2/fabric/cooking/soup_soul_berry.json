@@ -1,0 +1,24 @@
+{
+  "type": "farmersdelight:cooking",
+  "cookingtime": 200,
+  "experience": 2.0,
+  "recipie_book_tab": "meals",
+  "ingredients": [
+    {
+      "item": "frightsdelight:soul_berry"
+    },
+    {
+      "tag": "c:foods/vegetables"
+    },
+    {
+      "item": "frightsdelight:soul_berry"
+    }
+  ],
+  "result": {
+    "item": "frightsdelight:soup_soul_berry",
+    "count": 1
+  },
+  "container": {
+    "item": "minecraft:bowl"
+  }
+}

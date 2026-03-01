@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "frightsdelight:frd_vanilla_crates_enabled"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "#": {
+      "item": "minecraft:phantom_membrane"
+    }
+  },
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "result": {
+    "item": "frightsdelight:phantom_crate"
+  },
+  "show_notification": true
+}
