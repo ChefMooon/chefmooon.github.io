@@ -4,5 +4,5 @@ _site
 .jekyll-metadata
 vendor
 .prettierrc.json
-.github/instructions/
+.github/copilot-instructions.md
 test/html_reports/
