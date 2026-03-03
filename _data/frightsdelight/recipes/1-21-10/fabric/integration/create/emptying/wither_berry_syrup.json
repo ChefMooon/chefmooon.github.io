@@ -10,7 +10,7 @@
   "type": "create:emptying",
   "ingredients": [
     {
-      "item": "frightsdelight:cobweb_syrup_bottle"
+      "item": "frightsdelight:wither_berry_syrup_bottle"
     }
   ],
   "results": [
@@ -19,7 +19,7 @@
     },
     {
       "amount": 27000,
-      "fluid": "frightsdelight:cobweb_syrup"
+      "fluid": "frightsdelight:wither_berry_syrup"
     }
   ]
 }
