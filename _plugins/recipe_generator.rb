@@ -124,22 +124,22 @@ module Jekyll
                 return { valid: false, errors: errors }
             end
             
-            # # Special handling for create:milling with dual schemas
-            # if recipe_type == 'create:milling'
-            #     has_singular_input = recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
-            #     has_array_input = recipe_data['ingredients'].is_a?(Array) && recipe_data['ingredients'].any?
-            #     has_any_input = has_singular_input || has_array_input
+            # Special handling for create:milling with dual schemas
+            if recipe_type == 'create:milling'
+                has_singular_input = recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
+                has_array_input = recipe_data['ingredients'].is_a?(Array) && recipe_data['ingredients'].any?
+                has_any_input = has_singular_input || has_array_input
                 
-            #     has_processing_time = recipe_data['processingTime'].is_a?(Numeric) || recipe_data['processing_time'].is_a?(Numeric)
-            #     has_results = recipe_data['results'].is_a?(Array) && recipe_data['results'].any?
+                has_processing_time = recipe_data['processingTime'].is_a?(Numeric) || recipe_data['processing_time'].is_a?(Numeric)
+                has_results = recipe_data['results'].is_a?(Array) && recipe_data['results'].any?
                 
-            #     unless has_any_input && has_processing_time && has_results
-            #         errors << "must have input (ingredient or ingredients array), processing_time, and results"
-            #         return { valid: false, errors: errors }
-            #     end
+                unless has_any_input && has_processing_time && has_results
+                    errors << "must have input (ingredient or ingredients array), processing_time, and results"
+                    return { valid: false, errors: errors }
+                end
                 
-            #     return { valid: true }
-            # end
+                return { valid: true }
+            end
             
             # For other create recipes (mixing, emptying, filling)
             # Check for at least one input source
