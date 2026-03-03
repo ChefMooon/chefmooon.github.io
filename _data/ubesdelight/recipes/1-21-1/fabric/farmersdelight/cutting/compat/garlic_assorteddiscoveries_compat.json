@@ -15,10 +15,8 @@
   ],
   "result": [
     {
-      "item": {
-        "count": 2,
-        "id": "ubesdelight:garlic_chop"
-      }
+      "count": 2,
+      "id": "ubesdelight:garlic_chop"
     }
   ],
   "tool": {
