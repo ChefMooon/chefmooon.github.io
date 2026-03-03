@@ -76,6 +76,7 @@ def read_release_info
   end
 
   ordered_keys = []
+  mod_info_dicts = {}
   version_sets = {}
   has_malformed_entries = false
 
@@ -84,6 +85,7 @@ def read_release_info
 
     mod_key, mod_info = entry.first
     ordered_keys << mod_key
+    mod_info_dicts[mod_key] = mod_info || {}
 
     raw_versions = Array(mod_info && mod_info['minecraft_versions']) || []
     parsed_versions = Set.new
@@ -98,14 +100,30 @@ def read_release_info
     version_sets[mod_key] = parsed_versions
   end
 
-  [ordered_keys, version_sets, has_malformed_entries]
+  [ordered_keys, version_sets, mod_info_dicts, has_malformed_entries]
 end
 
-def write_release_info(ordered_keys, version_sets)
+def write_release_info(ordered_keys, version_sets, mod_info_dicts = {})
   output_lines = []
 
   ordered_keys.each_with_index do |mod_key, index|
     output_lines << "- #{mod_key}:"
+
+    # Preserve all existing fields from mod_info_dicts
+    mod_info = mod_info_dicts.fetch(mod_key, {})
+    
+    # Write all fields except minecraft_versions first (to maintain order)
+    mod_info.each do |key, value|
+      next if key == 'minecraft_versions'
+      
+      if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+        output_lines << "    #{key}: #{value}"
+      elsif value.is_a?(String)
+        output_lines << "    #{key}: #{value}"
+      end
+    end
+    
+    # Always write minecraft_versions last (or first if no other fields)
     output_lines << '    minecraft_versions:'
 
     sorted_versions = version_sets.fetch(mod_key, Set.new).to_a.sort_by { |version| version_sort_key(version) }
@@ -173,7 +191,7 @@ if posts.empty?
   exit 1
 end
 
-ordered_keys, version_sets, has_malformed_entries = read_release_info
+ordered_keys, version_sets, mod_info_dicts, has_malformed_entries = read_release_info
 normalized_existing_keys = {}
 
 ordered_keys.each do |mod_key|
@@ -190,6 +208,7 @@ versions_from_posts.each do |normalized_mod_id, discovered_versions|
     target_key = normalized_mod_id
     ordered_keys << target_key
     version_sets[target_key] = Set.new
+    mod_info_dicts[target_key] = {}
     normalized_existing_keys[canonical_mod_lookup_key(normalized_mod_id)] = target_key
   end
 
@@ -220,7 +239,7 @@ if options[:dry_run]
   exit 0
 end
 
-write_release_info(ordered_keys, version_sets)
+write_release_info(ordered_keys, version_sets, mod_info_dicts)
 if changes.any?
   puts "Updated #{RELEASE_INFO_PATH} from #{posts.length} recent posts."
 elsif has_malformed_entries

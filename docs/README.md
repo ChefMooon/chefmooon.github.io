@@ -32,10 +32,10 @@ The **Wiki Status Report** GitHub Actions workflow automates the wiki status rep
 Comprehensive guide to the wiki home system. Explains how wiki pages are rendered, where shared content lives, version-specific overrides, and the data structure for sections, announcements, and compatibility tables. Includes authoring workflows and troubleshooting tips.
 
 ### [wiki-status-checker.md](wiki-status-checker.md)
-Guide to the `check_wiki_status.rb` script that scans the repository to identify which Minecraft mod versions have wiki pages. Explains how to run the script, interpret its output, and handle missing wikis.
+Guide to the `check_wiki_status.rb` script that scans the repository to identify which Minecraft mod versions have wiki pages. Explains how to run the script, interpret its output, and handle missing wikis. Includes coverage of `mono_wiki` mode for mods with version-agnostic wikis.
 
 ### [release-info-updater.md](release-info-updater.md)
-Guide to the `update_release_info_from_recent_posts.rb` script that inspects recent changelog posts and adds missing Minecraft versions to release data in `_data/minecraft_mod_release_info.yml`.
+Guide to the `update_release_info_from_recent_posts.rb` script that inspects recent changelog posts and adds missing Minecraft versions to release data in `_data/minecraft_mod_release_info.yml`. Covers field preservation behavior for optional mod flags like `mono_wiki`.
 
 ## Build & Validation
 

@@ -96,6 +96,7 @@ versions_with_recipes = 0
 release_data.each do |entry|
   entry.each do |mod_name, mod_info|
     minecraft_versions = mod_info['minecraft_versions'] || []
+    mono_wiki = mod_info['mono_wiki'] || false
     total_versions += minecraft_versions.length
 
     puts "#{mod_name.upcase}"
@@ -107,39 +108,95 @@ release_data.each do |entry|
       next
     end
 
-    minecraft_versions.each do |version|
-      puts "  #{version}"
-
-      wiki_statuses = WIKI_FILES.map do |label, filename|
-        wiki_path = File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, filename)
-        exists = File.exist?(wiki_path)
-        "#{exists ? '✓' : '✗'} #{label}"
-      end
-
-      home_exists = File.exist?(File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, 'home.md'))
-      versions_with_wiki += 1 if home_exists
-
-      puts "      #{wiki_statuses.join(' ')}"
-
-      recipe_counts = recipe_counts_for_version(REPO_ROOT, mod_name, version)
-      versions_with_recipes += 1 if recipe_counts[:total].positive?
-
-      case recipe_counts[:type]
-      when :loaders
-        LOADER_DIRS.each do |loader|
-          count = recipe_counts[:counts][loader]
-          status = if count.positive?
-                     "✓ #{count} recipes found"
-                   else
-                     '✗ no recipes found'
-                   end
-          puts "      #{loader}: #{status}"
+    # For mono_wiki mods, check that exactly one version has a wiki
+    if mono_wiki
+      wiki_version_count = 0
+      versions_with_wiki_list = []
+      
+      minecraft_versions.each do |version|
+        home_path = File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, 'home.md')
+        if File.exist?(home_path)
+          wiki_version_count += 1
+          versions_with_wiki_list << version
         end
-      else
-        if recipe_counts[:total].positive?
-          puts "      ✓ #{recipe_counts[:total]} recipes found"
+      end
+      
+      if wiki_version_count == 1
+        puts "  ✓ mono_wiki mode: wiki found at version #{versions_with_wiki_list.first}"
+        versions_with_wiki += 1
+        
+        # Show wiki status for the single version
+        version = versions_with_wiki_list.first
+        puts "  #{version}"
+        wiki_statuses = WIKI_FILES.map do |label, filename|
+          wiki_path = File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, filename)
+          exists = File.exist?(wiki_path)
+          "#{exists ? '✓' : '✗'} #{label}"
+        end
+        puts "      #{wiki_statuses.join(' ')}"
+        
+        recipe_counts = recipe_counts_for_version(REPO_ROOT, mod_name, version)
+        versions_with_recipes += 1 if recipe_counts[:total].positive?
+        
+        case recipe_counts[:type]
+        when :loaders
+          LOADER_DIRS.each do |loader|
+            count = recipe_counts[:counts][loader]
+            status = if count.positive?
+                       "✓ #{count} recipes found"
+                     else
+                       '✗ no recipes found'
+                     end
+            puts "      #{loader}: #{status}"
+          end
         else
-          puts '      ✗ no recipes found'
+          if recipe_counts[:total].positive?
+            puts "      ✓ #{recipe_counts[:total]} recipes found"
+          else
+            puts '      ✗ no recipes found'
+          end
+        end
+      elsif wiki_version_count == 0
+        puts "  ✗ mono_wiki is true but no wiki versions found"
+      else
+        puts "  ✗ mono_wiki is true but multiple wiki versions found (expected exactly 1): #{versions_with_wiki_list.join(', ')}"
+      end
+    else
+      # Normal mode: check each version individually
+      minecraft_versions.each do |version|
+        puts "  #{version}"
+
+        wiki_statuses = WIKI_FILES.map do |label, filename|
+          wiki_path = File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, filename)
+          exists = File.exist?(wiki_path)
+          "#{exists ? '✓' : '✗'} #{label}"
+        end
+
+        home_exists = File.exist?(File.join(REPO_ROOT, 'minecraft-mod', mod_name, 'wiki', version, 'home.md'))
+        versions_with_wiki += 1 if home_exists
+
+        puts "      #{wiki_statuses.join(' ')}"
+
+        recipe_counts = recipe_counts_for_version(REPO_ROOT, mod_name, version)
+        versions_with_recipes += 1 if recipe_counts[:total].positive?
+
+        case recipe_counts[:type]
+        when :loaders
+          LOADER_DIRS.each do |loader|
+            count = recipe_counts[:counts][loader]
+            status = if count.positive?
+                       "✓ #{count} recipes found"
+                     else
+                       '✗ no recipes found'
+                     end
+            puts "      #{loader}: #{status}"
+          end
+        else
+          if recipe_counts[:total].positive?
+            puts "      ✓ #{recipe_counts[:total]} recipes found"
+          else
+            puts '      ✗ no recipes found'
+          end
         end
       end
     end

@@ -4,6 +4,10 @@
 
 The `check_wiki_status.rb` script scans the repository to report wiki completeness and recipe data coverage for each released Minecraft mod version. It compares released versions in [`_data/minecraft_mod_release_info.yml`](../_data/minecraft_mod_release_info.yml) against wiki files and recipe data that exist in the filesystem.
 
+The script supports two wiki modes:
+- **Normal mode** (default): Each version has its own wiki directory with separate pages
+- **mono_wiki mode**: A single wiki directory serves all versions (configured via `mono_wiki: true` flag in release info)
+
 ## Purpose
 
 This tool helps maintain wiki completeness by:
@@ -33,9 +37,10 @@ MINECRAFT MOD WIKI STATUS CHECKER
 
 BREEZEBOUNCE
 ----------------------------------------
+   ✓ mono_wiki mode: wiki found at version 1.21.1
    1.21.1
          ✓ Home ✓ Item Details ✓ Block Details ✓ Recipes
-         ✓ 14 recipes found
+         ✓ 68 recipes found
 
 DIFFERENT-DOORS
 ----------------------------------------
@@ -68,8 +73,11 @@ Recipe data coverage: 91.4%
 
 ### Legend
 
-- **✓ Home / Item Details / Block Details / Recipes** — Corresponding wiki file exists for this version
-- **✗ Home / Item Details / Block Details / Recipes** — Corresponding wiki file is missing for this version
+- **✓ mono_wiki mode: wiki found at version X.X.X** — Mod uses mono_wiki mode and exactly one wiki version exists (success)
+- **✗ mono_wiki is true but no wiki versions found** — Mod has mono_wiki flag but no wiki directory exists (failure)
+- **✗ mono_wiki is true but multiple wiki versions found (expected exactly 1)** — Mod has mono_wiki flag but multiple wiki versions exist; only one should exist (failure)
+- **✓ Home / Item Details / Block Details / Recipes** — Corresponding wiki file exists for this version (normal mode)
+- **✗ Home / Item Details / Block Details / Recipes** — Corresponding wiki file is missing for this version (normal mode)
 - **✓ _N_ recipes found** — Recipe JSON files were found for that mod/version
 - **✗ no recipes found** — No recipe JSON files were found for that mod/version
 - **`core:`, `fabric:`, `neoforge:` lines** — Per-loader recipe counts for mods that use loader-specific recipe folders
@@ -86,11 +94,20 @@ Recipe data coverage: 91.4%
 
 ## File Structure
 
+### Normal Mode
 The script looks for wiki files at:
 ```
 minecraft-mod/<mod_name>/wiki/<version>/<wiki-file>.md
 ```
 
+### mono_wiki Mode
+When `mono_wiki: true` is set, the script checks for a single wiki directory at any version:
+```
+minecraft-mod/<mod_name>/wiki/<any_version>/<wiki-file>.md
+```
+Exactly one version directory must have wiki files; if zero or multiple exist, it's flagged as a failure.
+
+### Recipe Data
 The script looks for recipe data at:
 ```
 _data/<mod_data_id>/recipes/<version-with-hyphens>/
@@ -161,14 +178,17 @@ If the script shows missing wiki files or missing recipe data:
 ## How it Works
 
 1. Reads `_data/minecraft_mod_release_info.yml` to get all mods and their released versions
-2. For each mod and version combination, checks if these files exist:
-   - `minecraft-mod/<mod_name>/wiki/<version>/home.md`
-   - `minecraft-mod/<mod_name>/wiki/<version>/item-details.md`
-   - `minecraft-mod/<mod_name>/wiki/<version>/block-details.md`
-   - `minecraft-mod/<mod_name>/wiki/<version>/recipes.md`
+2. For each mod:
+   - Checks if `mono_wiki` flag is set to `true` in the mod's release info
+   - **If mono_wiki mode**: Scans all associated version directories and counts how many have `home.md`; success requires exactly 1 wiki version
+   - **If normal mode**: For each version, checks if these files exist:
+     - `minecraft-mod/<mod_name>/wiki/<version>/home.md`
+     - `minecraft-mod/<mod_name>/wiki/<version>/item-details.md`
+     - `minecraft-mod/<mod_name>/wiki/<version>/block-details.md`
+     - `minecraft-mod/<mod_name>/wiki/<version>/recipes.md`
 3. Checks recipe data in `_data/<mod_id>/recipes/<version-with-hyphens>/`
 4. Counts recipe JSON files (including per-loader counts for `core`, `fabric`, `neoforge` structures)
-5. Outputs a formatted report with per-version status lines and summary statistics
+5. Outputs a formatted report with per-version or per-mod status lines (depending on mode) and summary statistics
 
 ## Troubleshooting
 

@@ -47,8 +47,17 @@ If no updates are needed:
 No updates needed. Checked 5 recent posts.
 ```
 
+## Field Preservation
+
+The script preserves all existing mod configuration fields in `minecraft_mod_release_info.yml`, not just `minecraft_versions`. This includes optional flags like:
+- `mono_wiki` — Boolean flag indicating the mod uses a single version-agnostic wiki
+- Any future fields added to mod entries
+
+When the script updates a mod's versions, all other fields remain unchanged.
+
 ## Notes
 
 - Mod ID matching is normalized with a canonical lookup key (separator-insensitive), so values like `differentdoors`, `different-doors`, and `different_doors` map reliably.
 - If a mod appears in recent posts but does not exist in release info yet, a new mod entry is created.
 - Minecraft versions are stored uniquely per mod and written in ascending version order.
+- The script preserves field order: custom fields (like `mono_wiki`) are output before `minecraft_versions`.
