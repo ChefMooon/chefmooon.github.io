@@ -296,6 +296,80 @@ template:
 
 Both formats are automatically converted to the normalized structure during processing, so mixing formats across versions is handled transparently.
 
+## Create Recipe Schema Variations
+
+The Create recipe types (`create:mixing`, `create:emptying`, `create:filling`) support dual schemas to accommodate different JSON structures. Both schemas normalize to an identical output format for consistent wiki rendering.
+
+### Old Schema (Original)
+Uses combined `ingredients` and `results` arrays for both items and fluids:
+
+```json
+{
+  "type": "create:mixing",
+  "ingredients": [
+    "minecraft:rotten_flesh",
+    {"item": "minecraft:sugar"},
+    {"type": "neoforge:single", "amount": 1000, "fluid": "minecraft:water"}
+  ],
+  "results": [
+    {"item": "minecraft:diamond"},
+    {"amount": 250, "id": "minecraft:water"}
+  ]
+}
+```
+
+### New Schema (Fluid Separation)
+Uses separate arrays for items and fluids with explicit structure:
+
+```json
+{
+  "type": "create:mixing",
+  "ingredients": [
+    "minecraft:rotten_flesh",
+    "minecraft:sugar"
+  ],
+  "fluid_ingredients": [
+    {
+      "type": "fluid_stack",
+      "amount": 81000,
+      "fluid": "minecraft:water"
+    }
+  ],
+  "results": [
+    {"item": "minecraft:diamond"},
+    {"count": 2, "id": "minecraft:stone"}
+  ],
+  "fluid_results": [
+    {
+      "amount": 250,
+      "id": "minecraft:water"
+    }
+  ]
+}
+```
+
+### Validation & Normalization
+
+The system automatically detects which schema a recipe uses and validates accordingly:
+
+- **Required**: At least one of these format combinations must exist:
+  - Old schema: `ingredients` (Array) + `results` (Array)
+  - New schema: `fluid_ingredients` (Array) + `fluid_results` (Array)
+  - Mixed: Both old and new fields can coexist in the same recipe
+
+- **Optional**: All fields are optional; a recipe can be purely item-based, purely fluid-based, or a mix
+
+- **Normalization**: Both schemas produce an identical normalized output where all inputs and outputs are merged into single `input` and `output` arrays, allowing wiki templates to render identically regardless of which schema was used
+
+### Schema Detection
+
+The system uses automatic detection based on field presence:
+- If `fluid_ingredients` or `fluid_results` fields exist → new schema
+- If only `ingredients` and `results` exist → old schema
+- If both are present → mixed schema (all fields are processed and merged)
+
+No explicit `schema_version` field is needed.
+
 ## Related Files
 
 - **Plugin**: [`_plugins/recipe_generator.rb`](../_plugins/recipe_generator.rb)

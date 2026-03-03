@@ -8,33 +8,25 @@
     }
   ],
   "type": "create:mixing",
-  "heatRequirement": "heated",
+  "heat_requirement": "heated",
   "ingredients": [
+    "frightsdelight:apple_slime",
+    "frightsdelight:apple_slime",
+    "frightsdelight:apple_slime",
+    "minecraft:sugar",
+    "minecraft:sugar"
+  ],
+  "fluid_ingredients": [
     {
-      "item": "frightsdelight:apple_slime"
-    },
-    {
-      "item": "frightsdelight:apple_slime"
-    },
-    {
-      "item": "frightsdelight:apple_slime"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
+      "type": "fluid_stack",
       "amount": 81000,
-      "fluid": "minecraft:water",
-      "nbt": {}
+      "fluid": "minecraft:water"
     }
   ],
-  "results": [
+  "fluid_results": [
     {
       "amount": 81000,
-      "fluid": "frightsdelight:slimeapple_syrup"
+      "id": "frightsdelight:slimeapple_syrup"
     }
   ]
 }

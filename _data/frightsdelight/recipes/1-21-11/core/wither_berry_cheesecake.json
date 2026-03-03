@@ -4,7 +4,7 @@
   "group": "frd_wither_berry_cheesecake",
   "key": {
     "A": "frightsdelight:wither_berry",
-    "B": "#c:foods/milk",
+    "B": "#c:drinks/milk",
     "C": "farmersdelight:pie_crust"
   },
   "pattern": [

@@ -8,19 +8,13 @@
     }
   ],
   "type": "create:filling",
-  "ingredients": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "frightsdelight:wither_berry_syrup",
-      "nbt": {}
-    }
-  ],
-  "results": [
-    {
-      "item": "frightsdelight:wither_berry_syrup_bottle"
-    }
-  ]
+  "ingredient": "minecraft:glass_bottle",
+  "fluid_ingredient": {
+    "type": "fluid_stack",
+    "amount": 27000,
+    "fluid": "frightsdelight:wither_berry_syrup"
+  },
+  "result": {
+    "id": "frightsdelight:wither_berry_syrup_bottle"
+  }
 }

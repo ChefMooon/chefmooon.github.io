@@ -8,18 +8,12 @@
     }
   ],
   "type": "create:emptying",
-  "ingredients": [
-    {
-      "item": "frightsdelight:cobweb_syrup_bottle"
-    }
-  ],
-  "results": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "frightsdelight:cobweb_syrup"
-    }
-  ]
+  "ingredient": "frightsdelight:wither_berry_syrup_bottle",
+  "fluid_result": {
+    "amount": 27000,
+    "id": "frightsdelight:wither_berry_syrup"
+  },
+  "result": {
+    "id": "minecraft:glass_bottle"
+  }
 }

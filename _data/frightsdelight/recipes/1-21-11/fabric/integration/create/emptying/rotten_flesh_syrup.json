@@ -8,18 +8,12 @@
     }
   ],
   "type": "create:emptying",
-  "ingredients": [
-    {
-      "item": "frightsdelight:rotten_flesh_syrup_bottle"
-    }
-  ],
-  "results": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "frightsdelight:rotten_flesh_syrup"
-    }
-  ]
+  "ingredient": "frightsdelight:rotten_flesh_syrup_bottle",
+  "fluid_result": {
+    "amount": 27000,
+    "id": "frightsdelight:rotten_flesh_syrup"
+  },
+  "result": {
+    "id": "minecraft:glass_bottle"
+  }
 }

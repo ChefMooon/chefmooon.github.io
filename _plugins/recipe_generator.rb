@@ -82,6 +82,11 @@ module Jekyll
             # Validates recipe data against its schema
             # Returns: { valid: true } or { valid: false, errors: ['error1', 'error2'] }
             
+            # Special handling for Create recipes that support dual schemas
+            if ['create:mixing', 'create:emptying', 'create:filling'].include?(recipe_type)
+                return validate_create_recipe(recipe_key, recipe_data, recipe_type)
+            end
+            
             schema = RECIPE_SCHEMAS[recipe_type]
             return { valid: true } unless schema  # Schema doesn't exist for this type, can't validate
             
@@ -98,6 +103,46 @@ module Jekyll
                         errors << "field '#{field}' is #{actual_type} but expected #{expected_types.map(&:to_s).join(' or ')}"
                     end
                 end
+            end
+            
+            if errors.any?
+                { valid: false, errors: errors }
+            else
+                { valid: true }
+            end
+        end
+
+        def validate_create_recipe(recipe_key, recipe_data, recipe_type)
+            # Validates Create recipes supporting three schema formats:
+            # 1. Singular format (old): ingredient, result, fluid_result
+            # 2. Array format (old): ingredients, results
+            # 3. Fluid-separated format (new): ingredients, fluid_ingredients, results, fluid_results
+            errors = []
+            
+            # Check that type exists
+            if recipe_data['type'].nil?
+                errors << "missing required field 'type'"
+                return { valid: false, errors: errors }
+            end
+            
+            # Check for at least one input source
+            has_singular_input = recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
+            has_array_input = recipe_data['ingredients'].is_a?(Array) && recipe_data['ingredients'].any?
+            has_fluid_input = recipe_data['fluid_ingredients'].is_a?(Array) && recipe_data['fluid_ingredients'].any?
+            has_any_input = has_singular_input || has_array_input || has_fluid_input
+            
+            # Check for at least one output source
+            has_singular_output = recipe_data['result'].is_a?(Hash) || recipe_data['result'].is_a?(String)
+            has_array_output = recipe_data['results'].is_a?(Array) && recipe_data['results'].any?
+            has_fluid_output = recipe_data['fluid_result'].is_a?(Hash) || (recipe_data['fluid_results'].is_a?(Array) && recipe_data['fluid_results'].any?)
+            has_any_output = has_singular_output || has_array_output || has_fluid_output
+            
+            unless has_any_input
+                errors << "must have at least one input: 'ingredient' (singular), 'ingredients' (array), or 'fluid_ingredients' (array)"
+            end
+            
+            unless has_any_output
+                errors << "must have at least one output: 'result' (singular), 'results' (array), 'fluid_result', or 'fluid_results' (array)"
             end
             
             if errors.any?
@@ -677,6 +722,57 @@ module Jekyll
             }
         end
 
+        def uses_new_create_schema?(recipe_data)
+            # Detects if recipe uses new schema (fluid_ingredients/fluid_results)
+            recipe_data['fluid_ingredients'].is_a?(Array) || recipe_data['fluid_results'].is_a?(Array)
+        end
+
+        def uses_singular_create_schema?(recipe_data)
+            # Detects if recipe uses singular format (ingredient, result, fluid_result)
+            !recipe_data['ingredient'].nil? || !recipe_data['result'].nil? || !recipe_data['fluid_result'].nil?
+        end
+
+        def normalize_singular_ingredient(ingredient)
+            # Converts singular ingredient (string or hash) to array format for unified processing
+            return [] if ingredient.nil?
+            [ingredient]
+        end
+
+        def normalize_singular_result(result)
+            # Converts singular result (string or hash) to array format for unified processing
+            return [] if result.nil?
+            [result]
+        end
+
+        def normalize_singular_fluid_result(fluid_result)
+            # Converts singular fluid_result hash to array format for unified processing
+            return [] if fluid_result.nil?
+            [fluid_result]
+        end
+
+        def normalize_create_fluid_inputs(fluid_ingredients_list)
+            # Converts new schema fluid_ingredients array into normalized input array
+            return [] unless fluid_ingredients_list.is_a?(Array)
+            
+            fluid_ingredients_list.map do |fluid_ingredient|
+                if fluid_ingredient.is_a?(Hash)
+                    # Handle: {"type": "fluid_stack", "amount": 1000, "fluid": "minecraft:water"}
+                    fluid_id = fluid_ingredient['fluid'] || fluid_ingredient['id']
+                    amount = fluid_ingredient['amount'] || 1
+                    
+                    {
+                        'fluid' => {
+                            'id' => fluid_id,
+                            'amount' => amount,
+                            'nbt' => fluid_ingredient['nbt'] || {}
+                        }
+                    }
+                else
+                    fluid_ingredient
+                end
+            end
+        end
+
         def normalize_create_milling(key, recipe_data)
             {
                 'filename' => key,
@@ -689,32 +785,231 @@ module Jekyll
         end
 
         def normalize_create_mixing(key, recipe_data)
+            if uses_new_create_schema?(recipe_data)
+                normalize_create_mixing_with_new_schema(key, recipe_data)
+            else
+                normalize_create_mixing_with_old_schema(key, recipe_data)
+            end
+        end
+
+        def normalize_create_mixing_with_old_schema(key, recipe_data)
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                []
+            end
+            
             {
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'input' => normalize_combined_input(recipe_data['ingredients']),
-                'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
+                'input' => normalize_combined_input(ingredients_array),
+                'output' => (results_array.map { |result| normalize_create_output(result)} + (fluid_result_array.map { |result| normalize_create_output(result)}))
+            }
+        end
+
+        def normalize_create_mixing_with_new_schema(key, recipe_data)
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                recipe_data['fluid_results'] || []
+            end
+            
+            old_schema_inputs = normalize_combined_input(ingredients_array)
+            new_schema_fluids = normalize_create_fluid_inputs(recipe_data['fluid_ingredients'])
+            combined_inputs = old_schema_inputs + new_schema_fluids
+            
+            old_schema_outputs = results_array.map { |result| normalize_create_output(result)}
+            new_schema_fluid_outputs = fluid_result_array.map { |result| normalize_create_output(result)}
+            combined_outputs = old_schema_outputs + new_schema_fluid_outputs
+            
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
+                'input' => combined_inputs,
+                'output' => combined_outputs
             }
         end
 
         def normalize_create_emptying(key, recipe_data)
+            if uses_new_create_schema?(recipe_data)
+                normalize_create_emptying_with_new_schema(key, recipe_data)
+            else
+                normalize_create_emptying_with_old_schema(key, recipe_data)
+            end
+        end
+
+        def normalize_create_emptying_with_old_schema(key, recipe_data)
+            # Handle both old array format AND singular format
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                []
+            end
+            
             {
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
-                'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
+                'input' => (ingredients_array.map { |ingredient| normalize_input(ingredient)} + normalize_create_fluid_inputs(recipe_data['fluid_ingredients'] || [])),
+                'output' => (results_array.map { |result| normalize_create_output(result)} + (fluid_result_array.map { |result| normalize_create_output(result)}))
+            }
+        end
+
+        def normalize_create_emptying_with_new_schema(key, recipe_data)
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                recipe_data['fluid_results'] || []
+            end
+            
+            old_schema_inputs = ingredients_array.map { |ingredient| normalize_input(ingredient)}
+            new_schema_fluids = normalize_create_fluid_inputs(recipe_data['fluid_ingredients'])
+            combined_inputs = old_schema_inputs + new_schema_fluids
+            
+            old_schema_outputs = results_array.map { |result| normalize_create_output(result)}
+            new_schema_fluid_outputs = fluid_result_array.map { |result| normalize_create_output(result)}
+            combined_outputs = old_schema_outputs + new_schema_fluid_outputs
+            
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
+                'input' => combined_inputs,
+                'output' => combined_outputs
             }
         end
 
         def normalize_create_filling(key, recipe_data)
+            if uses_new_create_schema?(recipe_data)
+                normalize_create_filling_with_new_schema(key, recipe_data)
+            else
+                normalize_create_filling_with_old_schema(key, recipe_data)
+            end
+        end
+
+        def normalize_create_filling_with_old_schema(key, recipe_data)
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                []
+            end
+            
             {
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
                 'type' => recipe_data['type'],
-                'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
-                'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
+                'input' => (ingredients_array.map { |ingredient| normalize_input(ingredient)} + normalize_create_fluid_inputs(recipe_data['fluid_ingredients'] || [])),
+                'output' => (results_array.map { |result| normalize_create_output(result)} + (fluid_result_array.map { |result| normalize_create_output(result)}))
+            }
+        end
+
+        def normalize_create_filling_with_new_schema(key, recipe_data)
+            is_singular = uses_singular_create_schema?(recipe_data)
+            
+            ingredients_array = if is_singular
+                normalize_singular_ingredient(recipe_data['ingredient'])
+            else
+                recipe_data['ingredients'] || []
+            end
+            
+            results_array = if is_singular
+                normalize_singular_result(recipe_data['result'])
+            else
+                recipe_data['results'] || []
+            end
+            
+            fluid_result_array = if is_singular
+                normalize_singular_fluid_result(recipe_data['fluid_result'])
+            else
+                recipe_data['fluid_results'] || []
+            end
+            
+            old_schema_inputs = ingredients_array.map { |ingredient| normalize_input(ingredient)}
+            new_schema_fluids = normalize_create_fluid_inputs(recipe_data['fluid_ingredients'])
+            combined_inputs = old_schema_inputs + new_schema_fluids
+            
+            old_schema_outputs = results_array.map { |result| normalize_create_output(result)}
+            new_schema_fluid_outputs = fluid_result_array.map { |result| normalize_create_output(result)}
+            combined_outputs = old_schema_outputs + new_schema_fluid_outputs
+            
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
+                'input' => combined_inputs,
+                'output' => combined_outputs
             }
         end
 

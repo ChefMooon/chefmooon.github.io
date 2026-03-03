@@ -8,33 +8,25 @@
     }
   ],
   "type": "create:mixing",
-  "heatRequirement": "heated",
+  "heat_requirement": "heated",
   "ingredients": [
+    "minecraft:spider_eye",
+    "minecraft:spider_eye",
+    "minecraft:spider_eye",
+    "minecraft:sugar",
+    "minecraft:sugar"
+  ],
+  "fluid_ingredients": [
     {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "minecraft:spider_eye"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
+      "type": "fluid_stack",
       "amount": 81000,
-      "fluid": "minecraft:water",
-      "nbt": {}
+      "fluid": "minecraft:water"
     }
   ],
-  "results": [
+  "fluid_results": [
     {
       "amount": 81000,
-      "fluid": "frightsdelight:spidereye_syrup"
+      "id": "frightsdelight:spidereye_syrup"
     }
   ]
 }

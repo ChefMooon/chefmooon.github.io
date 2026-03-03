@@ -4,7 +4,7 @@
   "group": "frd_ghasttear_pie",
   "key": {
     "A": "minecraft:ghast_tear",
-    "B": "#c:foods/milk",
+    "B": "#c:drinks/milk",
     "C": "farmersdelight:pie_crust"
   },
   "pattern": [

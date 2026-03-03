@@ -8,33 +8,25 @@
     }
   ],
   "type": "create:mixing",
-  "heatRequirement": "heated",
+  "heat_requirement": "heated",
   "ingredients": [
+    "minecraft:ghast_tear",
+    "minecraft:ghast_tear",
+    "minecraft:ghast_tear",
+    "minecraft:sugar",
+    "minecraft:sugar"
+  ],
+  "fluid_ingredients": [
     {
-      "item": "minecraft:ghast_tear"
-    },
-    {
-      "item": "minecraft:ghast_tear"
-    },
-    {
-      "item": "minecraft:ghast_tear"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
-      "item": "minecraft:sugar"
-    },
-    {
+      "type": "fluid_stack",
       "amount": 81000,
-      "fluid": "minecraft:water",
-      "nbt": {}
+      "fluid": "minecraft:water"
     }
   ],
-  "results": [
+  "fluid_results": [
     {
       "amount": 81000,
-      "fluid": "frightsdelight:ghasttear_syrup"
+      "id": "frightsdelight:ghasttear_syrup"
     }
   ]
 }

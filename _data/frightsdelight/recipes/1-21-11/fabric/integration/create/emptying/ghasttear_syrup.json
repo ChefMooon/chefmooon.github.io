@@ -8,18 +8,12 @@
     }
   ],
   "type": "create:emptying",
-  "ingredients": [
-    {
-      "item": "frightsdelight:ghasttear_syrup_bottle"
-    }
-  ],
-  "results": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "frightsdelight:ghasttear_syrup"
-    }
-  ]
+  "ingredient": "frightsdelight:ghasttear_syrup_bottle",
+  "fluid_result": {
+    "amount": 27000,
+    "id": "frightsdelight:ghasttear_syrup"
+  },
+  "result": {
+    "id": "minecraft:glass_bottle"
+  }
 }

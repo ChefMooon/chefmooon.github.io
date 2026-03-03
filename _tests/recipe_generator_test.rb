@@ -209,6 +209,147 @@ class RecipeGeneratorTest < Minitest::Test
     assert_equal 1, result['output'][1]['item']['count']
   end
 
+  def test_normalize_create_mixing_new_schema
+    recipe = load_fixture('create_mixing_v12111.json')
+    result = call_private(:normalize_create_mixing, 'rotten_flesh_syrup', recipe)
+
+    assert_equal 'create:mixing', result['type']
+    assert_instance_of Array, result['load_conditions']
+    assert_instance_of Array, result['input']
+    assert_instance_of Array, result['output']
+    
+    # Should have items from ingredients
+    assert result['input'].any? { |ing| ing['item'] && ing['item']['id'] == 'minecraft:rotten_flesh' }
+    assert result['input'].any? { |ing| ing['item'] && ing['item']['id'] == 'minecraft:sugar' }
+    
+    # Should have fluid from fluid_ingredients
+    assert result['input'].any? { |ing| ing['fluid'] && ing['fluid']['id'] == 'minecraft:water' }
+    
+    # Should have fluid output from fluid_results
+    assert result['output'].any? { |out| out['fluid'] && out['fluid']['id'] == 'frightsdelight:rotten_flesh_syrup' }
+    assert_equal 81000, result['output'].find { |out| out['fluid'] }['fluid']['amount']
+  end
+
+  def test_normalize_create_emptying_new_schema
+    recipe = load_fixture('create_emptying_v12111.json')
+    result = call_private(:normalize_create_emptying, 'water_emptying', recipe)
+
+    assert_equal 'create:emptying', result['type']
+    assert_instance_of Array, result['input']
+    assert_instance_of Array, result['output']
+    
+    # Should have fluid input from fluid_ingredients
+    assert result['input'].any? { |ing| ing['fluid'] && ing['fluid']['id'] == 'minecraft:water' }
+    assert_equal 250, result['input'].find { |ing| ing['fluid'] }['fluid']['amount']
+    
+    # Should have item output from results
+    assert result['output'].any? { |out| out['item'] && out['item']['id'] == 'minecraft:glass_bottle' }
+  end
+
+  def test_normalize_create_filling_new_schema
+    recipe = load_fixture('create_filling_v12111.json')
+    result = call_private(:normalize_create_filling, 'water_filling', recipe)
+
+    assert_equal 'create:filling', result['type']
+    assert_instance_of Array, result['input']
+    assert_instance_of Array, result['output']
+    
+    # Should have item from ingredients
+    assert result['input'].any? { |ing| ing['item'] && ing['item']['id'] == 'minecraft:glass_bottle' }
+    
+    # Should have fluid from fluid_ingredients
+    assert result['input'].any? { |ing| ing['fluid'] && ing['fluid']['id'] == 'minecraft:water' }
+    assert_equal 250, result['input'].find { |ing| ing['fluid'] }['fluid']['amount']
+    
+    # Should have item output from results
+    assert result['output'].any? { |out| out['item'] && out['item']['id'] == 'minecraft:water_bucket' }
+  end
+
+  def test_validate_create_mixing_old_schema
+    recipe = {
+      'type' => 'create:mixing',
+      'ingredients' => ['minecraft:sand', 'minecraft:gravel'],
+      'results' => [{'item' => 'minecraft:dirt'}]
+    }
+    validation = call_private(:validate_create_recipe, 'test_mixing', recipe, 'create:mixing')
+    
+    assert_equal true, validation[:valid]
+  end
+
+  def test_validate_create_mixing_new_schema
+    recipe = {
+      'type' => 'create:mixing',
+      'ingredients' => [],
+      'results' => [],
+      'fluid_ingredients' => [{'fluid' => 'minecraft:water', 'amount' => 1000}],
+      'fluid_results' => [{'id' => 'minecraft:lava', 'amount' => 500}]
+    }
+    validation = call_private(:validate_create_recipe, 'test_mixing', recipe, 'create:mixing')
+    
+    assert_equal true, validation[:valid]
+  end
+
+  def test_validate_create_mixing_invalid_no_schema
+    recipe = {
+      'type' => 'create:mixing'
+    }
+    validation = call_private(:validate_create_recipe, 'test_mixing', recipe, 'create:mixing')
+    
+    assert_equal false, validation[:valid]
+    assert validation[:errors].any? { |err| err.include?('must have at least one') }
+  end
+
+  def test_validate_create_emptying_singular_format
+    recipe = {
+      'type' => 'create:emptying',
+      'ingredient' => 'minecraft:bucket',
+      'result' => {'item' => 'minecraft:glass_bottle'},
+      'fluid_result' => {'amount' => 250, 'id' => 'minecraft:water'}
+    }
+    validation = call_private(:validate_create_recipe, 'test_emptying', recipe, 'create:emptying')
+    
+    assert_equal true, validation[:valid]
+  end
+
+  def test_validate_create_emptying_combined_schema
+    recipe = {
+      'type' => 'create:emptying',
+      'ingredients' => [{'item' => 'minecraft:bucket'}],
+      'results' => [{'item' => 'minecraft:glass_bottle'}],
+      'fluid_ingredients' => [{'fluid' => 'minecraft:water', 'amount' => 1000}],
+      'fluid_results' => []
+    }
+    validation = call_private(:validate_create_recipe, 'test_emptying', recipe, 'create:emptying')
+    
+    assert_equal true, validation[:valid]
+  end
+
+  def test_uses_new_create_schema_detection
+    old_recipe = {
+      'ingredients' => ['minecraft:sand'],
+      'results' => [{'item' => 'minecraft:dirt'}]
+    }
+    assert_equal false, call_private(:uses_new_create_schema?, old_recipe)
+    
+    new_recipe = {
+      'fluid_ingredients' => [{'fluid' => 'minecraft:water', 'amount' => 1000}],
+      'fluid_results' => []
+    }
+    assert_equal true, call_private(:uses_new_create_schema?, new_recipe)
+  end
+
+  def test_normalize_create_fluid_inputs
+    fluid_ingredients = [
+      { 'type' => 'fluid_stack', 'amount' => 1000, 'fluid' => 'minecraft:water' }
+    ]
+    result = call_private(:normalize_create_fluid_inputs, fluid_ingredients)
+    
+    assert_equal 1, result.length
+    assert_equal 'minecraft:water', result[0]['fluid']['id']
+    assert_equal 1000, result[0]['fluid']['amount']
+    assert_equal Hash.new, result[0]['fluid']['nbt']
+  end
+
   def test_normalize_ud_baking_mat
     recipe = load_fixture('ud_baking_mat_v1201.json')
     result = call_private(:normalize_ud_baking_mat, 'apple_pie', recipe)

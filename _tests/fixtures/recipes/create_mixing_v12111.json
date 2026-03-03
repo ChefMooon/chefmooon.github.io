@@ -2,17 +2,15 @@
   "fabric:load_conditions": [
     {
       "condition": "fabric:all_mods_loaded",
-      "values": [
-        "create"
-      ]
+      "values": ["create"]
     }
   ],
   "type": "create:mixing",
   "heat_requirement": "heated",
   "ingredients": [
-    "frightsdelight:soul_berry",
-    "frightsdelight:soul_berry",
-    "frightsdelight:soul_berry",
+    "minecraft:rotten_flesh",
+    "minecraft:rotten_flesh",
+    "minecraft:rotten_flesh",
     "minecraft:sugar",
     "minecraft:sugar"
   ],
@@ -23,10 +21,11 @@
       "fluid": "minecraft:water"
     }
   ],
+  "results": [],
   "fluid_results": [
     {
       "amount": 81000,
-      "id": "frightsdelight:soul_berry_syrup"
+      "id": "frightsdelight:rotten_flesh_syrup"
     }
   ]
 }

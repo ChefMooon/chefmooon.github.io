@@ -8,18 +8,12 @@
     }
   ],
   "type": "create:emptying",
-  "ingredients": [
-    {
-      "item": "frightsdelight:spidereye_syrup_bottle"
-    }
-  ],
-  "results": [
-    {
-      "item": "minecraft:glass_bottle"
-    },
-    {
-      "amount": 27000,
-      "fluid": "frightsdelight:spidereye_syrup"
-    }
-  ]
+  "ingredient": "frightsdelight:spidereye_syrup_bottle",
+  "fluid_result": {
+    "amount": 27000,
+    "id": "frightsdelight:spidereye_syrup"
+  },
+  "result": {
+    "id": "minecraft:glass_bottle"
+  }
 }

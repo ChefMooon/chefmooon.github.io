@@ -4,7 +4,7 @@
   "group": "frd_slimeapple_pie",
   "key": {
     "A": "frightsdelight:apple_slime",
-    "B": "#c:foods/milk",
+    "B": "#c:drinks/milk",
     "C": "farmersdelight:pie_crust"
   },
   "pattern": [
