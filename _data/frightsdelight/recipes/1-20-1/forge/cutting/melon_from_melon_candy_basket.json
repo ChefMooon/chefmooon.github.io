@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "frightsdelight:melon_candy_basket"
+    }
+  ],
+  "result": [
+    {
+      "item": "minecraft:melon"
+    },
+    {
+      "item": "farmersdelight:rope"
+    }
+  ],
+  "tool": {
+    "tag": "forge:tools/knives"
+  }
+}

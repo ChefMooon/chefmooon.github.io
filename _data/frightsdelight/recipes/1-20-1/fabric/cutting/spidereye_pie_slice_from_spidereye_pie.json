@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "frightsdelight:spidereye_pie"
+    }
+  ],
+  "result": [
+    {
+      "count": 4,
+      "item": "frightsdelight:spidereye_pie_slice"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "farmersdelight:cutting",
+  "ingredients": [
+    {
+      "item": "frightsdelight:pumpkin_candy_basket"
+    }
+  ],
+  "result": [
+    {
+      "item": "minecraft:pumpkin"
+    },
+    {
+      "item": "farmersdelight:rope"
+    }
+  ],
+  "tool": {
+    "tag": "c:tools/knives"
+  }
+}
