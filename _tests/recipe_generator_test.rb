@@ -209,6 +209,50 @@ class RecipeGeneratorTest < Minitest::Test
     assert_equal 1, result['output'][1]['item']['count']
   end
 
+  def test_normalize_create_milling_v12111
+    recipe = load_fixture('create_milling_v12111.json')
+    result = call_private(:normalize_create_milling, 'wild_garlic_v12111', recipe)
+
+    assert_equal 'create:milling', result['type']
+    assert_equal 50, result['processing_time']
+    assert_instance_of Array, result['load_conditions']
+    assert_equal 'fabric:all_mods_loaded', result['load_conditions'][0]['condition']
+    assert_instance_of Array, result['input']
+    assert_equal 'ubesdelight:wild_garlic', result['input'][0]['item']['id']
+    assert_equal 1, result['input'][0]['item']['count']
+    assert_instance_of Array, result['output']
+    assert_equal 2, result['output'].length
+    assert_equal 'ubesdelight:garlic', result['output'][0]['item']['id']
+    assert_equal 1, result['output'][0]['item']['count']
+    assert_equal 'minecraft:pink_dye', result['output'][1]['item']['id']
+    assert_equal 1, result['output'][1]['item']['count']
+  end
+
+  def test_both_create_milling_versions_normalize_correctly
+    recipe_v1201 = load_fixture('create_milling_v1201.json')
+    recipe_v12111 = load_fixture('create_milling_v12111.json')
+    
+    result_v1201 = call_private(:normalize_create_milling, 'test', recipe_v1201)
+    result_v12111 = call_private(:normalize_create_milling, 'test', recipe_v12111)
+    
+    # Both should have the required fields
+    assert result_v1201['type']
+    assert result_v1201['processing_time']
+    assert result_v1201['input']
+    assert result_v1201['output']
+    
+    assert result_v12111['type']
+    assert result_v12111['processing_time']
+    assert result_v12111['input']
+    assert result_v12111['output']
+    
+    # Both should be arrays
+    assert_instance_of Array, result_v1201['input']
+    assert_instance_of Array, result_v1201['output']
+    assert_instance_of Array, result_v12111['input']
+    assert_instance_of Array, result_v12111['output']
+  end
+
   def test_normalize_create_mixing_new_schema
     recipe = load_fixture('create_mixing_v12111.json')
     result = call_private(:normalize_create_mixing, 'rotten_flesh_syrup', recipe)

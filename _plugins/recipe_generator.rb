@@ -83,7 +83,7 @@ module Jekyll
             # Returns: { valid: true } or { valid: false, errors: ['error1', 'error2'] }
             
             # Special handling for Create recipes that support dual schemas
-            if ['create:mixing', 'create:emptying', 'create:filling'].include?(recipe_type)
+            if ['create:mixing', 'create:emptying', 'create:filling', 'create:milling'].include?(recipe_type)
                 return validate_create_recipe(recipe_key, recipe_data, recipe_type)
             end
             
@@ -113,10 +113,9 @@ module Jekyll
         end
 
         def validate_create_recipe(recipe_key, recipe_data, recipe_type)
-            # Validates Create recipes supporting three schema formats:
-            # 1. Singular format (old): ingredient, result, fluid_result
-            # 2. Array format (old): ingredients, results
-            # 3. Fluid-separated format (new): ingredients, fluid_ingredients, results, fluid_results
+            # Validates Create recipes supporting multiple schema formats
+            # create:milling: old (ingredients array, processingTime) or new (ingredient singular, processing_time)
+            # create:mixing/emptying/filling: singular, array, or fluid-separated formats
             errors = []
             
             # Check that type exists
@@ -125,6 +124,24 @@ module Jekyll
                 return { valid: false, errors: errors }
             end
             
+            # # Special handling for create:milling with dual schemas
+            # if recipe_type == 'create:milling'
+            #     has_singular_input = recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
+            #     has_array_input = recipe_data['ingredients'].is_a?(Array) && recipe_data['ingredients'].any?
+            #     has_any_input = has_singular_input || has_array_input
+                
+            #     has_processing_time = recipe_data['processingTime'].is_a?(Numeric) || recipe_data['processing_time'].is_a?(Numeric)
+            #     has_results = recipe_data['results'].is_a?(Array) && recipe_data['results'].any?
+                
+            #     unless has_any_input && has_processing_time && has_results
+            #         errors << "must have input (ingredient or ingredients array), processing_time, and results"
+            #         return { valid: false, errors: errors }
+            #     end
+                
+            #     return { valid: true }
+            # end
+            
+            # For other create recipes (mixing, emptying, filling)
             # Check for at least one input source
             has_singular_input = recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
             has_array_input = recipe_data['ingredients'].is_a?(Array) && recipe_data['ingredients'].any?
@@ -773,7 +790,20 @@ module Jekyll
             end
         end
 
+        def uses_new_create_milling_schema?(recipe_data)
+            # Detects if recipe uses new schema (uses 'ingredient' singular and 'processing_time' snake_case)
+            recipe_data['ingredient'].is_a?(String) || recipe_data['ingredient'].is_a?(Hash)
+        end
+
         def normalize_create_milling(key, recipe_data)
+            if uses_new_create_milling_schema?(recipe_data)
+                normalize_create_milling_with_new_schema(key, recipe_data)
+            else
+                normalize_create_milling_with_old_schema(key, recipe_data)
+            end
+        end
+
+        def normalize_create_milling_with_old_schema(key, recipe_data)
             {
                 'filename' => key,
                 'load_conditions' => normalize_load_conditions(recipe_data),
@@ -782,6 +812,44 @@ module Jekyll
                 'input' => recipe_data['ingredients'].map { |ingredient| normalize_input(ingredient)},
                 'output' => recipe_data['results'].map { |result| normalize_create_output(result)}
             }
+        end
+
+        def normalize_create_milling_with_new_schema(key, recipe_data)
+            # New schema uses singular 'ingredient' and simplified results format with 'id'
+            ingredient_array = normalize_singular_ingredient(recipe_data['ingredient'])
+            results_array = recipe_data['results'] || []
+            
+            {
+                'filename' => key,
+                'load_conditions' => normalize_load_conditions(recipe_data),
+                'type' => recipe_data['type'],
+                'processing_time' => recipe_data['processing_time'],
+                'input' => ingredient_array.map { |ingredient| normalize_input(ingredient)},
+                'output' => results_array.map { |result| normalize_milling_output(result)}
+            }
+        end
+
+        def normalize_milling_output(result)
+            # Normalizes new schema result format where result has 'id' and optional 'count'
+            return { 'item' => { 'id' => result, 'count' => 1 } } if result.is_a?(String)
+            
+            return result if result.nil? || result.empty?
+            
+            output = {}
+            
+            # Handle new schema with 'id' field
+            if result['id']
+                output['item'] = {
+                    'id' => result['id'],
+                    'count' => result['count'] || 1
+                }
+            # Handle old schema with 'item' field
+            elsif result['item'] || result['tag'] || result['fluid']
+                return normalize_create_output(result)
+            end
+            
+            output['chance'] = result['chance'] if result['chance']
+            output
         end
 
         def normalize_create_mixing(key, recipe_data)
