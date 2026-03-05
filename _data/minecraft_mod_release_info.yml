@@ -12,7 +12,9 @@
       - 1.21.1
 
 - different-doors:
+    mono_wiki: true
     minecraft_versions:
+      - 1.20.1
       - 1.21.1
 
 - frightsdelight:

@@ -3,6 +3,7 @@ mod_id: differentdoors
 announcements:
   top:
     - "*Currently, this wiki contains only basic information. Additional details will be included in future updates.*"
+    - "This wiki covers versions 1.20.1 and 1.21.1 of the mod. 1.21.1 features Weathering Copper Doors and additonal crafting recipes for styles."
   bottom: []
 
 section_order:
@@ -43,11 +44,13 @@ sections:
       - minecraft: 1.20.1
         loaders:
           fabric:
-            status: planned
+            status: supported
+            version: v1.1.0
           neoforge:
             status: unsupported
           forge:
-            status: planned
+            status: supported
+            version: v1.1.0
     legend:
       - status: supported
         label: Supported Version
