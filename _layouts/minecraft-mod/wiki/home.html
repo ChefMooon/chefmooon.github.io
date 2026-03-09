@@ -4,6 +4,7 @@ layout: minecraft-mod/wiki/base
 
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign wiki_home = site.data.wiki_home[page.mod_id] -%}
+{%- assign wiki_modules = page.wiki_modules -%}
 {%- assign version_override = nil -%}
 {%- if wiki_home and wiki_home.version_overrides and wiki_home.version_overrides[page.minecraft_version] -%}
     {%- assign version_override = wiki_home.version_overrides[page.minecraft_version] -%}
@@ -25,16 +26,25 @@ layout: minecraft-mod/wiki/base
     </div>
     {%- endif -%}
 
-    {%- if wiki_home and wiki_home.announcements and wiki_home.announcements.top -%}
+    {%- if wiki_modules == nil and wiki_home and wiki_home.announcements and wiki_home.announcements.top -%}
     {%- include minecraft-mod/wiki/home-announcements.html announcements=wiki_home.announcements.top -%}
     {%- endif -%}
 
-    {%- if version_override and version_override.announcements and version_override.announcements.top -%}
+    {%- if wiki_modules == nil and version_override and version_override.announcements and version_override.announcements.top -%}
     {%- include minecraft-mod/wiki/home-announcements.html announcements=version_override.announcements.top -%}
     {%- endif -%}
 
     <div class="post-content">
-        {%- if wiki_home and wiki_home.section_order -%}
+        {%- if wiki_modules and wiki_modules.size > 0 -%}
+            {%- for module in wiki_modules -%}
+            <section
+                class="wiki-module wiki-module-{{ module.id | replace: '_', '-' }}{% if module.is_override %} wiki-module-override{% endif %}"
+                data-module-id="{{ module.id }}"
+                data-module-source="{{ module.path }}">
+                {{ module.content | markdownify }}
+            </section>
+            {%- endfor -%}
+        {%- elsif wiki_home and wiki_home.section_order -%}
             {%- for section_id in wiki_home.section_order -%}
                 {%- assign section_data = wiki_home.sections[section_id] -%}
                 {%- assign section_override = nil -%}
@@ -64,11 +74,11 @@ layout: minecraft-mod/wiki/base
         </div>
         {%- endif -%}
 
-        {%- if version_override and version_override.announcements and version_override.announcements.bottom -%}
+        {%- if wiki_modules == nil and version_override and version_override.announcements and version_override.announcements.bottom -%}
         {%- include minecraft-mod/wiki/home-announcements.html announcements=version_override.announcements.bottom -%}
         {%- endif -%}
 
-        {%- if wiki_home and wiki_home.announcements and wiki_home.announcements.bottom -%}
+        {%- if wiki_modules == nil and wiki_home and wiki_home.announcements and wiki_home.announcements.bottom -%}
         {%- include minecraft-mod/wiki/home-announcements.html announcements=wiki_home.announcements.bottom -%}
         {%- endif -%}
     </div>

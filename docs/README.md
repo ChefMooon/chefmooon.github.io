@@ -28,6 +28,9 @@ The **Wiki Status Report** GitHub Actions workflow automates the wiki status rep
 
 ## Wiki Documentation
 
+### [wiki-module-loader.md](wiki-module-loader.md)
+Guide to `_plugins/wiki_module_loader.rb`. Explains how modular wiki markdown files are discovered, how version overrides are resolved, how module content is Liquid-rendered, and how layouts consume `page.wiki_modules`.
+
 ### [wiki-home-system.md](wiki-home-system.md)
 Comprehensive guide to the wiki home system. Explains how wiki pages are rendered, where shared content lives, version-specific overrides, and the data structure for sections, announcements, and compatibility tables. Includes authoring workflows and troubleshooting tips.
 
@@ -51,5 +54,7 @@ Guide to the Recipe Validation System in the recipe generator plugin. Explains h
 - [Wiki Status Checker Script](../scripts/check_wiki_status.rb)
 - [Release Info Updater Script](../scripts/update_release_info_from_recent_posts.rb)
 - [Release Info Data](../_data/minecraft_mod_release_info.yml)
-- [Wiki Home Data](../_data/wiki_home/)
+- [Wiki Home Data (Archived)](../_data/wiki_home_archive/)
+- [Wiki Modular Content](../minecraft-mod/)
 - [Wiki Layouts](../_layouts/minecraft-mod/wiki/)
+- [Wiki Module Loader](wiki-module-loader.md)

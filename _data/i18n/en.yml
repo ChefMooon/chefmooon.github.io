@@ -1,0 +1,12 @@
+compatibility:
+  legend_label: Legend
+  supported_label: Supported Version
+  unsupported_label: Not Supported
+  bugfix_label: Bug Fix Only
+  planned_label: Planned
+
+translation:
+  section_title: Translation
+  submit_heading: Contribute a Translation
+  submit_placeholder: "Greatly appreciate all translations. Submit translations by creating a pull request in the GitHub repository."
+  no_contributors_yet: "No translations yet, please consider contributing."
