@@ -157,6 +157,10 @@ sections:
         status: Partial
         version: 0.2.0
         authors: TheLegendofSaram
+      - language: ko_kr
+        status: Done
+        version: 0.4.11
+        authors: JaeHyuk_Lee
     closing_text: Greatly appreciate all translations!
 
   links:
