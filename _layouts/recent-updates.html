@@ -1,70 +1,65 @@
 ---
-layout: base
+layout: default
 ---
 
-<header class="post-header">
-    <h1 class="post-title">{{ page.title | escape }}</h1>
-</header>
-
-{% if site.paginate %}
-		{% assign posts = paginator.posts %}
-	{% else %}
-		{% assign posts = site.posts %}
-	{% endif %}
-
-	<br />
-
-	{%- if posts.size > 0 -%}
-		{%- if page.list_title -%}
-			<h1>{{ page.list_title }}</h1>
-		{%- endif -%}
-		<ul class="post-list">
-			{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-			{%- for post in posts -%}
-			<li>
-				<span class="post-meta">{{ post.date | date: date_format }}</span>
-				<span class="post-meta">
-					{% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
-					{%- if post.mod_id -%}
-						• {{ mod_info.title | escape }}&nbsp;
-					{%- endif -%}
-				</span>
-				<h3>
-					<a class="post-link" href="{{ post.url | relative_url }}">
-						{%- if post.mod_title -%}
-							{{ post.mod_title | escape }}&nbsp;-&nbsp;
-						{%- endif -%}
-						{%- if post.mod_version -%}
-							{{ post.mod_version | escape }}&nbsp;-&nbsp;
-						{%- endif -%}
-						{%- if post.title -%}
-							{{ post.title | escape }}
-						{%- endif -%}
-					</a>
-				</h3>
-				{%- if site.show_excerpts -%}
-					{{ post.excerpt }}
-				{%- endif -%}
-			</li>
-			{%- endfor -%}
-		</ul>
+<section style="padding: 2rem 0 4rem;">
+	<div class="container">
+		<h1 class="section-heading">{{ page.title | escape }}</h1>
 
 		{% if site.paginate %}
-			<div class="pager">
-					<ul class="pagination">
-						{%- if paginator.previous_page %}
-							<li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-						{%- else %}
-							<li><div class="pager-edge">•</div></li>
-						{%- endif %}
-							<li><div class="current-page">{{ paginator.page }}</div></li>
-						{%- if paginator.next_page %}
-							<li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-						{%- else %}
-							<li><div class="pager-edge">•</div></li>
-						{%- endif %}
-					</ul>
-			</div>
-		{%- endif %}
+			{% assign posts = paginator.posts %}
+		{% else %}
+			{% assign posts = site.posts %}
+		{% endif %}
 
-	{%- endif -%}
+		{%- if posts.size > 0 -%}
+			<div class="updates-list" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1.5rem;">
+				{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+				{%- for post in posts -%}
+					{% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
+					<a class="update-card" href="{{ post.url | relative_url }}">
+						<span class="update-card-date">{{ post.date | date: date_format }}</span>
+						<div style="display: flex; flex-direction: column; gap: 0.25rem;">
+							{%- if post.mod_id -%}
+								<span class="update-card-mod">{{ mod_info.title | escape }}</span>
+							{%- endif -%}
+							<span class="update-card-title">
+								{%- if post.mod_title -%}
+									{{ post.mod_title | escape }}
+									{%- if post.mod_version -%}
+										&nbsp;-&nbsp;{{ post.mod_version | escape }}
+									{%- endif -%}
+									{%- if post.title -%}
+										&nbsp;-&nbsp;
+									{%- endif -%}
+								{%- endif -%}
+								{%- if post.title -%}
+									{{ post.title | escape }}
+								{%- endif -%}
+							</span>
+						</div>
+						<span class="update-card-arrow">&rarr;</span>
+					</a>
+				{%- endfor -%}
+			</div>
+
+			{% if site.paginate %}
+				<div class="pagination-container" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+					<div style="display: flex; align-items: center; gap: 0.75rem;">
+						{%- if paginator.previous_page %}
+							<a href="{{ paginator.previous_page_path | relative_url }}" class="update-card" style="text-decoration: none; width: auto;">
+								<span style="color: var(--green);">← Previous</span>
+							</a>
+						{%- endif %}
+						<span style="color: var(--muted); font-family: 'Space Mono', monospace;">Page {{ paginator.page }}</span>
+						{%- if paginator.next_page %}
+							<a href="{{ paginator.next_page_path | relative_url }}" class="update-card" style="text-decoration: none; width: auto;">
+								<span style="color: var(--green);">Next →</span>
+							</a>
+						{%- endif %}
+					</div>
+				</div>
+			{%- endif %}
+		{%- endif -%}
+	</div>
+</section>
