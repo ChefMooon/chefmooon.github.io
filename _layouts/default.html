@@ -55,6 +55,14 @@
         <li><a class="nav-link" href="{{ '/recent-updates/' | relative_url }}">Updates</a></li>
         <li><a class="nav-link" href="{{ '/about/' | relative_url }}">About</a></li>
       </ul>
+      
+      <!-- Mobile hamburger button -->
+      <button class="nav-hamburger" id="mobile-menu-trigger" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      
       <div class="nav-actions">
         <!-- Discord badge with live member count -->
         <a href="https://discord.gg/mbuDBHHUws" target="_blank" rel="noopener" class="discord-badge">
@@ -64,6 +72,41 @@
         <!-- Theme toggle -->
         {%- include theme-toggle.html -%}
       </div>
+    </div>
+    
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <!-- Mods dropdown for mobile -->
+      <div class="mobile-menu-section">
+        <button class="mobile-menu-toggle" id="mobile-mods-toggle" aria-expanded="false" aria-controls="mobile-mods-list">
+          Mods
+          <svg class="mobile-menu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <ul class="mobile-submenu" id="mobile-mods-list" style="display: none;">
+          {%- for mod in site.data.minecraft_mods -%}
+          <li class="mobile-mod-item">
+            <button class="mobile-mod-toggle" data-mod-id="{{ mod.id }}" aria-expanded="false">
+              {{ mod.title }}
+              <svg class="mobile-mod-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 6 15 12 9 18"></polyline>
+              </svg>
+            </button>
+            <ul class="mobile-mod-submenu" style="display: none;">
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}">Home</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">Wiki</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">Changelog</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">Roadmap</a></li>
+            </ul>
+          </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+      
+      <!-- Updates and About links for mobile -->
+      <a href="{{ '/recent-updates/' | relative_url }}" class="mobile-menu-link">Updates</a>
+      <a href="{{ '/about/' | relative_url }}" class="mobile-menu-link">About</a>
     </div>
   </nav>
 
@@ -259,6 +302,77 @@
       });
     })();
 
+    // Mobile menu functionality
+    (function() {
+      const hamburger = document.getElementById('mobile-menu-trigger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const modsToggle = document.getElementById('mobile-mods-toggle');
+      const modsList = document.getElementById('mobile-mods-list');
+      const modToggles = document.querySelectorAll('.mobile-mod-toggle');
+      const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+      // Hamburger toggle
+      hamburger.addEventListener('click', function() {
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('open', isOpen);
+        hamburger.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Mods dropdown toggle in mobile menu
+      modsToggle.addEventListener('click', function() {
+        const isOpen = modsList.style.display !== 'none';
+        modsList.style.display = isOpen ? 'none' : 'block';
+        modsToggle.setAttribute('aria-expanded', !isOpen);
+      });
+
+      // Individual mod submenu toggles
+      modToggles.forEach(toggle => {
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          const submenu = this.nextElementSibling;
+          const isOpen = submenu.style.display !== 'none';
+          
+          // Close all other submenus
+          document.querySelectorAll('.mobile-mod-submenu').forEach(menu => {
+            if (menu !== submenu) {
+              menu.style.display = 'none';
+            }
+          });
+          
+          // Toggle current submenu
+          submenu.style.display = isOpen ? 'none' : 'block';
+          this.setAttribute('aria-expanded', !isOpen);
+        });
+      });
+
+      // Close mobile menu when clicking a link
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', false);
+        });
+      });
+
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!document.querySelector('nav').contains(e.target)) {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', false);
+        }
+      });
+
+      // Close mobile menu on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+          mobileMenu.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', false);
+        }
+      });
+    })();
+
     // Discord live member count
     const DISCORD_SERVER_ID = '1159501560997498952';
 
@@ -268,7 +382,9 @@
         const data = await res.json();
         const el = document.getElementById('discord-online-count');
         if (el && data.presence_count !== undefined) {
-          el.textContent = `${data.presence_count} online`;
+          // Show only number on mobile, "(N online)" format on desktop
+          const isMobile = window.innerWidth < 768;
+          el.textContent = isMobile ? `${data.presence_count}` : `${data.presence_count} online`;
         }
       } catch (e) {
         // Silently fail — button still works without the count
@@ -277,6 +393,13 @@
 
     updateDiscordCount();
     setInterval(updateDiscordCount, 60000); // Refresh every 60 seconds
+    
+    // Update Discord count on window resize to adapt to viewport changes
+    let resizeTimeout;
+    window.addEventListener('resize', function() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(updateDiscordCount, 250);
+    });
   </script>
 
 </body>
