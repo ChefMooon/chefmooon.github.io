@@ -56,10 +56,10 @@
         <li><a class="nav-link" href="{{ '/about/' | relative_url }}">About</a></li>
       </ul>
       <div class="nav-actions">
-        <!-- Discord static badge placeholder -->
+        <!-- Discord badge with live member count -->
         <a href="https://discord.gg/mbuDBHHUws" target="_blank" rel="noopener" class="discord-badge">
           <span class="discord-pulse"></span>
-          <span>Discord</span>
+          <span id="discord-online-count"></span>
         </a>
         <!-- Theme toggle -->
         {%- include theme-toggle.html -%}
@@ -258,6 +258,25 @@
         }
       });
     })();
+
+    // Discord live member count
+    const DISCORD_SERVER_ID = '1159501560997498952';
+
+    async function updateDiscordCount() {
+      try {
+        const res = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
+        const data = await res.json();
+        const el = document.getElementById('discord-online-count');
+        if (el && data.presence_count !== undefined) {
+          el.textContent = `${data.presence_count} online`;
+        }
+      } catch (e) {
+        // Silently fail — button still works without the count
+      }
+    }
+
+    updateDiscordCount();
+    setInterval(updateDiscordCount, 60000); // Refresh every 60 seconds
   </script>
 
 </body>

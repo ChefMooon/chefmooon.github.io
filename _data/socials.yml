@@ -1,7 +1,7 @@
 - id: discord
   label: Discord
   url: https://discord.gg/mbuDBHHUws
-  icon: "💬"
+  icon: ""
   color: "#7289da"
   pulse: true
 
