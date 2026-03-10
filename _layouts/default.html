@@ -71,13 +71,7 @@
     {{ content }}
   </main>
 
-  <footer class="site-footer-new">
-    <div class="container">
-      <p style="color: var(--muted); font-size: 0.875rem; text-align: center; margin: 0;">
-        &copy; {{ 'now' | date: "%Y" }} ChefMooon
-      </p>
-    </div>
-  </footer>
+  {%- include footer.html -%}
 
   <script>
     (function() {

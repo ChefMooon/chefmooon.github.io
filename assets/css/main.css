@@ -544,9 +544,29 @@ body::before {
   border-bottom: 1px solid var(--border);
 }
 .site-footer-new {
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   border-top: 1px solid var(--border);
   margin-top: 4rem;
+}
+.site-footer {
+  border-top: 1px solid var(--border);
+  margin-top: 4rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.footer-text {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+}
+.footer-link {
+  color: #4ade80;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-link:hover {
+  text-decoration: underline;
 }
 
 /* ===============================

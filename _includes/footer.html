@@ -2,21 +2,21 @@
     <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
     <div class="wrapper">
-
-        <!-- <div class="social-links">
-            {%- include social.html -%}
-        </div> -->
-
-        <div class="footer-col-wrapper">
-            <div class="footer-col">
-                <p class="feed-subscribe center-content">
-                    <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}" target="_blank">
-                        <img src="{{ 'assets/img/social-icons/icon_rss.png' | relative_url }}" alt="RSS feed icon">
-                    </a>
-                </p>
-            </div>
+        <div class="footer-content">
+            <p class="footer-text">
+                Built by <a class="footer-link">{{ site.title | split: "'" | first | strip }}</a> · 
+                Hosted on <a href="https://github.com/ChefMooon/chefmooon.github.io" target="_blank" class="footer-link">GitHub</a> Pages
+                {%- assign social_ids = "discord,modrinth,curseforge" | split: "," -%}
+                {%- for social_id in social_ids -%}
+                    {%- for social in site.data.socials -%}
+                        {%- if social.id == social_id -%}
+                 · <a href="{{ social.url }}" target="_blank" class="footer-link" title="{{ social.label }}">{{ social.label }}</a>
+                        {%- endif -%}
+                    {%- endfor -%}
+                {%- endfor %}
+                 · <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}" target="_blank" class="footer-link" title="RSS Feed">RSS</a>
+            </p>
         </div>
-
     </div>
 
 </footer>
