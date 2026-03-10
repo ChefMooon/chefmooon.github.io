@@ -1,6 +1,9 @@
 - id: breezebounce
   title: Breeze Bounce
-  description: placeholder
+  description: Bounce on breeze rods with a springy new block that launches players into the air.
+  icon: /assets/img/breeze-bounce/icon.png
+  icon_placeholder: "🌬️"
+  accent_colour: "#38bdf8"
   banner: /assets/img/breeze-bounce/banner.png
   banner_height: 64
   banner_width: 384
@@ -13,7 +16,10 @@
 
 - id: colourfulclocks
   title: Colourful Clocks
-  description: placeholder
+  description: Dye your clocks in any of the 16 Minecraft colours to match your build aesthetic.
+  icon: /assets/img/colourful-clocks/icon.png
+  icon_placeholder: "🕐"
+  accent_colour: "#f59e0b"
   banner: /assets/img/colourful-clocks/banner.png
   banner_height: 64
   banner_width: 482
@@ -26,7 +32,10 @@
 
 - id: differentdoors
   title: Different Doors
-  description: placeholder
+  description: Dozens of new door styles — glass panels, barn doors, jail gates and more.
+  icon: /assets/img/different-doors/icon.png
+  icon_placeholder: "🚪"
+  accent_colour: "#fb923c"
   banner: /assets/img/different-doors/banner.png
   banner_height: 76
   banner_width: 511
@@ -39,7 +48,10 @@
 
 - id: frightsdelight
   title: Fright's Delight
-  description: placeholder
+  description: A Farmer's Delight add-on full of spooky seasonal food and Halloween-themed recipes.
+  icon: /assets/img/frights-delight/icon.png
+  icon_placeholder: "🎃"
+  accent_colour: "#f97316"
   banner: /assets/img/frights-delight/banner.png
   banner_height: 87
   banner_width: 378
@@ -52,7 +64,10 @@
 
 - id: playfulplanes
   title: Playful Planes
-  description: placeholder
+  description: Craft and fly paper planes — fold them, throw them, and watch them glide.
+  icon: /assets/img/playful-planes/icon.png
+  icon_placeholder: "✈️"
+  accent_colour: "#60a5fa"
   banner: /assets/img/playful-planes/banner.png
   banner_height: 64
   banner_width: 410
@@ -65,7 +80,10 @@
 
 - id: ubesdelight
   title: Ube's Delight
-  description: placeholder
+  description: A Farmer's Delight add-on celebrating Filipino cuisine, featuring ube, halo-halo, and more.
+  icon: /assets/img/ubes-delight/icon.png
+  icon_placeholder: "🍠"
+  accent_colour: "#a855f7"
   banner: /assets/img/ubes-delight/banner.png
   banner_height: 90
   banner_width: 345

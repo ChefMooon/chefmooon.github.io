@@ -89,6 +89,7 @@
 
     function handleMenuClick(event, element) {
         event.preventDefault();
+        event.stopPropagation();
         const parentLi = element.parentElement;
         const subMenu = parentLi.querySelector('.dropdown-content');
 
@@ -97,6 +98,7 @@
 
     function handleSubMenuClick(event, element) {
         event.preventDefault();
+        event.stopPropagation();
         const parentLi = element.parentElement;
         const mainLi = parentLi.parentElement.parentElement;
         const subMenu = parentLi.querySelector('.submenu');

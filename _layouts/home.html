@@ -1,79 +1,64 @@
 ---
-layout: base
+layout: default
 ---
 
-<div class="home">
-	{%- if page.title -%}
-		<h1 class="post-title">{{ page.title }}</h1>
-	{%- endif -%}
-
-	<p>Welcome to ChefMooon’s Hub! The central hub for everything ChefMooon.</p>
-
-	<div class="main-socials">
-		<a href="https://discord.gg/mbuDBHHUws" target="_blank"><img src="https://img.shields.io/discord/1159501560997498952?color=a46083&label=Discord&logo=discord&logoColor=a46083&style=for-the-badge" alt="Discord" height="28" width="194"/></a><br />
-		<!-- <a href="https://discord.gg/mbuDBHHUws" target="_blank"><img src="/assets/img/buttons/button_discord.png" alt="Discord"/></a> -->
-		<a href="{{ site.bluesky_url }}" target="_blank"><img src="/assets/img/buttons/button_bluesky.png" alt="Bluesky" height="32" width="117"/></a>
-		<a href="{{ site.github_url }}" target="_blank"><img src="/assets/img/buttons/button_github.png" alt="Github" height="32" width="97"/></a>
-		<a href="{{ site.modrinth_url }}" target="_blank"><img src="/assets/img/buttons/button_modrinth.png" alt="Modrinth" height="32" width="128"/></a>
-		<a href="{{ site.curseforge_url }}" target="_blank"><img src="/assets/img/buttons/button_curseforge.png" alt="Curseforge" height="32" width="160"/></a>
-	</div>
-
-	<div class="main-socials">
-        <a href="/roadmap/" class="btn btn-primary">
-			<img src="/assets/img/buttons/button_roadmap.png" alt="Roadmap" />
-		</a>
-    </div>
-
-	<h1>Minecraft Mods</h1>
-
-	{%- include minecraft-mods-simple.html -%}
-
-	{{ content }}
-
-	{% assign posts = site.posts %}
-
-	{%- if posts.size > 0 -%}
-		{%- if page.list_title -%}
-			<h1>{{ page.list_title }}</h1>
-		{%- endif -%}
-		<ul class="post-list">
-			{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-			{%- for post in posts limit:5 -%}
-			<li>
-				<span class="post-meta">{{ post.date | date: date_format }}</span>
-				<span class="post-meta">
-					{% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
-
-					{%- if post.mod_id -%}
-						• {{ mod_info.title | escape }}&nbsp;
-					{%- endif -%}
-				</span>
-				<h3>
-					<a class="post-link" href="{{ post.url | relative_url }}">
-						
-
-						{%- if post.mod_title -%}
-							{{ post.mod_title | escape }}&nbsp;-&nbsp;
-						{%- endif -%}
-						{%- if post.mod_version -%}
-							{{ post.mod_version | escape }}&nbsp;-&nbsp;
-						{%- endif -%}
-						{%- if post.title -%}
-							{{ post.title | escape }}
-						{%- endif -%}
+<section class="hero">
+	<div class="container">
+		<h1 class="hero-title">ChefMooon</h1>
+		<p class="hero-subtitle">Welcome to ChefMooon’s Hub! The central hub for everything ChefMooon.</p>
+		<div class="hero-socials">
+			<div class="social-pills">
+				{% for social in site.data.socials %}
+					<a class="social-pill" href="{{ social.url }}"{% if social.url contains '://' %} target="_blank" rel="noopener"{% endif %} style="--pill-color: {{ social.color }}">
+						{% if social.pulse %}<span class="discord-pulse" style="margin-right: 0.25rem;"></span>{% endif %}
+						{{ social.icon }} {{ social.label }}
 					</a>
-				</h3>
-				{%- if site.show_excerpts -%}
-					{{ post.excerpt }}
-				{%- endif -%}
-			</li>
-			{%- endfor -%}
-		</ul>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
 
-		{% if posts.size > 5 %}
-			<p class="view-all">
-				<a href="/recent-updates">View All Updates →</a>
-			</p>
-		{% endif %}
-	{%- endif -%}
-</div>
+<section style="padding: 2rem 0;">
+	<div class="container">
+		<h2 class="section-heading">Minecraft Mods</h2>
+		<div style="display: flex; flex-direction: column; gap: 0.75rem;">
+			{% for mod in site.data.minecraft_mods %}
+				<a class="mod-card" href="{{ '/' | append: mod.id | append: '/' | relative_url }}" style="--accent-colour: {{ mod.accent_colour }}">
+					<div class="mod-card-icon">
+						{% if mod.icon %}<img src="{{ mod.icon | relative_url }}" alt="{{ mod.title }} icon" class="mod-card-icon-img">{% else %}{{ mod.icon_placeholder }}{% endif %}
+					</div>
+					<div class="mod-card-body">
+						<p class="mod-card-name">{{ mod.title }}</p>
+						<p class="mod-card-desc">{{ mod.description }}</p>
+					</div>
+					<span class="mod-card-arrow">&rarr;</span>
+				</a>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+<section style="padding: 2rem 0 4rem;">
+	<div class="container">
+		<h2 class="section-heading">Recent Updates</h2>
+		<div style="display: flex; flex-direction: column; gap: 0.5rem;">
+			{% assign posts = site.posts %}
+			{% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
+			{% for post in posts limit:5 %}
+				{% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
+				<a class="update-card" href="{{ post.url | relative_url }}">
+					<span class="update-card-date">{{ post.date | date: date_format }}</span>
+					<div>
+						{% if post.mod_id %}<div class="update-card-mod">{{ mod_info.title }}</div>{% endif %}
+						<div class="update-card-title">{% if post.mod_version %}{{ post.mod_version }} - {% endif %}{{ post.title }}</div>
+					</div>
+					<span class="update-card-arrow">&rarr;</span>
+				</a>
+			{% endfor %}
+			{% if posts.size > 5 %}
+				<a href="{{ '/recent-updates/' | relative_url }}" style="color: var(--muted); font-size: 0.875rem; text-decoration: none; margin-top: 0.5rem; display: inline-block;">View all updates &rarr;</a>
+			{% endif %}
+		</div>
+	</div>
+</section>

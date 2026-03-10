@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% if page.title %}{{ page.title }} | {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+  <!-- Favicon includes from custom-head.html -->
+  {%- include custom-head.html -%}
+  <!-- Theme boot script (must be first to avoid FOUC) -->
+  {%- include theme-toggle.html boot_script=true -%}
+  <!-- Fonts -->
+  {%- include head-fonts.html -%}
+  <!-- Design system -->
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
+  <!-- SEO -->
+  {%- seo -%}
+</head>
+<body>
+
+  <nav class="site-nav-new">
+    <div class="container">
+      <a href="{{ '/' | relative_url }}" class="nav-logo">
+        <img src="{{ '/assets/img/logo.png' | relative_url }}" alt="ChefMooon" class="nav-logo-img" />
+        Chef<span class="accent">Mooon</span>
+      </a>
+      <ul class="nav-links">
+        <li class="nav-dropdown">
+          <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
+            Mods
+            <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="nav-dropdown-menu">
+            <ul class="dropdown-mods-list">
+              {%- for mod in site.data.minecraft_mods -%}
+              <li class="dropdown-mod-item">
+                <button class="dropdown-mod-toggle" aria-expanded="false">
+                  {{ mod.title }}
+                  <svg class="mod-toggle-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 6 15 12 9 18"></polyline>
+                  </svg>
+                </button>
+                <ul class="dropdown-submenu">
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}">Home</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">Wiki</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">Changelog</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">Roadmap</a></li>
+                </ul>
+              </li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        </li>
+        <li><a class="nav-link" href="{{ '/recent-updates/' | relative_url }}">Updates</a></li>
+        <li><a class="nav-link" href="{{ '/about/' | relative_url }}">About</a></li>
+      </ul>
+      <div class="nav-actions">
+        <!-- Discord static badge placeholder -->
+        <a href="https://discord.gg/mbuDBHHUws" target="_blank" rel="noopener" class="discord-badge">
+          <span class="discord-pulse"></span>
+          <span>Discord</span>
+        </a>
+        <!-- Theme toggle -->
+        {%- include theme-toggle.html -%}
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="site-footer-new">
+    <div class="container">
+      <p style="color: var(--muted); font-size: 0.875rem; text-align: center; margin: 0;">
+        &copy; {{ 'now' | date: "%Y" }} ChefMooon
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      const dropdown = document.querySelector('.nav-dropdown');
+      const trigger = document.querySelector('.nav-dropdown-trigger');
+      const menu = document.querySelector('.nav-dropdown-menu');
+      const modToggles = document.querySelectorAll('.dropdown-mod-toggle');
+      let isDesktop = window.innerWidth >= 768;
+      let isOpen = false;
+      let wasOpenedByClick = false;
+      let closeDropdownTimeout = null;
+
+      function updateMediaQuery() {
+        isDesktop = window.innerWidth >= 768;
+      }
+
+      function openDropdown() {
+        // Cancel any pending close
+        if (closeDropdownTimeout) {
+          clearTimeout(closeDropdownTimeout);
+          closeDropdownTimeout = null;
+        }
+        if (!isOpen) {
+          isOpen = true;
+          menu.classList.add('open');
+          trigger.setAttribute('aria-expanded', 'true');
+        }
+      }
+
+      function closeSubmenu(toggle, delay = 0) {
+        const performClose = () => {
+          const submenu = toggle.nextElementSibling;
+          if (submenu) {
+            submenu.classList.remove('open');
+            submenu.setAttribute('inert', '');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        };
+
+        if (delay > 0) {
+          setTimeout(performClose, delay);
+        } else {
+          performClose();
+        }
+      }
+
+      function closeDropdown(delay = 0) {
+        if (closeDropdownTimeout) {
+          clearTimeout(closeDropdownTimeout);
+          closeDropdownTimeout = null;
+        }
+
+        const performClose = () => {
+          if (isOpen) {
+            isOpen = false;
+            menu.classList.remove('open');
+            trigger.setAttribute('aria-expanded', 'false');
+            wasOpenedByClick = false;
+            // Close all submenus
+            modToggles.forEach(toggle => {
+              closeSubmenu(toggle);
+            });
+          }
+        };
+
+        if (delay > 0) {
+          closeDropdownTimeout = setTimeout(performClose, delay);
+        } else {
+          performClose();
+        }
+      }
+
+      function toggleDropdown() {
+        if (isOpen) {
+          // Only close if it was opened by a click, otherwise mark it as clicked-open
+          if (wasOpenedByClick) {
+            closeDropdown();
+          } else {
+            wasOpenedByClick = true;
+          }
+        } else {
+          openDropdown();
+          wasOpenedByClick = true;
+        }
+      }
+
+      // Click handler for main trigger button
+      trigger.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleDropdown();
+      });
+
+      // Hover handlers (desktop only)
+      dropdown.addEventListener('mouseenter', function() {
+        if (isDesktop && !wasOpenedByClick) {
+          openDropdown();
+        }
+      });
+
+      dropdown.addEventListener('mouseleave', function() {
+        if (isDesktop && !wasOpenedByClick) {
+          closeDropdown(150);
+        }
+      });
+
+      // Mod submenu toggles
+      modToggles.forEach(toggle => {
+        // Initialize submenu as inert (not in tab order)
+        const submenu = toggle.nextElementSibling;
+        if (submenu) {
+          submenu.setAttribute('inert', '');
+        }
+
+        toggle.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          const submenu = this.nextElementSibling;
+          const isExpanded = this.getAttribute('aria-expanded') === 'true';
+          
+          if (isExpanded) {
+            closeSubmenu(this);
+          } else {
+            submenu.classList.add('open');
+            submenu.removeAttribute('inert');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+
+        // Hover to expand on desktop
+        if (isDesktop) {
+          toggle.addEventListener('mouseenter', function() {
+            const submenu = this.nextElementSibling;
+            submenu.classList.add('open');
+            submenu.removeAttribute('inert');
+            this.setAttribute('aria-expanded', 'true');
+          });
+
+          // Close submenu with 50ms delay on hover away
+          const modItem = toggle.closest('.dropdown-mod-item');
+          modItem.addEventListener('mouseleave', function() {
+            closeSubmenu(toggle, 50);
+          });
+        }
+      });
+
+      // Close on click outside
+      document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target)) {
+          closeDropdown();
+        }
+      });
+
+      // Keyboard navigation
+      trigger.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleDropdown();
+        } else if (e.key === 'Escape') {
+          closeDropdown();
+          trigger.focus();
+        } else if (e.key === 'ArrowDown' && isOpen) {
+          e.preventDefault();
+          const firstToggle = menu.querySelector('.dropdown-mod-toggle');
+          if (firstToggle) firstToggle.focus();
+        }
+      });
+
+      // Handle Escape key in menu
+      menu.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeDropdown();
+          trigger.focus();
+        }
+      });
+
+      // Close on window resize to reset state
+      window.addEventListener('resize', updateMediaQuery);
+
+      // Prevent dropdown from closing when tabbing within it
+      menu.addEventListener('focusout', function(e) {
+        if (!dropdown.contains(e.relatedTarget) && !trigger.contains(e.relatedTarget)) {
+          closeDropdown();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

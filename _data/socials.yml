@@ -1,0 +1,36 @@
+- id: discord
+  label: Discord
+  url: https://discord.gg/mbuDBHHUws
+  icon: "💬"
+  color: "#7289da"
+  pulse: true
+
+- id: bluesky
+  label: Bluesky
+  url: https://bsky.app/profile/chefmooon.bsky.social
+  icon: "🦋"
+  color: "#0085ff"
+
+- id: github
+  label: GitHub
+  url: https://github.com/ChefMooon
+  icon: "🐙"
+  color: "#A8AAAE"
+
+- id: modrinth
+  label: Modrinth
+  url: https://modrinth.com/user/ChefMooon
+  icon: "🌿"
+  color: "#4ade80"
+
+- id: curseforge
+  label: CurseForge
+  url: https://www.curseforge.com/members/chefmooon/projects
+  icon: "🔥"
+  color: "#fbbf24"
+
+- id: roadmap
+  label: Roadmap
+  url: /roadmap/
+  icon: "🗺️"
+  color: "#2dd4bf"
