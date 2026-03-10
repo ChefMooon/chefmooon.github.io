@@ -347,8 +347,7 @@ body::before {
 .social-pills {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  flex-wrap: wrap;
   padding: 0.25rem 0;
 }
 .social-pill {
