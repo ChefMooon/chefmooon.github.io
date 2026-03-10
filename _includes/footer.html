@@ -10,7 +10,7 @@
                 {%- for social_id in social_ids -%}
                     {%- for social in site.data.socials -%}
                         {%- if social.id == social_id -%}
-                 · <a href="{{ social.url }}" target="_blank" class="footer-link" title="{{ social.label }}">{{ social.label }}</a>
+                &nbsp;·&nbsp;<a href="{{ social.url }}" target="_blank" class="footer-link" title="{{ social.label }}">{{ social.label }}</a>
                         {%- endif -%}
                     {%- endfor -%}
                 {%- endfor %}
