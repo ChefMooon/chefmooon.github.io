@@ -538,6 +538,74 @@ body::before {
 }
 
 /* ===============================
+   Section 11.5 — About image
+   =============================== */
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+.about-image {
+  display: block;
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: 10px;
+  object-fit: contain;
+}
+
+@media (max-width: 767px) {
+  .image-wrapper {
+    padding: 1.5rem 0;
+  }
+
+  .about-image {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .image-wrapper {
+    padding: 1rem 0;
+  }
+}
+
+/* ===============================
+   Section 11.6 — About intro paragraph & container (Phase 3)
+   =============================== */
+.about-intro {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+}
+
+.about-image-container {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.about-image-container:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .about-image-container {
+    padding: 1rem;
+  }
+}
+
+/* ===============================
    Section 12 — Section headings & Footer
    =============================== */
 .section-heading {

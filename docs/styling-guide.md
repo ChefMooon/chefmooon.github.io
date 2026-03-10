@@ -672,9 +672,226 @@ When styling:
 
 ---
 
+## Updating Existing Pages to the New Theme System
+
+This section documents the workflow and lessons learned from updating the ChefMooon website pages to use the new design system.
+
+### Reference Implementations
+
+**Initial updated pages (use these as templates):**
+- [`_layouts/default.html`](_layouts/default.html) — Base layout with new navbar, footer, theme toggle, and main.css integration
+- [`_layouts/home.html`](_layouts/home.html) — Home page featuring hero section, mod cards, social pills, and recent updates
+
+Both of these pages implement the design system correctly and serve as reference implementations for updating other pages.
+
+### Update Workflow - 3 Phase Approach
+
+When updating a page to the new theme system, follow this structured 3-phase workflow:
+
+#### Phase 1: Layout Template & Structure (Prerequisite)
+- **Objective:** Switch to new layout template and establish semantic HTML structure
+- **Key Changes:**
+  1. Update frontmatter `layout` to `default` (enables new navbar, footer, main.css automatically)
+  2. Wrap content in semantic sections: `<section>` with `<div class="container">`
+  3. Use hero section for prominent content: `<section class="hero">` with `.container`
+  4. Preserve existing CSS classes for Phase 2 (structure-only update)
+- **Why first:** Layout change loads the new design system CSS; all following phases build on this
+
+#### Phase 2: Image & Responsive Styling (Independent)
+- **Objective:** Eliminate hardcoded pixel dimensions, implement responsive sizing
+- **Key Changes:**
+  1. Create responsive image class with `max-width`, `width: 100%`, `height: auto`, `aspect-ratio`
+  2. Remove inline `style` attributes (move to CSS classes)
+  3. Replace old CSS classes with new design token classes
+  4. Add responsive padding/margin using rem units
+  5. Wrap images in centered containers using flexbox
+- **Common issues:**
+  - Aspect ratio distortion: Use `aspect-ratio` property or `object-fit: contain`
+  - Hardcoded sizes: Replace `width: 500px` with `max-width: 500px; width: 100%`
+  - Inconsistent padding: Use rem increments (1rem, 1.25rem, 2rem)
+
+#### Phase 3: Typography & Theme Tokens (Independent)
+- **Objective:** Apply design system colors, fonts, and support light/dark themes
+- **Key Changes:**
+  1. Apply typography classes: Use `'Inter'` for body text, `'Space Mono'` for headers
+  2. Replace hardcoded colors with CSS variables: `var(--text)`, `var(--surface)`, `var(--muted)`
+  3. Add hover effects: shadow enhancement + subtle transform (translateY -2px)
+  4. Ensure all colors respect theme: Test in both light and dark modes
+  5. Update old CSS classes to use new design tokens
+- **Common issues:**
+  - Theme not switching: Verify all colors use `var(--name)` not hardcoded hex
+  - Hover states missing: Add `transition: all 0.2s` and `:hover` effects
+  - Contrast problems: Use `var(--muted)` for secondary text on `var(--surface)`
+
+### Parallelization Strategy
+
+- **Phase 1** must run first (prerequisite – enables new CSS system)
+- **Phases 2 & 3** can run in parallel (both build on Phase 1, independent of each other)
+- After all phases complete: Run full test suite, verify Jekyll build, test both themes
+
+### Practical Example: about.md Update
+
+The `about.md` page was updated following this workflow:
+
+**Phase 1:**
+```markdown
+---
+layout: default    # Changed from "page" to "default"
+title: About
+permalink: /about/
+---
+
+<section class="hero">
+  <div class="container">
+    <!-- intro text -->
+  </div>
+</section>
+
+<section class="image">
+  <div class="container">
+    <!-- old image HTML preserved for Phase 2/3 -->
+  </div>
+</section>
+```
+
+**Phase 2:** Made image responsive
+```css
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;  /* desktop */
+}
+
+@media (max-width: 767px) {
+  .image-wrapper { padding: 1.5rem; }
+}
+
+.about-image {
+  max-width: 500px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;  /* 1:1 square */
+  border-radius: 10px;  /* design token */
+  object-fit: contain;
+}
+```
+
+**Phase 3:** Applied typography and theme tokens
+```css
+.about-intro {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: var(--text);  /* respects theme */
+  margin: 0 0 2rem 0;
+  line-height: 1.6;
+}
+
+.about-image-container {
+  background: var(--surface);  /* card background */
+  padding: 1.25rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+
+.about-image-container:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+```
+
+### Page Update Checklist
+
+Use this checklist when updating pages to the new theme system:
+
+**Phase 1 Verification:**
+- [ ] Layout changed to `default` in frontmatter
+- [ ] New navbar appears with logo and navigation
+- [ ] New footer appears with proper styling
+- [ ] Theme toggle button present and functional
+- [ ] Main content renders within `<section class="container">` structure
+- [ ] Jekyll build succeeds without errors
+
+**Phase 2 Verification:**
+- [ ] All images responsive (100% width on mobile, proper max-width on desktop)
+- [ ] No hardcoded pixel dimensions on image elements
+- [ ] Aspect ratios maintained (no distortion)
+- [ ] Padding/margins use rem units consistently
+- [ ] Mobile breakpoints tested (600px, 767px)
+- [ ] All old inline `style` attributes removed
+
+**Phase 3 Verification:**
+- [ ] All colors use CSS variables (`var(--text)`, `var(--surface)`, etc.)
+- [ ] No hardcoded hex, rgb, or named colors
+- [ ] Typography uses correct font families ('Inter' for body, 'Space Mono' for headers)
+- [ ] Light theme rendering correct (test with theme toggle)
+- [ ] Dark theme rendering correct (default)
+- [ ] Hover effects present on interactive elements (0.2s transitions)
+- [ ] Box shadows and transforms smooth
+
+**Final Verification:**
+- [ ] Full test suite passes (no regressions)
+- [ ] Jekyll build successful
+- [ ] Page renders identically in light and dark themes
+- [ ] All links work (especially with `relative_url` filter)
+- [ ] Mobile layout tested at 767px and 600px breakpoints
+- [ ] No console errors or warnings
+- [ ] Responsive images load at correct sizes
+- [ ] Theme switching doesn't cause FOUC (flash of unstyled content)
+
+### Common Pitfalls & Solutions
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Colors don't switch in theme toggle | Hardcoded colors (e.g., `color: #e8ede9` instead of `var(--text)`) | Replace all `#hex`, `rgb()`, named colors with `var(--name)` |
+| Image distorts on smaller screens | No aspect-ratio preserved | Add `aspect-ratio: W / H` or use `object-fit` property |
+| Spacing inconsistent with design | Mix of px and rem units | Use only rem: 1rem, 1.25rem, 1.5rem, 2rem, etc. |
+| Hover effects missing on mobile | Transitions not applied | Add `transition: all 0.2s` to interactive elements |
+| Mobile menu broken on small screens | Breakpoints misaligned | Use 767px (nav) and 600px (cards) breakpoints consistently |
+| Old page layout appears briefly | Frontmatter layout incorrect | Verify frontmatter uses `layout: default` not old layout name |
+| Background color wrong on card | Using wrong variable | Use `var(--surface)` for card bg, `var(--bg)` for page bg |
+
+### Testing Strategy
+
+1. **Desktop Testing:**
+   - Test at 1200px+ resolution
+   - Hover/interaction states work smoothly
+   - Spacing matches design system
+
+2. **Mobile Testing:**
+   - Test at 600px (card breakpoint)
+   - Test at 767px (navigation breakpoint)
+   - Test at under 300px (extreme mobile)
+   - Touch interactions work (buttons, links)
+
+3. **Theme Testing:**
+   - Toggle between light/dark themes
+   - No FOUC occurs
+   - Text contrast readable in both
+   - Images/shadows visible in both themes
+
+4. **Regression Testing:**
+   - Full test suite passes
+   - No broken links
+   - No console errors
+   - Navigation and footer work
+   - All components render correctly
+
+### Tools & Resources
+
+- **Testing:** Run full test suite with `ruby run_tests.rb`
+- **Local preview:** Start Jekyll with `bundle exec jekyll serve`
+- **Theme toggle:** Use browser DevTools to inspect `[data-theme]` attribute
+- **Responsive debugging:** Use Chrome DevTools device emulation at 600px, 767px
+- **CSS inspection:** Use DevTools to verify `var(--name)` values in computed styles
+
+---
+
 ## File References
 
 - **Main CSS**: [`assets/css/main.css`](../assets/css/main.css)
 - **Layout template**: [`_layouts/default.html`](_layouts/default.html)
 - **Home page example**: [`_layouts/home.html`](_layouts/home.html)
 - **Config**: `_config.yml` (theme, plugins)
+- **Page update plan**: [`docs/plans/about-page-theme-update-plan.md`](plans/about-page-theme-update-plan.md)
+- **About page (example)**: [`about.md`](../../about.md)
