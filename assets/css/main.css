@@ -32,12 +32,12 @@ html {
   color: var(--text);
 }
 body {
-  font-family: 'Outfit', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 400;
   margin: 0;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-weight: 800;
   margin: 0 0 0.5em;
 }
@@ -108,7 +108,7 @@ body::before {
   height: 60px;
 }
 .nav-logo {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Mono', monospace;
   font-weight: 800;
   font-size: 1.25rem;
   text-decoration: none;
@@ -434,7 +434,7 @@ body::before {
   min-width: 0;
 }
 .mod-card-name {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Mono', monospace;
   font-weight: 800;
   font-size: 1rem;
   color: var(--text);
@@ -495,6 +495,9 @@ body::before {
   font-size: 0.9375rem;
   color: var(--text);
   font-weight: 500;
+  font-family: 'Space Mono', monospace;
+  word-break: keep-all;
+  white-space: normal;
 }
 .update-card-arrow {
   color: var(--muted);
@@ -514,7 +517,7 @@ body::before {
   }
 }
 .hero-title {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Mono', monospace;
   font-weight: 800;
   font-size: clamp(2.5rem, 6vw, 4rem);
   line-height: 1.1;
@@ -535,7 +538,7 @@ body::before {
    Section 12 — Section headings & Footer
    =============================== */
 .section-heading {
-  font-family: 'Syne', sans-serif;
+  font-family: 'Space Mono', monospace;
   font-size: 1.25rem;
   font-weight: 800;
   color: var(--text);
