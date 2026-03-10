@@ -40,6 +40,11 @@ Guide to the `check_wiki_status.rb` script that scans the repository to identify
 ### [release-info-updater.md](release-info-updater.md)
 Guide to the `update_release_info_from_recent_posts.rb` script that inspects recent changelog posts and adds missing Minecraft versions to release data in `_data/minecraft_mod_release_info.yml`. Covers field preservation behavior for optional mod flags like `mono_wiki`.
 
+## Frontend & Styling
+
+### [styling-guide.md](styling-guide.md)
+Comprehensive styling guide documenting the design system, CSS patterns, and component conventions used across the site. Covers color tokens, typography, spacing, layout patterns, component styles, responsive design, and best practices for maintaining visual consistency when updating pages.
+
 ## Build & Validation
 
 ### [htmlproofer.md](htmlproofer.md)
