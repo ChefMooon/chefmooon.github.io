@@ -237,27 +237,17 @@
           if (isExpanded) {
             closeSubmenu(this);
           } else {
+            // Close all other submenus first (accordion behavior)
+            modToggles.forEach(otherToggle => {
+              if (otherToggle !== this) {
+                closeSubmenu(otherToggle);
+              }
+            });
             submenu.classList.add('open');
             submenu.removeAttribute('inert');
             this.setAttribute('aria-expanded', 'true');
           }
         });
-
-        // Hover to expand on desktop
-        if (isDesktop) {
-          toggle.addEventListener('mouseenter', function() {
-            const submenu = this.nextElementSibling;
-            submenu.classList.add('open');
-            submenu.removeAttribute('inert');
-            this.setAttribute('aria-expanded', 'true');
-          });
-
-          // Close submenu with 50ms delay on hover away
-          const modItem = toggle.closest('.dropdown-mod-item');
-          modItem.addEventListener('mouseleave', function() {
-            closeSubmenu(toggle, 50);
-          });
-        }
       });
 
       // Close on click outside
