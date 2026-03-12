@@ -628,6 +628,47 @@ body::before {
   padding-top: 2rem;
   padding-bottom: 2rem;
 }
+.post-content img {
+  max-width: 100%;
+  height: auto;
+  margin: 0.5rem 0.5rem 0.5rem 0;
+}
+.post-content iframe,
+.post-content video {
+  max-width: 100%;
+}
+.post-content pre {
+  overflow-x: auto;
+}
+.post-content table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.mod-changelog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.mod-changelog-entry {
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.mod-changelog-entry:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.mod-changelog-title {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 1.125rem;
+}
+.mod-changelog-title a {
+  color: var(--text);
+  text-decoration: none;
+}
+.mod-changelog-title a:hover {
+  color: var(--green);
+}
 .footer-text {
   color: #9ca3af;
   font-size: 0.75rem;

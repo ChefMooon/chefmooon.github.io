@@ -6,16 +6,21 @@ layout: minecraft-mod/base
 
 <article class="post">
 
-    <header class="minecraft-mod-header">
-        <h1 class="post-title">{{ mod_info.title | escape }} Roadmap</h1>
-    </header>
+    <section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
+        <div class="container">
+            <header class="minecraft-mod-header">
+                <h1 class="hero-title">{{ mod_info.title | escape }} Roadmap</h1>
+                <p class="hero-subtitle">Upcoming features, changes, and bug fixes for {{ mod_info.title | escape }}.</p>
+            </header>
+        </div>
+    </section>
 
-    <div class="post-content">
-        <p>
-            Welcome to the Roadmap for {{ mod_info.title | escape }}. Here you can find information
-            about upcoming features, changes, and bug fixes.
-        </p>
-        {{ content }}
-    </div>
+    <section style="padding: 0 0 3rem;">
+        <div class="container">
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </div>
+    </section>
 
 </article>

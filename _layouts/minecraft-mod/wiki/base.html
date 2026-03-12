@@ -4,32 +4,49 @@ layout: minecraft-mod/base
 
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign versions = mod_info.wiki_available_minecraft_versions | split: ", " -%}
+{%- assign wiki_home_button = site.data.mod_buttons | where: "id", "wiki_home" | first -%}
+{%- assign item_details_button = site.data.mod_buttons | where: "id", "item_details" | first -%}
+{%- assign block_details_button = site.data.mod_buttons | where: "id", "block_details" | first -%}
+{%- assign recipes_button = site.data.mod_buttons | where: "id", "recipes" | first -%}
 
-<h1 class="minecraft-mod-wiki-title">{{ mod_info.title | escape }} Wiki</h1>
+<section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
+    <div class="container">
+        <header class="minecraft-mod-header">
+            <h1 class="hero-title">{{ mod_info.title | escape }} Wiki</h1>
+        </header>
+    </div>
+</section>
 
-<div class="wrapper">
-    <nav class="minecraft-mod-nav">
-        <ul class="menu">
-            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/home.html"><img src="/assets/img/buttons/button_wiki_home.png" alt="Wiki Home"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/item-details.html"><img src="/assets/img/buttons/button_wiki_item_details.png" alt="Item Details"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/block-details.html"><img src="/assets/img/buttons/button_wiki_block_details.png" alt="Block Details"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/recipes.html"><img src="/assets/img/buttons/button_wiki_recipes.png" alt="Recipes"></a></li>
-            
-        </ul>
-        <ul class="menu wiki-version-dropdown">
-            {%- if versions.size > 1 -%}
-                <li class="wiki-version-dropdown">
-                    <p class="wiki-version-toggle">Minecraft: {{ page.minecraft_version }}</p>
-                    <ul class="wiki-version-content">
-                        {%- for version in versions -%}
-                        {%- assign page_name = page.name | split: "." | first -%}
-                        <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ version | escape }}/{{ page_name }}.html">{{ version }}</a></li>
-                        {%- endfor -%}
-                    </ul>
-                </li>
-            {%- endif -%}
-        </ul>
-    </nav>
+<section style="padding: 1.5rem 0 0.5rem;">
+    <div class="container">
+        <nav aria-label="{{ mod_info.title | escape }} wiki navigation">
+            <div class="social-pills" style="justify-content: center;">
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/home.html" style="--pill-color: {{ wiki_home_button.color }}">{{ wiki_home_button.icon }} {{ wiki_home_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/item-details.html" style="--pill-color: {{ item_details_button.color }}">{{ item_details_button.icon }} {{ item_details_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/block-details.html" style="--pill-color: {{ block_details_button.color }}">{{ block_details_button.icon }} {{ block_details_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/recipes.html" style="--pill-color: {{ recipes_button.color }}">{{ recipes_button.icon }} {{ recipes_button.label }}</a>
+            </div>
+        </nav>
+    </div>
+</section>
+
+<div class="wrapper" style="text-align: center; margin-top: 1rem;">
+    {%- if versions.size > 1 -%}
+        <div style="padding: 1rem;">
+            <label for="wiki-version-selector" style="margin-right: 0.5rem;">Minecraft Version:</label>
+            <select id="wiki-version-selector" style="padding: 0.5rem; border-radius: 6px; background: var(--surface); color: var(--text); border: 1px solid var(--border);">
+                {%- for version in versions -%}
+                {%- assign page_name = page.name | split: "." | first -%}
+                <option value="{{ page.mod_id | relative_url }}/wiki/{{ version | escape }}/{{ page_name }}.html" {%- if version == page.minecraft_version %} selected{%- endif %}>{{ version }}</option>
+                {%- endfor -%}
+            </select>
+        </div>
+        <script>
+            document.getElementById('wiki-version-selector').addEventListener('change', function() {
+                window.location.href = this.value;
+            });
+        </script>
+    {%- endif -%}
 </div>
 
 <script>

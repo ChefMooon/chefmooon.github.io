@@ -1,0 +1,49 @@
+- id: home
+  label: Home
+  icon: ""
+  color: "#2dd4bf"
+
+- id: wiki
+  label: Wiki
+  icon: ""
+  color: "#2dd4bf"
+
+- id: changelog
+  label: Changelog
+  icon: ""
+  color: "#2dd4bf"
+
+- id: roadmap
+  label: Roadmap
+  icon: ""
+  color: "#2dd4bf"
+
+- id: source
+  label: Source
+  icon: "📦"
+  color: "#a8aaae"
+
+- id: issues
+  label: Issues
+  icon: "🐞"
+  color: "#f87171"
+
+- id: wiki_home
+  label: Wiki Home
+  icon: "🏠"
+  color: "#2dd4bf"
+
+- id: item_details
+  label: Item Details
+  icon: "📦"
+  color: "#2dd4bf"
+
+- id: block_details
+  label: Block Details
+  icon: "🧱"
+  color: "#2dd4bf"
+
+- id: recipes
+  label: Recipes
+  icon: "🔨"
+  color: "#2dd4bf"

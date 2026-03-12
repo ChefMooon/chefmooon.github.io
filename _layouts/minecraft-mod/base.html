@@ -1,18 +1,24 @@
 ---
-layout: base
+layout: default
 ---
 
 {%- assign base_mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+{%- assign home_button = site.data.mod_buttons | where: "id", "home" | first -%}
+{%- assign wiki_button = site.data.mod_buttons | where: "id", "wiki" | first -%}
+{%- assign changelog_button = site.data.mod_buttons | where: "id", "changelog" | first -%}
+{%- assign roadmap_button = site.data.mod_buttons | where: "id", "roadmap" | first -%}
 
-<div class="wrapper">
-    <nav class="minecraft-mod-nav main-mod-nav">
-        <ul class="menu">
-            <li><a href="{{ page.mod_id | relative_url }}"><img src="/assets/img/buttons/button_home.png" alt="Home"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/wiki/{{ base_mod_info.wiki_default_minecraft_version | escape }}/home.html"><img src="/assets/img/buttons/button_wiki.png" alt="Wiki"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/changelog.html"><img src="/assets/img/buttons/button_changelog.png" alt="Changelog"></a></li>
-            <li><a href="{{ page.mod_id | relative_url }}/roadmap.html"><img src="/assets/img/buttons/button_roadmap.png" alt="Roadmap"></a></li>
-        </ul>
-    </nav>
-</div>
+<section style="padding: 1.5rem 0 0.5rem;">
+    <div class="container">
+        <nav aria-label="{{ base_mod_info.title | escape }} navigation">
+            <div class="social-pills" style="justify-content: center;">
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}" style="--pill-color: {{ home_button.color }}">{{ home_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ base_mod_info.wiki_default_minecraft_version | escape }}/home.html" style="--pill-color: {{ wiki_button.color }}">{{ wiki_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/changelog.html" style="--pill-color: {{ changelog_button.color }}">{{ changelog_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/roadmap.html" style="--pill-color: {{ roadmap_button.color }}">{{ roadmap_button.label }}</a>
+            </div>
+        </nav>
+    </div>
+</section>
 
 {{ content }}

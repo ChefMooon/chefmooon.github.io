@@ -6,64 +6,47 @@ layout: minecraft-mod/base
 
 <article class="post">
 
-    <header class="minecraft-mod-header">
-        <h1 class="post-title">{{ mod_info.title | escape }} Changelog</h1>
-    </header>
+    <section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
+        <div class="container">
+            <header class="minecraft-mod-header">
+                <h1 class="hero-title">{{ mod_info.title | escape }} Changelog</h1>
+            </header>
+        </div>
+    </section>
 
-    <div class="post-content">
+    <section style="padding: 0 0 2rem;">
+        <div class="container">
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </div>
+    </section>
 
-        {{ content }}
-    </div>
-
-    {% if site.paginate %}
-        {% assign posts = paginator.posts %}
-    {% else %}
-        {% assign posts = site.posts %}
-    {% endif %}
-
-    {%- assign filtered_posts = posts | where: "mod_id", page.mod_id -%}
+    {%- assign filtered_posts = site.posts | where: "mod_id", page.mod_id | sort: "date" | reverse -%}
 
     {%- if filtered_posts.size > 0 -%}
-        <ul class="post-list">
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            {%- for post in filtered_posts -%}
-                <li>
-                    <span class="post-meta">{{ post.date | date: date_format }}</span>
-                    <p>
-                        <a class="post-link" href="{{ post.url | relative_url }}">
-                            {%- if post.mod_title -%}
-                            {{ post.mod_title | escape }}&nbsp;-&nbsp;
-                            {%- endif -%}
-                            {%- if post.mod_version -%}
-                            {{ post.mod_version | escape }}&nbsp;-&nbsp;
-                            {%- endif -%}
-                            {%- if post.title -%}
-                            {{ post.title | escape }}
-                            {%- endif -%}
-                        </a>
-                    </p>
-                    {{ post.content }}
-                </li>
-            {%- endfor -%}
-        </ul>
-
-        {% if site.paginate %}
-            <div class="pager">
-                <ul class="pagination">
-                    {%- if paginator.previous_page %}
-                        <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-                    {%- else %}
-                        <li><div class="pager-edge">•</div></li>
-                    {%- endif %}
-                        <li><div class="current-page">{{ paginator.page }}</div></li>
-                    {%- if paginator.next_page %}
-                        <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-                    {%- else %}
-                        <li><div class="pager-edge">•</div></li>
-                    {%- endif %}
-                </ul>
+        <section style="padding: 0 0 3rem;">
+            <div class="container">
+                <h2 class="section-heading">All Entries</h2>
+                <div class="mod-changelog-list">
+                    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                    {%- for post in filtered_posts -%}
+                        <article class="mod-changelog-entry">
+                            <p class="post-meta">{{ post.date | date: date_format }}</p>
+                            <h3 class="mod-changelog-title">
+                                <a href="{{ post.url | relative_url }}">
+                                    {%- if post.mod_version -%}{{ post.mod_version | escape }} - {% endif -%}
+                                    {%- if post.title -%}{{ post.title | escape }}{% endif -%}
+                                </a>
+                            </h3>
+                            <div class="post-content">
+                                {{ post.content }}
+                            </div>
+                        </article>
+                    {%- endfor -%}
+                </div>
             </div>
-        {%- endif %}
+        </section>
     {%- endif -%}
 
 </article>

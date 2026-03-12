@@ -3,41 +3,48 @@ layout: minecraft-mod/base
 ---
 
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
+{%- assign modrinth_social = site.data.socials | where: "id", "modrinth" | first -%}
+{%- assign curseforge_social = site.data.socials | where: "id", "curseforge" | first -%}
+{%- assign source_button = site.data.mod_buttons | where: "id", "source" | first -%}
+{%- assign issues_button = site.data.mod_buttons | where: "id", "issues" | first -%}
 
 <article class="post">
 
-    <header class="minecraft-mod-header">
-        {%- if mod_info.banner -%}
-            <img src="{{ mod_info.banner | relative_url }}" alt="{{ mod_info.title | escape }}">
-        {%- else -%}
-            <h1 class="post-title">{{ mod_info.title }}</h1>
-        {%- endif -%}
-    </header>
+    <section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
+        <div class="container">
+            <header class="minecraft-mod-header" style="display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1rem; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); max-width: 500px; margin: 0 auto;">
+                <div style="width: 100px; height: 100px; border-radius: 10px; background: var(--surface2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px;">
+                    {% if mod_info.icon %}<img src="{{ mod_info.icon | relative_url }}" alt="{{ mod_info.title }} icon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">{% else %}{{ mod_info.icon_placeholder }}{% endif %}
+                </div>
+                <h1 class="hero-title" style="margin: 0; font-size: 2rem;">{{ mod_info.title }}</h1>
+            </header>
 
-    <div class="wrapper">
-        <nav class="minecraft-mod-nav">
-            <ul class="menu">
-                {%- if mod_info.url_modrinth -%}
-                    <li><a href="{{ mod_info.url_modrinth }}" target="_blank"><img src="/assets/img/buttons/button_modrinth.png" alt="Modrinth" /></a></li>
-                {%- endif -%}
-                {%- if mod_info.url_curseforge -%}
-                    <li><a href="{{ mod_info.url_curseforge }}" target="_blank"><img src="/assets/img/buttons/button_curseforge.png" alt="Curseforge" /></a></li>
-                {%- endif -%}
-                {%- if mod_info.source -%}
-                    <li><a href="{{ mod_info.source }}" target="_blank"><img src="/assets/img/buttons/button_source.png" alt="Source" /></a></li>
-                {%- endif -%}
-                {%- if mod_info.issues -%}
-                    <li><a href="{{ mod_info.issues }}" target="_blank"><img src="/assets/img/buttons/button_issues.png" alt="Issues" /></a></li>
-                {%- endif -%}
-            </ul>
-        </nav>
-    </div>
+            <nav aria-label="{{ mod_info.title | escape }} external links" style="margin-top: 1rem;">
+                <div class="social-pills" style="justify-content: center;">
+                    {%- if mod_info.url_modrinth -%}
+                        <a class="social-pill" href="{{ mod_info.url_modrinth }}" target="_blank" rel="noopener" style="--pill-color: {{ modrinth_social.color }}">{{ modrinth_social.icon }} {{ modrinth_social.label }}</a>
+                    {%- endif -%}
+                    {%- if mod_info.url_curseforge -%}
+                        <a class="social-pill" href="{{ mod_info.url_curseforge }}" target="_blank" rel="noopener" style="--pill-color: {{ curseforge_social.color }}">{{ curseforge_social.icon }} {{ curseforge_social.label }}</a>
+                    {%- endif -%}
+                    {%- if mod_info.source -%}
+                        <a class="social-pill" href="{{ mod_info.source }}" target="_blank" rel="noopener" style="--pill-color: {{ source_button.color }}">{{ source_button.icon }} {{ source_button.label }}</a>
+                    {%- endif -%}
+                    {%- if mod_info.issues -%}
+                        <a class="social-pill" href="{{ mod_info.issues }}" target="_blank" rel="noopener" style="--pill-color: {{ issues_button.color }}">{{ issues_button.icon }} {{ issues_button.label }}</a>
+                    {%- endif -%}
+                </div>
+            </nav>
+        </div>
+    </section>
 
-    <br />
-
-    <div class="post-content">
-        {{ content }}
-    </div>
+    <section style="padding: 0 0 2rem;">
+        <div class="container">
+            <div class="post-content">
+                {{ content }}
+            </div>
+        </div>
+    </section>
 
     {% if site.paginate %}
         {% assign posts = paginator.posts %}
@@ -48,64 +55,44 @@ layout: minecraft-mod/base
     {%- assign filtered_posts = posts | where: "mod_id", page.mod_id -%}
 
     {%- if filtered_posts.size > 0 -%}
-        <h2 class="post-list-heading">Updates</h2>
-        <ul class="post-list">
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            {%- for post in filtered_posts -%}
-                <li>
-                    <span class="post-meta">{{ post.date | date: date_format }}</span>
-                    <span class="post-meta">
-                        <!-- TODO: decide post meta here -->
-                        <!-- {% assign minecraft_versions = post.minecraft_version | split: ", " %}
-                        {% assign minecraft_loaders = post.minecraft_loader | split: ", " %}
-                        {% assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first %}
-        
-                        {%- if post.mod_id -%}
-                            • {{ mod_info.title | escape }}&nbsp;
-                        {%- endif -%}
-                        {%- if minecraft_versions.size > 0 -%}
-                            • {{ minecraft_versions | join: ", " }}&nbsp;
-                        {%- endif -%}
-                        {%- if minecraft_loaders.size > 0 -%}
-                            • {{ minecraft_loaders | join: ", " }}
-                        {%- endif -%} -->
-                    </span>
-                    <p>
-                        <a class="post-link" href="{{ post.url | relative_url }}">
-                            {%- if post.mod_title -%}
-                            {{ post.mod_title | escape }}&nbsp;-&nbsp;
-                            {%- endif -%}
-                            {%- if post.mod_version -%}
-                            {{ post.mod_version | escape }}&nbsp;-&nbsp;
-                            {%- endif -%}
-                            {%- if post.title -%}
-                            {{ post.title | escape }}
-                            {%- endif -%}
+        <section style="padding: 0 0 3rem;">
+            <div class="container">
+                <h2 class="section-heading">Updates</h2>
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                    {%- for post in filtered_posts -%}
+                        <a class="update-card" href="{{ post.url | relative_url }}">
+                            <span class="update-card-date">{{ post.date | date: date_format }}</span>
+                            <div>
+                                <div class="update-card-title">
+                                    {%- if post.mod_version -%}{{ post.mod_version | escape }} - {% endif -%}
+                                    {%- if post.title -%}{{ post.title | escape }}{% endif -%}
+                                </div>
+                                {%- if site.show_excerpts and post.excerpt -%}
+                                    <div style="font-size: 0.8125rem; color: var(--muted); margin-top: 0.25rem;">{{ post.excerpt | strip_html | truncate: 140 }}</div>
+                                {%- endif -%}
+                            </div>
+                            <span class="update-card-arrow">&rarr;</span>
                         </a>
-                    </p>
-                    {%- if site.show_excerpts -%}
-                        {{ post.excerpt }}
-                    {%- endif -%}
-                </li>
-            {%- endfor -%}
-        </ul>
+                    {%- endfor -%}
+                </div>
+            </div>
+        </section>
 
         {% if site.paginate %}
-            <div class="pager">
-                <ul class="pagination">
-                    {%- if paginator.previous_page %}
-                        <li><a href="{{ paginator.previous_page_path | relative_url }}" class="previous-page">{{ paginator.previous_page }}</a></li>
-                    {%- else %}
-                        <li><div class="pager-edge">•</div></li>
-                    {%- endif %}
-                        <li><div class="current-page">{{ paginator.page }}</div></li>
-                    {%- if paginator.next_page %}
-                        <li><a href="{{ paginator.next_page_path | relative_url }}" class="next-page">{{ paginator.next_page }}</a></li>
-                    {%- else %}
-                        <li><div class="pager-edge">•</div></li>
-                    {%- endif %}
-                </ul>
-            </div>
+            <section style="padding: 0 0 2rem;">
+                <div class="container">
+                    <div class="social-pills">
+                        {%- if paginator.previous_page %}
+                            <a class="social-pill" href="{{ paginator.previous_page_path | relative_url }}" style="--pill-color: {{ mod_info.accent_colour | default: 'var(--green)' }}">Previous {{ paginator.previous_page }}</a>
+                        {%- endif %}
+                        <span class="social-pill" style="--pill-color: {{ mod_info.accent_colour | default: 'var(--green)' }}; opacity: 0.8; cursor: default;">Page {{ paginator.page }}</span>
+                        {%- if paginator.next_page %}
+                            <a class="social-pill" href="{{ paginator.next_page_path | relative_url }}" style="--pill-color: {{ mod_info.accent_colour | default: 'var(--green)' }}">Next {{ paginator.next_page }}</a>
+                        {%- endif %}
+                    </div>
+                </div>
+            </section>
         {%- endif %}
     {%- endif -%}
 
