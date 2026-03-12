@@ -1,6 +1,5 @@
-{%- if recipe['input'] -%}
-    <p><strong>Ingredients:</strong></p>
-    <ul>
+{%- if include.mode == 'ingredients' and recipe['input'] -%}
+    <ul class="recipe-ingredients">
         {%- if recipe['input'] | kind_of: "array" -%}
             {%- for ingredient in recipe['input'] -%}
                 <li>
@@ -56,18 +55,22 @@
         {%- endif -%}
     </ul>
 {%- endif -%}
-{%- if recipe['pattern'] -%}
-    <p><strong>Pattern:</strong></p>
-    <p>
-        <div class="crafting-grid">
-            {% for row in (0..2) %}
-                <div class="grid-row">
-                    {% for col in (0..2) %}
-                        {% assign coord = col | append: '_' | append: row %}
-                        <span>{{ recipe['pattern'][coord] }}</span>
-                    {% endfor %}
-                </div>
-            {% endfor %}
-        </div>
-    </p>
+{%- if include.mode == 'pattern' and recipe['pattern'] -%}
+    <div class="crafting-grid">
+        {% for row in (0..2) %}
+            <div class="grid-row">
+                {% for col in (0..2) %}
+                    {% assign coord = col | append: '_' | append: row %}
+                    {% assign pattern_key = recipe['pattern'][coord] %}
+                    {% if pattern_key == ' ' %}
+                        <span class="crafting-grid-slot crafting-grid-slot-empty" aria-hidden="true"></span>
+                    {% else %}
+                        {% assign matching_ingredient = recipe['input'] | where: 'key', pattern_key | first %}
+                        {% assign slot_title = matching_ingredient.item.id | default: matching_ingredient.tag.id | default: matching_ingredient.fluid.id | default: pattern_key %}
+                        <span class="crafting-grid-slot" title="{{ slot_title }}">{{ pattern_key }}</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
 {%- endif -%}

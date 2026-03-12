@@ -1,6 +1,5 @@
 {%- if recipe['output'] -%}
-    <p><strong>Output:</strong></p>
-    <ul>
+    <ul class="recipe-output-list">
         {%- assign size = recipe['output'] | size -%}
         {%- if size > 1 -%}
             {%- for ingredient in recipe['output'] -%}

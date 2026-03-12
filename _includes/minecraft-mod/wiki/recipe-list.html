@@ -3,198 +3,216 @@
 {%- assign mod_lang = page.mod_lang -%}
 
 {%- if page.total_recipes > 0 -%}
-    <div class="recipe-types">
-        <h2><strong>Recipe Types</strong></h2>
-        <ul>
-            {%- for recipe_type in recipe_types -%}
-                {%- if recipe_type.loader == nil -%}
-                    {%- assign type = recipe_type | split: "-" | last -%}
-                    <div class="recipe-type-container">
-                        <li>
-                            <a href="#{{ recipe_type }}">{{ site.data.crafting_types[recipe_type] }}</a>
-                            <label class="switch">
-                                <input id="{{ recipe_type }}-checkbox" class="toggle-checkbox" data-target="{{ recipe_type }}" type="checkbox" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </li>
+    {%- assign has_fabric = false -%}
+    {%- assign has_forge_like = false -%}
+    {%- for recipe_type in recipe_types -%}
+        {%- if recipe_type.loader == 'fabric' -%}
+            {%- assign has_fabric = true -%}
+        {%- endif -%}
+        {%- if recipe_type.loader == 'forge' or recipe_type.loader == 'neoforge' -%}
+            {%- assign has_forge_like = true -%}
+        {%- endif -%}
+    {%- endfor -%}
+
+    <div class="filter-panel">
+        <div class="filter-group-row">
+            <span class="group-label">Base</span>
+            <div class="filter-scroll" tabindex="0" aria-label="Base recipe categories">
+                <div class="filter-group">
+                    {%- for recipe_type in recipe_types -%}
+                        {%- if recipe_type.loader == nil -%}
+                            {%- assign type_slug = recipe_type | split: ":" | last | replace: "_", "-" -%}
+                            <button type="button" class="chip active-base" data-platform="base" data-section="{{ type_slug }}" aria-pressed="true">
+                                <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type] | default: recipe_type }}
+                            </button>
+                        {%- endif -%}
+                    {%- endfor -%}
+                </div>
+            </div>
+        </div>
+
+        {%- if has_fabric -%}
+            <div class="filter-group-row">
+                <span class="group-label">Fabric</span>
+                <div class="filter-scroll" tabindex="0" aria-label="Fabric recipe categories">
+                    <div class="filter-group">
+                        {%- for recipe_type in recipe_types -%}
+                            {%- if recipe_type.loader == 'fabric' -%}
+                                {%- assign type_slug = recipe_type.value | split: ":" | last | replace: "_", "-" -%}
+                                {%- assign section_slug = type_slug | append: "-" | append: recipe_type.loader -%}
+                                <button type="button" class="chip active-fabric" data-platform="fabric" data-section="{{ section_slug }}" aria-pressed="true">
+                                    <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
+                                </button>
+                            {%- endif -%}
+                        {%- endfor -%}
                     </div>
-                {%- endif -%}
-            {%- endfor -%}
-            {%- for recipe_type in recipe_types -%}
-                {%- if recipe_type.loader != nil -%}
-                    {%- assign type = recipe_type.value -%}
-                    {%- assign recipe_type_name = site.data.crafting_types[type] | default: type -%}
-                    <div class="recipe-type-container">
-                        <li>
-                            <a href="#{{ type }}/{{ recipe_type.loader }}">{{ recipe_type_name }} ({{ recipe_type.loader }})</a>
-                            <label class="switch">
-                                <input id="{{ type }}/{{ recipe_type.loader }}-checkbox" class="toggle-checkbox" data-target="{{ type }}/{{ recipe_type.loader }}" type="checkbox" checked>
-                                <span class="slider"></span>
-                            </label>
-                        </li>
+                </div>
+            </div>
+        {%- endif -%}
+
+        {%- if has_forge_like -%}
+            <div class="filter-group-row">
+                <span class="group-label">NeoForge</span>
+                <div class="filter-scroll" tabindex="0" aria-label="NeoForge recipe categories">
+                    <div class="filter-group">
+                        {%- for recipe_type in recipe_types -%}
+                            {%- if recipe_type.loader == 'forge' or recipe_type.loader == 'neoforge' -%}
+                                {%- assign type_slug = recipe_type.value | split: ":" | last | replace: "_", "-" -%}
+                                {%- assign section_slug = type_slug | append: "-" | append: recipe_type.loader -%}
+                                <button type="button" class="chip active-forge" data-platform="forge" data-section="{{ section_slug }}" aria-pressed="true">
+                                    <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
+                                </button>
+                            {%- endif -%}
+                        {%- endfor -%}
                     </div>
-                {%- endif -%}
-            {%- endfor -%}
-            <li><a id="open-all" class="toggle-btn">Open All</a></li>
-            <li><a id="close-all" class="toggle-btn">Close All</a></li>
-        </ul>
+                </div>
+            </div>
+        {%- endif -%}
+
+        <div class="filter-panel-note">
+            Items marked with <span class="tag-info">*</span> are tags that accept multiple items. Hover to see the tag name.
+        </div>
     </div>
 
     <div class="recipe-list">
         {%- for recipe_type in recipe_types -%}
             {%- if recipe_type.loader == nil -%}
-                <h2 id="{{ recipe_type }}" class="category-header"><strong>{{ site.data.crafting_types[recipe_type] }}</strong></h2>
-                <div class="category-content">
-                    {%- for recipe in recipes -%}
-                        {%- if recipe_type == recipe['type'] and recipe['loader'] == nil -%}
+                {%- assign type_slug = recipe_type | split: ":" | last | replace: "_", "-" -%}
+                {%- assign section_count = 0 -%}
+                {%- for recipe in recipes -%}
+                    {%- if recipe_type == recipe['type'] and recipe['loader'] == nil -%}
+                        {%- assign section_count = section_count | plus: 1 -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                <div class="recipe-section" id="section-{{ type_slug }}">
+                    <div class="section-header">
+                        <h2>{{ site.data.crafting_types[recipe_type] | default: recipe_type }}</h2>
+                        <span class="section-tag tag-base">Base</span>
+                        <span class="recipe-count-badge">{{ section_count }} recipe{%- if section_count != 1 -%}s{%- endif -%}</span>
+                    </div>
+                    <div class="recipe-content">
+                        {%- for recipe in recipes -%}
+                            {%- if recipe_type == recipe['type'] and recipe['loader'] == nil -%}
                             <div class="recipe-card">
-                                <h3 id="{{ recipe_type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }}</strong></h3>
-                                <div class="recipe-details">
-                                    <div class="recipe-info">
-                                        {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                                <div class="recipe-card-title">
+                                    <h3 id="{{ recipe_type }}/{{ recipe['filename'] }}" class="recipe-name">{{ recipe['filename'] | replace: "_", " " | capitalize_all }}</h3>
+                                </div>
+                                <div class="recipe-card-columns{% if recipe['pattern'] %} recipe-card-columns-shaped{% endif %}">
+                                    <div class="recipe-card-panel recipe-meta-panel">
+                                        <div class="recipe-info">
+                                            {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                                        </div>
                                     </div>
-                                    <div class="recipe-input">
-                                        {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe -%}
+                                    <div class="recipe-card-panel recipe-ingredients-panel{% if recipe['pattern'] %} recipe-ingredients-panel-shaped{% endif %}">
+                                        <h4>Ingredients:</h4>
+                                        <div class="recipe-ingredients-wrap">
+                                            {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe mode='ingredients' -%}
+                                        </div>
+                                        {%- if recipe['pattern'] -%}
+                                            <div class="recipe-pattern-wrap">
+                                                <h4>Pattern:</h4>
+                                                {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe mode='pattern' -%}
+                                            </div>
+                                        {%- endif -%}
                                     </div>
-                                    <div class="recipe-output">
-                                        {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
-                                    </div>
+                                    {%- if recipe['output'] -%}
+                                        <div class="recipe-card-panel recipe-output-section">
+                                            <h4>Output:</h4>
+                                            <div class="recipe-output">
+                                                {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
+                                            </div>
+                                        </div>
+                                    {%- endif -%}
                                 </div>
                                 {%- if site.debug -%}
                                     <!--  DEBUGGING OUTPUT  -->
                                     <p><code>{{ recipe }}</code></p>
                                 {%- endif -%}
                             </div>
-                        {%- endif -%}
-                    {%- endfor -%}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
                 </div>
             {%- endif -%}
         {%- endfor -%}
+
         {%- for recipe_type in recipe_types -%}
             {%- if recipe_type.loader != nil -%}
                 {%- assign loader = recipe_type.loader -%}
                 {%- assign type = recipe_type.value -%}
                 {%- assign recipe_type_name = site.data.crafting_types[type] | default: type -%}
-                <h2 id="{{ type }}/{{ loader }}" class="category-header"><strong>{{ recipe_type_name }} ({{ loader }})</strong></h2>
-                <div class="category-content">
-                    <div class="opposite-category">
-                        {%- if loader == 'fabric' -%}
-                            {%- if page.minecraft_version < "1.21.0" -%}
-                                {%- assign opposite_loader = 'forge' -%}
-                            {%- else -%}
-                                {%- assign opposite_loader = 'neoforge' -%}
-                            {%- endif -%}
-                        {%- elsif loader == 'forge' -%}
-                            {%- assign opposite_loader = 'fabric' -%}
-                        {%- elsif loader == 'neoforge' -%}
-                            {%- assign opposite_loader = 'fabric' -%}
-                        {%- endif -%}
-                        {%- if opposite_loader -%}
-                            {%- assign has_opposite = false -%}
-                            {%- for rt in recipe_types -%}
-                                {%- if rt.value == type and rt.loader == opposite_loader -%}
-                                    {%- assign has_opposite = true -%}
-                                {%- break -%}
-                                {%- endif -%}
-                            {%- endfor -%}
-                            {%- if has_opposite -%}
-                                <a href="#{{ type }}/{{ opposite_loader }}">{{ recipe_type_name }} ({{ opposite_loader }})</a>
-                            {%- endif -%}
-                        {%- endif -%}
+                {%- assign type_slug = type | split: ":" | last | replace: "_", "-" -%}
+                {%- assign section_slug = type_slug | append: "-" | append: loader -%}
+                {%- assign section_count = 0 -%}
+                {%- for recipe in recipes -%}
+                    {%- if type == recipe['type'] and recipe['loader'] == loader -%}
+                        {%- assign section_count = section_count | plus: 1 -%}
+                    {%- endif -%}
+                {%- endfor -%}
+                {%- assign section_tag_class = 'tag-base' -%}
+                {%- assign section_tag_label = loader | capitalize -%}
+                {%- if loader == 'fabric' -%}
+                    {%- assign section_tag_class = 'tag-fabric' -%}
+                    {%- assign section_tag_label = 'Fabric' -%}
+                {%- elsif loader == 'forge' or loader == 'neoforge' -%}
+                    {%- assign section_tag_class = 'tag-forge' -%}
+                    {%- if loader == 'neoforge' -%}
+                        {%- assign section_tag_label = 'NeoForge' -%}
+                    {%- else -%}
+                        {%- assign section_tag_label = 'Forge' -%}
+                    {%- endif -%}
+                {%- endif -%}
+                <div class="recipe-section" id="section-{{ section_slug }}">
+                    <div class="section-header">
+                        <h2>{{ recipe_type_name }} ({{ loader }})</h2>
+                        <span class="section-tag {{ section_tag_class }}">{{ section_tag_label }}</span>
+                        <span class="recipe-count-badge">{{ section_count }} recipe{%- if section_count != 1 -%}s{%- endif -%}</span>
                     </div>
-                    {%- for recipe in recipes -%}
-                        {%- if type == recipe['type'] and recipe['loader'] == loader -%}
-                            <div class="recipe-card">
-                                <h3 id="{{ loader }}/{{ type }}/{{ recipe['filename'] }}"><strong>{{ recipe['filename'] | replace: "_", " " | capitalize_all }} ({{ recipe.loader }})</strong></h3>
-                                <div class="recipe-details">
-                                    <div class="recipe-info">
-                                        {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                    <div class="recipe-content">
+                        {%- for recipe in recipes -%}
+                            {%- if type == recipe['type'] and recipe['loader'] == loader -%}
+                                <div class="recipe-card">
+                                    <div class="recipe-card-title">
+                                        <h3 id="{{ loader }}/{{ type }}/{{ recipe['filename'] }}" class="recipe-name">{{ recipe['filename'] | replace: "_", " " | capitalize_all }} ({{ recipe.loader }})</h3>
                                     </div>
-                                    <div class="recipe-input">
-                                        {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe -%}
+                                    <div class="recipe-card-columns{% if recipe['pattern'] %} recipe-card-columns-shaped{% endif %}">
+                                        <div class="recipe-card-panel recipe-meta-panel">
+                                            <div class="recipe-info">
+                                                {%- include minecraft-mod/wiki/recipe-info.html recipe=recipe -%}
+                                            </div>
+                                        </div>
+                                        <div class="recipe-card-panel recipe-ingredients-panel{% if recipe['pattern'] %} recipe-ingredients-panel-shaped{% endif %}">
+                                            <h4>Ingredients:</h4>
+                                            <div class="recipe-ingredients-wrap">
+                                                {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe mode='ingredients' -%}
+                                            </div>
+                                            {%- if recipe['pattern'] -%}
+                                                <div class="recipe-pattern-wrap">
+                                                    <h4>Pattern:</h4>
+                                                    {%- include minecraft-mod/wiki/recipe-input.html recipe=recipe mode='pattern' -%}
+                                                </div>
+                                            {%- endif -%}
+                                        </div>
+                                        {%- if recipe['output'] -%}
+                                            <div class="recipe-card-panel recipe-output-section">
+                                                <h4>Output:</h4>
+                                                <div class="recipe-output">
+                                                    {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
+                                                </div>
+                                            </div>
+                                        {%- endif -%}
                                     </div>
-                                    <div class="recipe-output">
-                                        {%- include minecraft-mod/wiki/recipe-output.html recipe=recipe -%}
-                                    </div>
+                                    {%- if site.debug -%}
+                                        <!--  DEBUGGING OUTPUT  -->
+                                        <p><code>{{ recipe }}</code></p>
+                                    {%- endif -%}
                                 </div>
-                                {%- if site.debug -%}
-                                    <!--  DEBUGGING OUTPUT  -->
-                                    <p><code>{{ recipe }}</code></p>
-                                {%- endif -%}
-                            </div>
-                        {%- endif -%}
-                    {%- endfor -%}
+                            {%- endif -%}
+                        {%- endfor -%}
+                    </div>
                 </div>
             {%- endif -%}
         {%- endfor -%}
     </div>
 {%- endif -%}
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Handle right-click on Recipe Types List Header
-        document.querySelectorAll('.recipe-types a').forEach(link => {
-            link.addEventListener('contextmenu', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const categoryHeader = document.getElementById(targetId);
-                const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
-
-                categoryHeader.classList.toggle('closed');
-                checkbox.checked = !categoryHeader.classList.contains('closed');
-            });
-        });
-
-        // Handle left-click on Recipe Type Headers
-        document.querySelectorAll('.category-header').forEach(link => {
-            link.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('id');
-                const checkbox = document.querySelector(`.toggle-checkbox[data-target="${targetId}"]`);
-                
-                this.classList.toggle('closed');
-                checkbox.checked = !this.classList.contains('closed');
-            });
-        });
-    });
-
-    // Handle "Open All" Button
-    document.getElementById('open-all').addEventListener('click', function() {
-        document.querySelectorAll('.category-header').forEach(header => {
-            const targetId = header.getAttribute('id');
-            const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
-            
-            if (header.classList.contains('closed')) {
-                header.classList.remove('closed');
-                checkbox.checked = true;
-            }
-        });
-    });
-
-    // Handle "Close All" Button
-    document.getElementById('close-all').addEventListener('click', function() {
-        document.querySelectorAll('.category-header').forEach(header => {
-            const targetId = header.getAttribute('id');
-            const checkbox = document.querySelector(`.recipe-types .recipe-type-container .toggle-checkbox[data-target="${targetId}"]`);
-            
-            if (!header.classList.contains('closed')) {
-                header.classList.add('closed');
-                checkbox.checked = false;
-            }
-        });
-    });
-
-    // Handle Recipe Type Toggle Switch
-    document.querySelectorAll('.switch input[type="checkbox"]').forEach(function(checkbox) {
-        const targetId = checkbox.getAttribute('data-target');
-        const header = document.getElementById(targetId);
-        
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                header.classList.remove('closed');
-            } else {
-                header.classList.add('closed');
-            }
-        });
-    });
-</script>
 

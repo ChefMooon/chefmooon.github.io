@@ -19,20 +19,259 @@ layout: minecraft-mod/wiki/base
     </p>
 
     <p>
-        Left-Click on a recipe type to jump to the list of recipes for that type.<br />
-        Toggle recipe type visibility using the toggle or by right-clicking the type.<br />
-        Some recipes and recipe types are specific to a certain mod loader. These recipes will be marked with the loader name in parentheses.<br />
+        Use the filter chips to show or hide recipe sections by platform.<br />
+        You can use the search box to quickly narrow down recipes and ingredients.<br />
+        Some recipes and recipe types are specific to a certain mod loader and are marked in section headers.<br />
     </p>
 
-    <p>
-        Note: Any Item with a <span class="tag-info">*</span> next to it is a tag that accepts multiple items.
-        Hover over the Item to see the tag name.
-    </p>
+    <div class="toolbar" role="search" aria-label="Recipe search and visibility controls">
+        <div class="search-wrap">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input type="text" id="recipe-search" placeholder="Search recipes, ingredients..." autocomplete="off">
+        </div>
+        <span id="search-count" aria-live="polite"></span>
+        <div class="toolbar-actions">
+            <button type="button" class="btn" onclick="setAll(false)">Hide All</button>
+            <button type="button" class="btn primary" onclick="setAll(true)">Show All</button>
+        </div>
+    </div>
 
     {%- include minecraft-mod/wiki/recipe-list.html -%}
+
+    <div class="no-results" id="no-results">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+        </svg>
+        <h3>No recipes found</h3>
+        <p>Try a different search term or show more recipe types above.</p>
+    </div>
 
     <div class="post-content">
         {{ content }}
     </div>
+
+    <script>
+    (function() {
+        'use strict';
+        
+        // Phase 6 Implementation: Chip Toggle + Fuse.js Search
+        
+        // State management: Track which sections are visible
+        const sectionState = {};
+        
+        // Initialize section state (all visible by default)
+        function initializeSectionState() {
+            const sections = document.querySelectorAll('.recipe-section');
+            sections.forEach(section => {
+                sectionState[section.id] = true;
+            });
+        }
+        
+        // Build Fuse.js search index from recipe cards
+        function buildSearchIndex() {
+            const recipeCards = Array.from(document.querySelectorAll('.recipe-card'));
+            return recipeCards.map(card => ({
+                element: card,
+                name: card.querySelector('.recipe-name')?.textContent || '',
+                meta: card.querySelector('.recipe-meta')?.textContent || '',
+                ingredients: card.querySelector('.recipe-ingredients-wrap')?.textContent || ''
+            }));
+        }
+        
+        // Fuse.js search
+        let fuseIndex = null;
+        let fuseOptions = {
+            keys: ['name', 'meta', 'ingredients'],
+            threshold: 0.35,
+            minMatchCharLength: 2,
+            includeScore: true
+        };
+        
+        function getVisibleResultCount() {
+            return document.querySelectorAll('.recipe-section:not(.hidden) .recipe-card:not(.search-hidden)').length;
+        }
+
+        // Update search results
+        function performSearch(query) {
+            if (!query.trim()) {
+                // Clear search: show all recipe cards in visible sections
+                document.querySelectorAll('.recipe-card').forEach(card => {
+                    card.classList.remove('search-match', 'search-hidden');
+                });
+                updateSearchCount(null);
+                updateNoResultsDisplay();
+                return;
+            }
+            
+            if (!fuseIndex) {
+                fuseIndex = new Fuse(buildSearchIndex(), fuseOptions);
+            }
+            
+            const results = fuseIndex.search(query);
+            const matchedElements = new Set(results.map(result => result.item.element));
+            
+            // Mark cards as match or hidden
+            document.querySelectorAll('.recipe-card').forEach(card => {
+                if (matchedElements.has(card)) {
+                    card.classList.add('search-match');
+                    card.classList.remove('search-hidden');
+                } else {
+                    card.classList.add('search-hidden');
+                    card.classList.remove('search-match');
+                }
+            });
+            
+            updateSearchCount(getVisibleResultCount());
+            updateNoResultsDisplay();
+        }
+        
+        // Update search result counter
+        function updateSearchCount(count) {
+            const countSpan = document.getElementById('search-count');
+            if (!countSpan) return;
+            
+            if (count === null) {
+                countSpan.textContent = '';
+            } else {
+                countSpan.textContent = count === 1 ? '1 result' : `${count} results`;
+            }
+        }
+        
+        // Toggle a section's visibility
+        function toggleSection(sectionSlug, show) {
+            sectionState[`section-${sectionSlug}`] = show;
+            const section = document.getElementById(`section-${sectionSlug}`);
+            if (section) {
+                if (show) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            }
+
+            updateChipStates();
+            syncSearchUi();
+        }
+        
+        // Set all sections visible or hidden
+        window.setAll = function(show) {
+            const sections = document.querySelectorAll('.recipe-section');
+            sections.forEach(section => {
+                sectionState[section.id] = show;
+                if (show) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+            
+            // Update all chip visual states
+            updateChipStates();
+            syncSearchUi();
+        };
+
+        function getChipActiveClass(chip) {
+            const platform = chip.getAttribute('data-platform');
+            return platform ? `active-${platform}` : null;
+        }
+        
+        // Update chip visual states to match current sectionState
+        function updateChipStates() {
+            document.querySelectorAll('.chip').forEach(chip => {
+                const sectionSlug = chip.getAttribute('data-section');
+                if (!sectionSlug) return;
+                
+                // Check all possible section ID formats
+                const sectionId = `section-${sectionSlug}`;
+                const isVisible = sectionState[sectionId] !== false;
+                const activeClass = getChipActiveClass(chip);
+                
+                chip.setAttribute('aria-pressed', isVisible ? 'true' : 'false');
+
+                if (activeClass) {
+                    if (isVisible) {
+                        chip.classList.add(activeClass);
+                    } else {
+                        chip.classList.remove(activeClass);
+                    }
+                }
+            });
+        }
+
+        function syncSearchUi() {
+            const searchInput = document.getElementById('recipe-search');
+            if (!searchInput) {
+                return;
+            }
+
+            if (searchInput.value.trim()) {
+                updateSearchCount(getVisibleResultCount());
+            } else {
+                updateSearchCount(null);
+            }
+
+            updateNoResultsDisplay();
+        }
+        
+        // Add click handlers to chips
+        function initializeChips() {
+            document.querySelectorAll('.chip').forEach(chip => {
+                chip.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const sectionSlug = this.getAttribute('data-section');
+                    if (!sectionSlug) return;
+                    
+                    const sectionId = `section-${sectionSlug}`;
+                    const isCurrentlyVisible = sectionState[sectionId] !== false;
+                    
+                    // Toggle visibility
+                    toggleSection(sectionSlug, !isCurrentlyVisible);
+                });
+            });
+        }
+        
+        // Add search input handler
+        function initializeSearch() {
+            const searchInput = document.getElementById('recipe-search');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    performSearch(this.value);
+                    updateNoResultsDisplay();
+                });
+            }
+        }
+        
+        // Show/hide no-results message
+        function updateNoResultsDisplay() {
+            const noResults = document.getElementById('no-results');
+            const searchInput = document.getElementById('recipe-search');
+            if (!noResults || !searchInput) return;
+            
+            const hasSearch = searchInput.value.trim().length > 0;
+            const visibleCards = getVisibleResultCount();
+            
+            // Show no-results if:
+            // - User has a search query AND
+            // - No visible recipe cards match the search
+            if (hasSearch && visibleCards === 0) {
+                noResults.classList.add('visible');
+            } else {
+                noResults.classList.remove('visible');
+            }
+        }
+        
+        // Initialize everything when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSectionState();
+            initializeChips();
+            initializeSearch();
+        });
+    })();
+    </script>
     
 </article>
