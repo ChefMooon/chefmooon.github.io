@@ -9,6 +9,7 @@
   --text: #e8ede9;
   --muted: #6b7c72;
   --green: #4ade80;
+  --link: #6eb0f0;
   --grid-col: rgba(255,255,255,0.03);
   --accent-colour: #4ade80;
 }
@@ -20,6 +21,7 @@
   --text: #1a2420;
   --muted: #627870;
   --green: #4ade80;
+  --link: #0066cc;
   --grid-col: rgba(0,0,0,0.04);
 }
 
@@ -640,10 +642,105 @@ body::before {
 .post-content pre {
   overflow-x: auto;
 }
+.post-content a {
+  color: var(--link);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.post-content a:hover {
+  color: var(--green);
+  text-decoration: underline;
+}
+.wiki-version-selector {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  border: 1.5px solid var(--border);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+.wiki-version-selector:hover {
+  border-color: var(--green);
+  background: var(--surface2);
+  box-shadow: 0 2px 8px rgba(78, 172, 128, 0.15);
+}
+.wiki-version-selector:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
+}
+.wiki-version-selector:active {
+  background: var(--surface2);
+}
+.wiki-content-wrap {
+  padding-top: 1.5rem;
+  padding-bottom: 3rem;
+}
 .post-content table {
-  display: block;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: 10px;
+  display: table;
   max-width: 100%;
-  overflow-x: auto;
+}
+.post-content th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: 'Space Mono', monospace;
+  font-weight: 800;
+  font-size: 0.8125rem;
+  color: var(--text);
+  background: var(--surface2);
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  letter-spacing: 0.3px;
+}
+.post-content td {
+  padding: 0.6875rem 1rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.post-content tbody tr:last-child td {
+  border-bottom: none;
+}
+.post-content tbody tr:hover {
+  background: var(--surface2);
+  transition: background 0.2s;
+}
+.quick-links {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  max-width: 280px;
+}
+.quick-links ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.quick-links li {
+  margin: 0.5rem 0;
+}
+.quick-links h3 {
+  margin: 0 0 0.75rem;
+  font-size: 0.9375rem;
+}
+.quick-links a {
+  color: var(--link);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.quick-links a:hover {
+  color: var(--green);
 }
 .mod-changelog-list {
   display: flex;

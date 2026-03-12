@@ -34,7 +34,7 @@ layout: minecraft-mod/base
     {%- if versions.size > 1 -%}
         <div style="padding: 1rem;">
             <label for="wiki-version-selector" style="margin-right: 0.5rem;">Minecraft Version:</label>
-            <select id="wiki-version-selector" style="padding: 0.5rem; border-radius: 6px; background: var(--surface); color: var(--text); border: 1px solid var(--border);">
+            <select id="wiki-version-selector" class="wiki-version-selector">
                 {%- for version in versions -%}
                 {%- assign page_name = page.name | split: "." | first -%}
                 <option value="{{ page.mod_id | relative_url }}/wiki/{{ version | escape }}/{{ page_name }}.html" {%- if version == page.minecraft_version %} selected{%- endif %}>{{ version }}</option>
@@ -63,4 +63,6 @@ layout: minecraft-mod/base
 });
 </script>
 
+<div class="container wiki-content-wrap">
 {{ content }}
+</div>
