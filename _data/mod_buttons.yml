@@ -20,30 +20,32 @@
 
 - id: source
   label: Source
-  icon: "📦"
+  icon: ""
+  icon_svg: "github.svg"
   color: "#a8aaae"
 
 - id: issues
   label: Issues
-  icon: "🐞"
+  icon: ""
+  icon_svg: "bug.svg"
   color: "#f87171"
 
 - id: wiki_home
   label: Wiki Home
-  icon: "🏠"
+  icon: ""
   color: "#2dd4bf"
 
 - id: item_details
   label: Item Details
-  icon: "📦"
+  icon: ""
   color: "#2dd4bf"
 
 - id: block_details
   label: Block Details
-  icon: "🧱"
+  icon: ""
   color: "#2dd4bf"
 
 - id: recipes
   label: Recipes
-  icon: "🔨"
+  icon: ""
   color: "#2dd4bf"

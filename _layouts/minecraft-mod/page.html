@@ -22,16 +22,16 @@ layout: minecraft-mod/base
             <nav aria-label="{{ mod_info.title | escape }} external links" style="margin-top: 1rem;">
                 <div class="social-pills" style="justify-content: center;">
                     {%- if mod_info.url_modrinth -%}
-                        <a class="social-pill" href="{{ mod_info.url_modrinth }}" target="_blank" rel="noopener" style="--pill-color: {{ modrinth_social.color }}">{{ modrinth_social.icon }} {{ modrinth_social.label }}</a>
+                        <a class="social-pill" href="{{ mod_info.url_modrinth }}" target="_blank" rel="noopener" style="--pill-color: {{ modrinth_social.color }}">{% if modrinth_social.icon_svg %}{% svg_icon modrinth_social.icon_svg %}{% elsif modrinth_social.icon %}{{ modrinth_social.icon }}{% endif %} {{ modrinth_social.label }}</a>
                     {%- endif -%}
                     {%- if mod_info.url_curseforge -%}
-                        <a class="social-pill" href="{{ mod_info.url_curseforge }}" target="_blank" rel="noopener" style="--pill-color: {{ curseforge_social.color }}">{{ curseforge_social.icon }} {{ curseforge_social.label }}</a>
+                        <a class="social-pill" href="{{ mod_info.url_curseforge }}" target="_blank" rel="noopener" style="--pill-color: {{ curseforge_social.color }}">{% if curseforge_social.icon_svg %}{% svg_icon curseforge_social.icon_svg %}{% elsif curseforge_social.icon %}{{ curseforge_social.icon }}{% endif %} {{ curseforge_social.label }}</a>
                     {%- endif -%}
                     {%- if mod_info.source -%}
-                        <a class="social-pill" href="{{ mod_info.source }}" target="_blank" rel="noopener" style="--pill-color: {{ source_button.color }}">{{ source_button.icon }} {{ source_button.label }}</a>
+                        <a class="social-pill" href="{{ mod_info.source }}" target="_blank" rel="noopener" style="--pill-color: {{ source_button.color }}">{% if source_button.icon_svg %}{% svg_icon source_button.icon_svg %}{% elsif source_button.icon %}{{ source_button.icon }}{% endif %} {{ source_button.label }}</a>
                     {%- endif -%}
                     {%- if mod_info.issues -%}
-                        <a class="social-pill" href="{{ mod_info.issues }}" target="_blank" rel="noopener" style="--pill-color: {{ issues_button.color }}">{{ issues_button.icon }} {{ issues_button.label }}</a>
+                        <a class="social-pill" href="{{ mod_info.issues }}" target="_blank" rel="noopener" style="--pill-color: {{ issues_button.color }}">{% if issues_button.icon_svg %}{% svg_icon issues_button.icon_svg %}{% elsif issues_button.icon %}{{ issues_button.icon }}{% endif %} {{ issues_button.label }}</a>
                     {%- endif -%}
                 </div>
             </nav>

@@ -8,29 +8,34 @@
 - id: bluesky
   label: Bluesky
   url: https://bsky.app/profile/chefmooon.bsky.social
-  icon: "🦋"
+  icon: ""
+  icon_svg: "bluesky.svg"
   color: "#0085ff"
 
 - id: github
   label: GitHub
   url: https://github.com/ChefMooon
-  icon: "🐙"
+  icon: ""
+  icon_svg: "github.svg"
   color: "#A8AAAE"
 
 - id: modrinth
   label: Modrinth
   url: https://modrinth.com/user/ChefMooon
-  icon: "🌿"
+  icon: ""
+  icon_svg: "modrinth.svg"
   color: "#4ade80"
 
 - id: curseforge
   label: CurseForge
   url: https://www.curseforge.com/members/chefmooon/projects
-  icon: "🔥"
+  icon: ""
+  icon_svg: "curseforge.svg"
   color: "#fbbf24"
 
 - id: roadmap
   label: Roadmap
   url: /roadmap/
-  icon: "🗺️"
+  icon: ""
+  icon_svg: "roadmap.svg"
   color: "#2dd4bf"

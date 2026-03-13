@@ -11,7 +11,7 @@ layout: default
 				{% for social in site.data.socials %}
 					<a class="social-pill" href="{{ social.url }}"{% if social.url contains '://' %} target="_blank" rel="noopener"{% endif %} style="--pill-color: {{ social.color }}">
 						{% if social.pulse %}<span class="discord-pulse" style="margin-right: 0.25rem;"></span>{% endif %}
-						{{ social.icon }} {{ social.label }}
+						{% if social.icon_svg %}{% svg_icon social.icon_svg %}{% elsif social.icon %}{{ social.icon }}{% endif %} {{ social.label }}
 					</a>
 				{% endfor %}
 			</div>
