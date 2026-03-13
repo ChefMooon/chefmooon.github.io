@@ -531,7 +531,7 @@ body::before {
 }
 @media (min-width: 768px) {
   .hero {
-    text-align: left;
+    text-align: center;
   }
 }
 .hero-title {
@@ -550,6 +550,30 @@ body::before {
 }
 .hero-socials {
   display: flex;
+}
+.minecraft-mod-header:has(.mod-icon) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 0 1.5rem;
+}
+.minecraft-mod-header .mod-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 10px;
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px;
+}
+.minecraft-mod-header .mod-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 6px;
 }
 
 /* ===============================

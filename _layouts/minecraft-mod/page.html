@@ -12,14 +12,14 @@ layout: minecraft-mod/base
 
     <section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
         <div class="container">
-            <header class="minecraft-mod-header" style="display: flex; align-items: center; justify-content: center; gap: 1rem; padding: 1rem; border-radius: 12px; border: 1px solid var(--border); background: var(--surface); max-width: 500px; margin: 0 auto 3.2rem;">
-                <div style="width: 100px; height: 100px; border-radius: 10px; background: var(--surface2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; padding: 4px;">
-                    {% if mod_info.icon %}<img src="{{ mod_info.icon | relative_url }}" alt="{{ mod_info.title }} icon" style="width: 100%; height: 100%; object-fit: contain; border-radius: 6px;">{% else %}{{ mod_info.icon_placeholder }}{% endif %}
+            <header class="minecraft-mod-header">
+                <div class="mod-icon">
+                    {% if mod_info.icon %}<img src="{{ mod_info.icon | relative_url }}" alt="{{ mod_info.title }} icon">{% else %}{{ mod_info.icon_placeholder }}{% endif %}
                 </div>
-                <h1 class="hero-title" style="margin: 0; font-size: 2rem;">{{ mod_info.title }}</h1>
+                <h1 class="hero-title" style="margin: 0;">{{ mod_info.title }}</h1>
             </header>
 
-            <nav aria-label="{{ mod_info.title | escape }} external links" style="margin-top: 1rem;">
+            <nav aria-label="{{ mod_info.title | escape }} external links">
                 <div class="social-pills" style="justify-content: center;">
                     {%- if mod_info.url_modrinth -%}
                         <a class="social-pill" href="{{ mod_info.url_modrinth }}" target="_blank" rel="noopener" style="--pill-color: {{ modrinth_social.color }}">{% if modrinth_social.icon_svg %}{% svg_icon modrinth_social.icon_svg %}{% elsif modrinth_social.icon %}{{ modrinth_social.icon }}{% endif %} {{ modrinth_social.label }}</a>
