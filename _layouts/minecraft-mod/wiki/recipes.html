@@ -31,6 +31,12 @@ layout: minecraft-mod/wiki/base
                 <path d="m21 21-4.35-4.35" />
             </svg>
             <input type="text" id="recipe-search" placeholder="Search recipes, ingredients..." autocomplete="off">
+            <button type="button" id="clear-search-btn" class="clear-search-btn" aria-label="Clear search">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
         </div>
         <span id="search-count" aria-live="polite"></span>
         <div class="toolbar-actions">
@@ -63,6 +69,28 @@ layout: minecraft-mod/wiki/base
         // State management: Track which sections are visible
         const sectionState = {};
         
+        // Initialize clear search button
+        function initializeClearSearchButton() {
+            const clearBtn = document.getElementById('clear-search-btn');
+            const searchInput = document.getElementById('recipe-search');
+            if (!clearBtn || !searchInput) return;
+
+            function updateVisibility() {
+                clearBtn.style.display = searchInput.value.length > 0 ? 'flex' : 'none';
+            }
+
+            searchInput.addEventListener('input', updateVisibility);
+
+            clearBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                performSearch('');
+                searchInput.focus();
+                updateVisibility();
+            });
+
+            updateVisibility();
+        }
+
         // Initialize section state (all visible by default)
         function initializeSectionState() {
             const sections = document.querySelectorAll('.recipe-section');
@@ -270,6 +298,7 @@ layout: minecraft-mod/wiki/base
             initializeSectionState();
             initializeChips();
             initializeSearch();
+            initializeClearSearchButton();
         });
     })();
     </script>
