@@ -7,11 +7,14 @@
   --surface2: #1c2220;
   --border: #2a3330;
   --text: #e8ede9;
-  --muted: #6b7c72;
+  --muted: #88978f;
   --green: #4ade80;
   --link: #6eb0f0;
   --grid-col: rgba(255,255,255,0.03);
   --accent-colour: #4ade80;
+  --accent-base: #59db8d;
+  --accent-fabric: #b47cf8;
+  --accent-forge: #f8a24a;
 }
 [data-theme="light"] {
   --bg: #f4f7f5;
@@ -23,6 +26,9 @@
   --green: #4ade80;
   --link: #0066cc;
   --grid-col: rgba(0,0,0,0.04);
+  --accent-base: #59db8d;
+  --accent-fabric: #b47cf8;
+  --accent-forge: #f8a24a;
 }
 
 /* ===============================
@@ -767,13 +773,13 @@ body::before {
   color: var(--green);
 }
 .footer-text {
-  color: #9ca3af;
+  color: var(--muted);
   font-size: 0.75rem;
   text-align: center;
   font-family: 'Space Mono', monospace;
 }
 .footer-link {
-  color: #4ade80;
+  color: var(--green);
   text-decoration: none;
   font-weight: 500;
 }
@@ -1175,19 +1181,19 @@ body::before {
 .chip.active-base {
   background: rgba(74, 222, 128, 0.12);
   border-color: rgba(74, 222, 128, 0.3);
-  color: #59db8d;
+  color: var(--accent-base);
 }
 
 .chip.active-fabric {
   background: rgba(180, 124, 248, 0.12);
   border-color: rgba(180, 124, 248, 0.32);
-  color: #b47cf8;
+  color: var(--accent-fabric);
 }
 
 .chip.active-forge {
   background: rgba(248, 162, 74, 0.12);
   border-color: rgba(248, 162, 74, 0.32);
-  color: #f8a24a;
+  color: var(--accent-forge);
 }
 
 .chip[aria-pressed='false'] {
@@ -1253,19 +1259,19 @@ body::before {
 
 .tag-base {
   background: rgba(74, 222, 128, 0.12);
-  color: #59db8d;
+  color: var(--accent-base);
   border: 1px solid rgba(74, 222, 128, 0.25);
 }
 
 .tag-fabric {
   background: rgba(180, 124, 248, 0.12);
-  color: #b47cf8;
+  color: var(--accent-fabric);
   border: 1px solid rgba(180, 124, 248, 0.25);
 }
 
 .tag-forge {
   background: rgba(248, 162, 74, 0.12);
-  color: #f8a24a;
+  color: var(--accent-forge);
   border: 1px solid rgba(248, 162, 74, 0.25);
 }
 
