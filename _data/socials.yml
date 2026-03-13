@@ -2,7 +2,7 @@
   label: Discord
   url: https://discord.gg/mbuDBHHUws
   icon: ""
-  color: "#7289da"
+  color: "#5865F2"
   pulse: true
 
 - id: bluesky
@@ -10,7 +10,7 @@
   url: https://bsky.app/profile/chefmooon.bsky.social
   icon: ""
   icon_svg: "bluesky.svg"
-  color: "#0085ff"
+  color: "#4d97ff"
 
 - id: github
   label: GitHub
@@ -24,14 +24,14 @@
   url: https://modrinth.com/user/ChefMooon
   icon: ""
   icon_svg: "modrinth.svg"
-  color: "#4ade80"
+  color: "#1bd96a"
 
 - id: curseforge
   label: CurseForge
   url: https://www.curseforge.com/members/chefmooon/projects
   icon: ""
   icon_svg: "curseforge.svg"
-  color: "#fbbf24"
+  color: "#ff784d"
 
 - id: roadmap
   label: Roadmap
