@@ -19,7 +19,7 @@
   description: Dye your clocks in any of the 16 Minecraft colours to match your build aesthetic.
   icon: /assets/img/colourful-clocks/icon.png
   icon_placeholder: "🕐"
-  accent_colour: "#b11906"
+  accent_colour: "#ff2308"
   banner: /assets/img/colourful-clocks/banner.png
   banner_height: 64
   banner_width: 482
