@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "key": {
+    "A": {
+      "item": "minecraft:jungle_door"
+    },
+    "B": {
+      "item": "minecraft:oak_planks"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "BBB"
+  ],
+  "result": {
+    "item": "differentdoors:half_moon_oak_double_door"
+  },
+  "show_notification": true
+}

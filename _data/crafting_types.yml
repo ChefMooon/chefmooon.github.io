@@ -11,3 +11,6 @@ create:milling: Milling
 create:mixing: Mixing
 create:emptying: Emptying
 create:filling: Filling
+differentdoors:slide_to_swing: Slide to Swing (Shapeless Crafting)
+differentdoors:swing_to_slide: Swing to Slide (Shapeless Crafting)
+differentdoors:waxed_copper: Waxed Copper (Shapeless Crafting)

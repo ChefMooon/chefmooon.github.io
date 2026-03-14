@@ -54,6 +54,10 @@ module Jekyll
           }
         end
 
+        if output && output['item'] && result['components']
+          output['item']['components'] = result['components']
+        end
+
         output['chance'] = result['chance'] if result['chance']
         output
       end

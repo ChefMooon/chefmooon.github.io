@@ -1,7 +1,22 @@
 {%- if recipe['output'] -%}
     <ul class="recipe-output-list">
-        {%- assign size = recipe['output'] | size -%}
-        {%- if size > 1 -%}
+        {%- if recipe['output']['item'] or recipe['output']['fluid'] or recipe['output']['tag'] -%}
+            <li>
+                {%- if recipe['output']['fluid'] -%}
+                    {% include minecraft-mod/wiki/fluid-renderer.html fluid=recipe.output.fluid %}
+                {%- elsif recipe['output']['tag'] -%}
+                    {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
+                {%- elsif recipe['output']['item'] -%}
+                    <div class="recipe-output-entry">
+                        {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}
+                        {% include minecraft-mod/wiki/item-components.html item=recipe.output.item %}
+                    </div>
+                {%- endif -%}
+                {%- if recipe['output']['chance'] -%}
+                    ({{ recipe['output']['chance'] | times: 100 | round }}%)
+                {%- endif -%}
+            </li>
+        {%- else -%}
             {%- for ingredient in recipe['output'] -%}
                 <li>
                     {%- if ingredient['fluid'] -%}
@@ -9,25 +24,16 @@
                     {%- elsif ingredient['tag'] -%}
                         {% include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag %}
                     {%- else -%}
-                        {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
+                        <div class="recipe-output-entry">
+                            {% include minecraft-mod/wiki/item-renderer.html item=ingredient.item %}
+                            {% include minecraft-mod/wiki/item-components.html item=ingredient.item %}
+                        </div>
                     {%- endif -%}
                     {%- if ingredient['chance'] -%}
                         ({{ ingredient['chance'] | times: 100 | round }}%)
                     {%- endif -%}
                 </li>
             {%- endfor -%}
-        {%- else -%}
-            <li>
-                {%- if recipe['output'][0]['fluid'] -%}
-                    {% include minecraft-mod/wiki/fluid-renderer.html fluid=recipe.output.first.fluid %}
-                {%- elsif recipe['output'][0]['tag'] -%}
-                    {% include minecraft-mod/wiki/tag-renderer.html tag=recipe.output.tag %}
-                {%- elsif recipe['output']['item'] -%}
-                    {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.item %}
-                {%- elsif recipe['output'].first.item -%}
-                    {% include minecraft-mod/wiki/item-renderer.html item=recipe.output.first.item %}
-                {%- endif -%}
-            </li>
         {%- endif -%}
     </ul>
 {%- endif -%}

@@ -1,0 +1,19 @@
+{
+  "type": "differentdoors:slide_to_swing",
+  "category": "redstone",
+  "group": "large_door_swing",
+  "ingredients": [
+    {
+      "item": "differentdoors:slatted_birch_double_door"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:slatted_birch_double_door"
+  }
+}

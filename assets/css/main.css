@@ -991,6 +991,67 @@ body::before {
   color: var(--text);
 }
 
+.recipe-output-entry {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.recipe-components {
+  width: 100%;
+  margin-top: 0.125rem;
+}
+
+.recipe-components-title {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.recipe-component-group {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface2);
+  overflow: hidden;
+}
+
+.recipe-component-group + .recipe-component-group {
+  margin-top: 0.45rem;
+}
+
+.recipe-component-group summary {
+  cursor: pointer;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.recipe-component-group[open] summary {
+  border-bottom: 1px solid var(--border);
+}
+
+.recipe-component-list {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0.65rem 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.recipe-component-list li {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.recipe-component-list strong {
+  color: var(--text);
+}
+
 .recipe-output-section {
   justify-content: flex-start !important;
   align-items: flex-start !important;

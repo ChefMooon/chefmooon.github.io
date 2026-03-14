@@ -1,0 +1,28 @@
+{%- if include.item and include.item.components -%}
+    {%- assign components_i18n = site.data.i18n.en.components -%}
+    <div class="recipe-components" aria-label="{{ components_i18n.section_title | default: 'Components' }}">
+        <p class="recipe-components-title">{{ components_i18n.section_title | default: 'Components' }}</p>
+        {%- for component in include.item.components -%}
+            {%- assign component_name = component[0] -%}
+            {%- assign component_values = component[1] -%}
+            {%- assign component_label = components_i18n.labels[component_name] -%}
+            {%- if component_label == nil -%}
+                {%- assign component_label = component_name | split: ":" | last | replace: "_", " " | capitalize_all -%}
+            {%- endif -%}
+            <details class="recipe-component-group" open>
+                <summary>{{ component_label }}</summary>
+                <ul class="recipe-component-list">
+                    {%- for component_entry in component_values -%}
+                        {%- assign component_key = component_entry[0] -%}
+                        {%- assign component_value = component_entry[1] -%}
+                        {%- assign component_key_label = components_i18n.keys[component_key] -%}
+                        {%- if component_key_label == nil -%}
+                            {%- assign component_key_label = component_key | replace: "_", " " | capitalize_all -%}
+                        {%- endif -%}
+                        <li><strong>{{ component_key_label }}:</strong> {{ component_value }}</li>
+                    {%- endfor -%}
+                </ul>
+            </details>
+        {%- endfor -%}
+    </div>
+{%- endif -%}

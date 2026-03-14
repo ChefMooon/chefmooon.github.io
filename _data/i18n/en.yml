@@ -5,6 +5,15 @@ compatibility:
   bugfix_label: Bug Fix Only
   planned_label: Planned
 
+components:
+  section_title: Components
+  labels:
+    minecraft:block_state: Block State
+    playful_planes:paper_plane_data: Paper Plane Data
+  keys:
+    swing: Swing
+    type: Type
+
 translation:
   section_title: Translation
   submit_heading: Contribute a Translation

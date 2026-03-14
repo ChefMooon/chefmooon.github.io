@@ -1,0 +1,14 @@
+{
+  "type": "differentdoors:swing_to_slide",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "ingredients": [
+    {
+      "item": "differentdoors:rustic_crimson_double_door"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:rustic_crimson_double_door"
+  }
+}

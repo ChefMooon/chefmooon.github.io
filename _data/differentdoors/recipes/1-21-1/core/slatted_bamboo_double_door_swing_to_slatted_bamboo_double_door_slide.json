@@ -1,0 +1,14 @@
+{
+  "type": "differentdoors:swing_to_slide",
+  "category": "redstone",
+  "group": "large_door_slide",
+  "ingredients": [
+    {
+      "item": "differentdoors:slatted_bamboo_double_door"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "differentdoors:slatted_bamboo_double_door"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "differentdoors:waxed_copper",
+  "category": "redstone",
+  "group": "waxed_copper_double_door",
+  "ingredients": [
+    {
+      "item": "differentdoors:oxidized_copper_double_door"
+    },
+    {
+      "item": "minecraft:honeycomb"
+    }
+  ],
+  "result": {
+    "components": {
+      "minecraft:block_state": {
+        "swing": "true"
+      }
+    },
+    "count": 1,
+    "id": "differentdoors:waxed_oxidized_copper_double_door"
+  }
+}

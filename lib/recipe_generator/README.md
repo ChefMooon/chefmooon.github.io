@@ -23,6 +23,7 @@ _plugins/
       mod_farmersdelight.rb        # farmersdelight:cutting, farmersdelight:cooking
       mod_create.rb                # create:milling, create:mixing, create:emptying, create:filling
       mod_ubesdelight.rb           # ubesdelight:baking_mat
+      mod_differentdoors.rb        # differentdoors:slide_to_swing/swing_to_slide/waxed_copper
 ```
 
 ## How It Works

@@ -29,6 +29,7 @@ require 'mods/mod_vanilla'
 require 'mods/mod_farmersdelight'
 require 'mods/mod_create'
 require 'mods/mod_ubesdelight'
+require 'mods/mod_differentdoors'
 
 module Jekyll
     class RecipeGenerator
@@ -42,6 +43,7 @@ module Jekyll
         include RecipeGenerator::Mods::FarmersDelight
         include RecipeGenerator::Mods::Create
         include RecipeGenerator::Mods::UbesDelight
+        include RecipeGenerator::Mods::DifferentDoors
 
         def initialize(config = {})
             super(config)
@@ -59,7 +61,9 @@ module Jekyll
         def normalize_recipe_data(key, recipe_data)
             return nil unless recipe_data['type']
 
-            entry = SchemaRegistry.lookup(recipe_data['type'])
+            recipe_type = recipe_data['type'].to_s.strip
+
+            entry = SchemaRegistry.lookup(recipe_type)
             unless entry
                 Jekyll.logger.warn "Unknown recipe type: #{recipe_data['type']}"
                 return nil
@@ -76,10 +80,12 @@ module Jekyll
                 next unless data.is_a?(Hash)
 
                 if data['type']
+                    recipe_type = data['type'].to_s.strip
+
                     # Validate raw recipe data before normalization
-                    validation = validate_recipe(key, data, data['type'])
+                    validation = validate_recipe(key, data, recipe_type)
                     unless validation[:valid]
-                        log_validation_error(key, data['type'], page_key, validation)
+                        log_validation_error(key, recipe_type, page_key, validation)
                         next  # Skip this recipe
                     end
 
@@ -102,9 +108,9 @@ module Jekyll
                         normalized_data['loader'] = current_loader if current_loader
                         @recipe_data_by_page[page_key]&.add(normalized_data)
                         if current_loader
-                            data['type'] = { 'value' => data['type'], 'loader' => current_loader }
+                                                        data['type'] = { 'value' => recipe_type, 'loader' => current_loader }
                           else
-                            data['type'] = data['type']
+                                                        data['type'] = recipe_type
                           end
                         @recipe_types_by_page[page_key]&.add(data['type'])
                         @total_recipes_by_page[page_key] = (@total_recipes_by_page[page_key] || 0) + 1
@@ -152,10 +158,12 @@ module Jekyll
                     next unless recipe_list.is_a?(Hash)
 
                     if recipe_list['type']
+                        recipe_type = recipe_list['type'].to_s.strip
+
                         # Single recipe file - validate before normalization
-                        validation = validate_recipe(folder, recipe_list, recipe_list['type'])
+                        validation = validate_recipe(folder, recipe_list, recipe_type)
                         unless validation[:valid]
-                            log_validation_error(folder, recipe_list['type'], page_key, validation)
+                            log_validation_error(folder, recipe_type, page_key, validation)
                             next
                         end
 
@@ -175,7 +183,7 @@ module Jekyll
                             end
 
                             @recipe_data_by_page[page_key].add(normalized_data)
-                            @recipe_types_by_page[page_key].add(recipe_list['type'])
+                            @recipe_types_by_page[page_key].add(recipe_type)
                             @total_recipes_by_page[page_key] += 1
                             collect_tags_from_recipe(normalized_data, page_key)
                         end
