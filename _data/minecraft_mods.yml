@@ -3,7 +3,7 @@
   description: Bounce on breeze rods with a springy new block that launches players into the air.
   icon: /assets/img/breeze-bounce/icon.png
   icon_placeholder: "🌬️"
-  accent_colour: "#38bdf8"
+  accent_colour: "#eb1b91"
   banner: /assets/img/breeze-bounce/banner.png
   banner_height: 64
   banner_width: 384
@@ -19,7 +19,7 @@
   description: Dye your clocks in any of the 16 Minecraft colours to match your build aesthetic.
   icon: /assets/img/colourful-clocks/icon.png
   icon_placeholder: "🕐"
-  accent_colour: "#f59e0b"
+  accent_colour: "#b11906"
   banner: /assets/img/colourful-clocks/banner.png
   banner_height: 64
   banner_width: 482
@@ -51,7 +51,7 @@
   description: A Farmer's Delight add-on full of spooky seasonal food and Halloween-themed recipes.
   icon: /assets/img/frights-delight/icon.png
   icon_placeholder: "🎃"
-  accent_colour: "#f97316"
+  accent_colour: "#379992"
   banner: /assets/img/frights-delight/banner.png
   banner_height: 87
   banner_width: 378
