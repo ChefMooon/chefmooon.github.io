@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:yellow_dye"
+    },
+    {
+      "tag": "breezebounce:bounce_stairs"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "breezebounce:basic_bounce_stair_yellow"
+  }
+}

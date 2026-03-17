@@ -33,3 +33,8 @@ minecraft:fishes: Fish
 minecraft:terracotta: Terracotta
 minecraft:leaves: Leaves
 minecraft:fences: Fences
+breezebounce:bounce_blocks: Bounce Blocks
+breezebounce:bounce_slabs: Bounce Slabs
+breezebounce:bounce_stairs: Bounce Stairs
+breezebounce:bounce_walls: Bounce Walls
+ 

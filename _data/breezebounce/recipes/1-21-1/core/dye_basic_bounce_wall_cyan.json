@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:cyan_dye"
+    },
+    {
+      "tag": "breezebounce:bounce_walls"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "breezebounce:basic_bounce_wall_cyan"
+  }
+}
