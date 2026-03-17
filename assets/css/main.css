@@ -419,23 +419,10 @@ body::before {
   position: relative;
   overflow: hidden;
 }
-.mod-card::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 0;
-  height: 100%; width: 3px;
-  background: var(--accent-colour);
-  transform: scaleY(0);
-  transition: transform 0.2s;
-  transform-origin: bottom;
-}
 .mod-card:hover {
   border-color: var(--accent-colour);
   box-shadow: 0 4px 20px rgba(0,0,0,0.15);
   transform: translateY(-1px);
-}
-.mod-card:hover::before {
-  transform: scaleY(1);
 }
 .mod-card-icon {
   width: 64px;
