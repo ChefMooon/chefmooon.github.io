@@ -67,7 +67,7 @@
         <!-- Discord badge with live member count -->
         <a href="https://discord.gg/mbuDBHHUws" target="_blank" rel="noopener" class="discord-badge">
           <span class="discord-pulse"></span>
-          <span id="discord-online-count"></span>
+          <span id="discord-count">0</span><span class="discord-online-label"> online</span>
         </a>
         <!-- Theme toggle -->
         {%- include theme-toggle.html -%}
@@ -370,11 +370,9 @@
       try {
         const res = await fetch(`https://discord.com/api/guilds/${DISCORD_SERVER_ID}/widget.json`);
         const data = await res.json();
-        const el = document.getElementById('discord-online-count');
+        const el = document.getElementById('discord-count');
         if (el && data.presence_count !== undefined) {
-          // Show only number on mobile, "(N online)" format on desktop
-          const isMobile = window.innerWidth < 768;
-          el.textContent = isMobile ? `${data.presence_count}` : `${data.presence_count} online`;
+          el.textContent = data.presence_count;
         }
       } catch (e) {
         // Silently fail — button still works without the count
@@ -383,13 +381,6 @@
 
     updateDiscordCount();
     setInterval(updateDiscordCount, 60000); // Refresh every 60 seconds
-    
-    // Update Discord count on window resize to adapt to viewport changes
-    let resizeTimeout;
-    window.addEventListener('resize', function() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(updateDiscordCount, 250);
-    });
   </script>
 
 </body>
