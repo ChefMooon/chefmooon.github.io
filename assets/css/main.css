@@ -332,6 +332,8 @@ body::before {
   color: var(--text);
   text-decoration: none;
   transition: border-color 0.2s;
+  min-width: 6.75rem;
+  justify-content: center;
 }
 .discord-badge:hover {
   border-color: var(--green);
