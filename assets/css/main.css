@@ -566,6 +566,7 @@ body::before {
   justify-content: center;
   flex-shrink: 0;
   padding: 4px;
+  transform: translateY(-16px);
 }
 .minecraft-mod-header .mod-icon img {
   width: 100%;
