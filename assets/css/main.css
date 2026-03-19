@@ -547,6 +547,7 @@ body::before {
 }
 .hero-socials {
   display: flex;
+  justify-content: center;
 }
 .minecraft-mod-header:has(.mod-icon) {
   display: flex;
