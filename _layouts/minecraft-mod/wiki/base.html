@@ -2,6 +2,8 @@
 layout: minecraft-mod/base
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign versions = mod_info.wiki_available_minecraft_versions | split: ", " -%}
 {%- assign wiki_home_button = site.data.mod_buttons | where: "id", "wiki_home" | first -%}
@@ -21,10 +23,10 @@ layout: minecraft-mod/base
     <div class="container">
         <nav aria-label="{{ mod_info.title | escape }} wiki navigation">
             <div class="social-pills" style="justify-content: center;">
-                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/home.html" style="--pill-color: {{ wiki_home_button.color }}">{{ wiki_home_button.icon }} {{ wiki_home_button.label }}</a>
-                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/item-details.html" style="--pill-color: {{ item_details_button.color }}">{{ item_details_button.icon }} {{ item_details_button.label }}</a>
-                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/block-details.html" style="--pill-color: {{ block_details_button.color }}">{{ block_details_button.icon }} {{ block_details_button.label }}</a>
-                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/recipes.html" style="--pill-color: {{ recipes_button.color }}">{{ recipes_button.icon }} {{ recipes_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/home.html" style="--pill-color: {{ wiki_home_button.color }}">{{ wiki_home_button.icon }} {{ t.buttons.wiki_home | default: wiki_home_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/item-details.html" style="--pill-color: {{ item_details_button.color }}">{{ item_details_button.icon }} {{ t.buttons.item_details | default: item_details_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/block-details.html" style="--pill-color: {{ block_details_button.color }}">{{ block_details_button.icon }} {{ t.buttons.block_details | default: block_details_button.label }}</a>
+                <a class="social-pill" href="{{ page.mod_id | relative_url }}/wiki/{{ page.minecraft_version | escape }}/recipes.html" style="--pill-color: {{ recipes_button.color }}">{{ recipes_button.icon }} {{ t.buttons.recipes | default: recipes_button.label }}</a>
             </div>
         </nav>
     </div>
@@ -33,7 +35,7 @@ layout: minecraft-mod/base
 <div class="wrapper" style="text-align: center; margin-top: 1rem;">
     {%- if versions.size > 1 -%}
         <div style="padding: 1rem;">
-            <label for="wiki-version-selector" style="margin-right: 0.5rem;">Minecraft Version:</label>
+            <label for="wiki-version-selector" style="margin-right: 0.5rem;">{{ t.layout.minecraft_version }}:</label>
             <select id="wiki-version-selector" class="wiki-version-selector">
                 {%- for version in versions -%}
                 {%- assign page_name = page.name | split: "." | first -%}

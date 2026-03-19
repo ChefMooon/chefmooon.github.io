@@ -1,10 +1,12 @@
 ---
 layout: base
 ---
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 <h2>{{ page.tag }}</h2>
 <ul>
 {% for post in page.posts %}
-  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }} | Tags: {{ post | tags }})</li>
+  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }} | {{ t.layout.tags }}: {{ post | tags }})</li>
 {% endfor %}
 </ul>
 

@@ -1,4 +1,8 @@
-{% if include.fluid.amount %}{{ include.fluid.amount }} mB of {% endif %}
+{%- unless t -%}
+  {%- assign t = site.data.i18n[site.active_lang].strings -%}
+  {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+{%- endunless -%}
+{% if include.fluid.amount %}{{ include.fluid.amount }} {{ t.fluid.millibucket }} {% endif %}
 {%- assign fluid_lang = mod_lang | where: "key", include.fluid.id | first -%}
 {% if fluid_lang %}
     {{ fluid_lang.data }}
@@ -7,7 +11,7 @@
 {%- endif -%}
 {% if include.fluid.nbt and include.fluid.nbt.size > 0 %}
     <details>
-        <summary>Show NBT data</summary>
+        <summary>{{ t.fluid.show_nbt }}</summary>
         <pre>{{ include.fluid.nbt | jsonify | replace: '\u0026', '&' | replace: '\u003c', '<' | replace: '\u003e', '>' }}</pre>
     </details>
 {% endif %}

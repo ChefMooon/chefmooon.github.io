@@ -1,3 +1,7 @@
+{%- unless t -%}
+  {%- assign t = site.data.i18n[site.active_lang].strings -%}
+  {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+{%- endunless -%}
 {%- assign recipes = page.recipes -%}
 {%- assign recipe_types = page.recipe_types -%}
 {%- assign mod_lang = page.mod_lang -%}
@@ -16,14 +20,14 @@
 
     <div class="filter-panel">
         <div class="filter-group-row">
-            <span class="group-label">Base</span>
+            <span class="group-label">{{ t.recipe.base }}</span>
             <div class="filter-scroll" tabindex="0" aria-label="Base recipe categories">
                 <div class="filter-group">
                     {%- for recipe_type in recipe_types -%}
                         {%- if recipe_type.loader == nil -%}
                             {%- assign type_slug = recipe_type | split: ":" | last | replace: "_", "-" -%}
                             <button type="button" class="chip active-base" data-platform="base" data-section="{{ type_slug }}" aria-pressed="true">
-                                <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type] | default: recipe_type }}
+                                <span class="chip-dot"></span>{{ t.crafting_types[recipe_type] | default: site.data.crafting_types[recipe_type] | default: recipe_type }}
                             </button>
                         {%- endif -%}
                     {%- endfor -%}
@@ -33,7 +37,7 @@
 
         {%- if has_fabric -%}
             <div class="filter-group-row">
-                <span class="group-label">Fabric</span>
+                <span class="group-label">{{ t.recipe.fabric }}</span>
                 <div class="filter-scroll" tabindex="0" aria-label="Fabric recipe categories">
                     <div class="filter-group">
                         {%- for recipe_type in recipe_types -%}
@@ -41,7 +45,7 @@
                                 {%- assign type_slug = recipe_type.value | split: ":" | last | replace: "_", "-" -%}
                                 {%- assign section_slug = type_slug | append: "-" | append: recipe_type.loader -%}
                                 <button type="button" class="chip active-fabric" data-platform="fabric" data-section="{{ section_slug }}" aria-pressed="true">
-                                    <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
+                                    <span class="chip-dot"></span>{{ t.crafting_types[recipe_type.value] | default: site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
                                 </button>
                             {%- endif -%}
                         {%- endfor -%}
@@ -52,7 +56,7 @@
 
         {%- if has_forge_like -%}
             <div class="filter-group-row">
-                <span class="group-label">NeoForge</span>
+                <span class="group-label">{{ t.recipe.neoforge }}</span>
                 <div class="filter-scroll" tabindex="0" aria-label="NeoForge recipe categories">
                     <div class="filter-group">
                         {%- for recipe_type in recipe_types -%}
@@ -60,7 +64,7 @@
                                 {%- assign type_slug = recipe_type.value | split: ":" | last | replace: "_", "-" -%}
                                 {%- assign section_slug = type_slug | append: "-" | append: recipe_type.loader -%}
                                 <button type="button" class="chip active-forge" data-platform="forge" data-section="{{ section_slug }}" aria-pressed="true">
-                                    <span class="chip-dot"></span>{{ site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
+                                    <span class="chip-dot"></span>{{ t.crafting_types[recipe_type.value] | default: site.data.crafting_types[recipe_type.value] | default: recipe_type.value }}
                                 </button>
                             {%- endif -%}
                         {%- endfor -%}
@@ -70,7 +74,7 @@
         {%- endif -%}
 
         <div class="filter-panel-note">
-            Items marked with <span class="tag-info">*</span> are tags that accept multiple items. Hover to see the tag name.
+            {{ t.recipe.tag_notice }}
         </div>
     </div>
 
@@ -86,8 +90,8 @@
                 {%- endfor -%}
                 <div class="recipe-section" id="section-{{ type_slug }}">
                     <div class="section-header">
-                        <h2>{{ site.data.crafting_types[recipe_type] | default: recipe_type }}</h2>
-                        <span class="section-tag tag-base">Base</span>
+                        <h2>{{ t.crafting_types[recipe_type] | default: site.data.crafting_types[recipe_type] | default: recipe_type }}</h2>
+                        <span class="section-tag tag-base">{{ t.recipe.base }}</span>
                         <span class="recipe-count-badge">{{ section_count }} recipe{%- if section_count != 1 -%}s{%- endif -%}</span>
                     </div>
                     <div class="recipe-content">
@@ -140,7 +144,7 @@
             {%- if recipe_type.loader != nil -%}
                 {%- assign loader = recipe_type.loader -%}
                 {%- assign type = recipe_type.value -%}
-                {%- assign recipe_type_name = site.data.crafting_types[type] | default: type -%}
+                {%- assign recipe_type_name = t.crafting_types[type] | default: site.data.crafting_types[type] | default: type -%}
                 {%- assign type_slug = type | split: ":" | last | replace: "_", "-" -%}
                 {%- assign section_slug = type_slug | append: "-" | append: loader -%}
                 {%- assign section_count = 0 -%}

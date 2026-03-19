@@ -1,0 +1,170 @@
+# =============================================================================
+# English UI Strings
+# =============================================================================
+# This file contains all translatable UI strings for the site.
+# To add a new language, copy this file to _data/i18n/{lang_code}/strings.yml
+# and translate the values.
+# =============================================================================
+
+# Mod titles & descriptions (used in mod cards, listings, nav)
+# Non-translatable metadata (icons, versions, URLs) stays in minecraft_mods.yml.
+mods:
+  breezebounce:
+    title: "Breeze Bounce"
+    description: "Bounce on breeze rods with a springy new block that launches players into the air."
+  colourfulclocks:
+    title: "Colourful Clocks"
+    description: "Dye your clocks in any of the 16 Minecraft colours to match your build aesthetic."
+  differentdoors:
+    title: "Different Doors"
+    description: "Dozens of new door styles — glass panels, barn doors, jail gates and more."
+  frightsdelight:
+    title: "Fright's Delight"
+    description: "A Farmer's Delight add-on full of spooky seasonal food and Halloween-themed recipes."
+  playfulplanes:
+    title: "Playful Planes"
+    description: "Craft and fly paper planes — fold them, throw them, and watch them glide."
+  ubesdelight:
+    title: "Ube's Delight"
+    description: "A Farmer's Delight add-on celebrating Filipino cuisine, featuring ube, halo-halo, and more."
+
+# Navigation (used in _layouts/default.html, _includes/header.html)
+nav:
+  home: "Home"
+  mods: "Mods"
+  updates: "Updates"
+  about: "About"
+  wiki: "Wiki"
+  changelog: "Changelog"
+  roadmap: "Roadmap"
+
+# Mod page buttons (used in _layouts/minecraft-mod/wiki/base.html, mod nav)
+# These replace the `label` field lookups from _data/mod_buttons.yml
+buttons:
+  home: "Home"
+  wiki: "Wiki"
+  changelog: "Changelog"
+  roadmap: "Roadmap"
+  source: "Source"
+  issues: "Issues"
+  wiki_home: "Wiki Home"
+  item_details: "Item Details"
+  block_details: "Block Details"
+  recipes: "Recipes"
+
+# Recipe wiki UI (used in recipe-info.html, recipe-list.html)
+recipe:
+  type: "Type"
+  category: "Category"
+  recipe_book_tab: "Recipe Book Tab"
+  cooking_time: "Cooking Time"
+  processing_time: "Processing Time"
+  experience: "Experience"
+  tool: "Tool"
+  load_conditions: "Load Conditions"
+  tag_notice: "Items marked with * are tags. Hover to see the tag name."
+  base: "Base"
+  fabric: "Fabric"
+  neoforge: "NeoForge"
+
+# Crafting type display names (replaces _data/crafting_types.yml for display)
+# Keys match recipe type identifiers from the recipe generator
+crafting_types:
+  "minecraft:crafting_shapeless": "Shapeless Crafting"
+  "minecraft:crafting_shaped": "Shaped Crafting"
+  "minecraft:smithing_transform": "Smithing"
+  "minecraft:smelting": "Smelting"
+  "minecraft:smoking": "Smoking"
+  "minecraft:campfire_cooking": "Campfire Cooking"
+  "farmersdelight:cutting": "Cutting"
+  "farmersdelight:cooking": "Cooking Pot"
+  "ubesdelight:baking_mat": "Baking Mat"
+  "create:milling": "Milling"
+  "create:mixing": "Mixing"
+  "create:emptying": "Emptying"
+  "create:filling": "Filling"
+  "differentdoors:slide_to_swing": "Slide to Swing (Shapeless Crafting)"
+  "differentdoors:swing_to_slide": "Swing to Slide (Shapeless Crafting)"
+  "differentdoors:waxed_copper": "Waxed Copper (Shapeless Crafting)"
+
+# Load condition display names (used in recipe-info.html)
+# Tooltip descriptions remain in _data/load_conditions.yml
+load_conditions:
+  "fabric:all_mods_loaded": "Mod(s) Loaded"
+  "fabric:any_mod_loaded": "Mod(s) Loaded"
+  "neoforge:mod_loaded": "Mod(s) Loaded"
+  "forge:mod_loaded": "Mod(s) Loaded"
+  "neoforge:and": "All Conditions Met"
+  "ubesdelight:ud_crates_enabled": "Configuration - Crop Crates Enabled"
+  "frightsdelight:frd_vanilla_crates_enabled": "Configuration - Crop Crates Enabled"
+
+# Layout strings (used across multiple layout files)
+layout:
+  recent_updates: "Recent Updates"
+  view_all_updates: "View all updates →"
+  minecraft_mods: "Minecraft Mods"
+  previous: "← Previous"
+  next: "Next →"
+  page: "Page"
+  back_to_top: "Back to Top"
+  all_entries: "All Entries"
+  tags: "Tags"
+  categories: "Categories"
+  minecraft_version: "Minecraft Version"
+  version_prefix: "V"
+
+# Roadmap layout
+roadmap:
+  title: "Mod Roadmaps"
+  description: "Here you will find an overview of upcoming features, changes, and bug fixes for all mods."
+  updates_listed: "Updates are listed in order of priority."
+  will_be_updated: "This roadmap will be updated as development progresses."
+
+# Fluid renderer (used in fluid-renderer.html)
+fluid:
+  millibucket: "mB of"
+  show_nbt: "Show NBT data"
+
+# Footer (used in _includes/footer.html)
+footer:
+  built_by: "Built by"
+  hosted_on: "Hosted on"
+  rss: "RSS"
+
+# Compatibility section (migrated from old _data/i18n/en.yml)
+compatibility:
+  legend_label: "Legend"
+  supported_label: "Supported Version"
+  unsupported_label: "Not Supported"
+  bugfix_label: "Bug Fix Only"
+  planned_label: "Planned"
+
+# Item/block components section (migrated from old _data/i18n/en.yml)
+components:
+  section_title: "Components"
+  labels:
+    "minecraft:block_state": "Block State"
+    "playful_planes:paper_plane_data": "Paper Plane Data"
+  keys:
+    swing: "Swing"
+    type: "Type"
+
+# Translation wiki section (migrated from old _data/i18n/en.yml)
+translation:
+  section_title: "Translation"
+  submit_heading: "Contribute a Translation"
+  submit_placeholder: "Greatly appreciate all translations. Submit translations by creating a pull request in the GitHub repository."
+  no_contributors_yet: "No translations yet, please consider contributing."
+  language: "Language"
+  status: "Status"
+  version: "Version"
+  authors: "Authors"
+
+# Wiki home sections
+wiki_home:
+  current: "Current"
+  planned: "Planned"
+
+# Fallback notice (shown when a page is not yet translated)
+fallback:
+  notice: "This page is not yet available in your language. Showing English version."

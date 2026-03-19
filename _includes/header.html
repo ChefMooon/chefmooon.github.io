@@ -1,3 +1,5 @@
+{%- unless t -%}{%- assign t = site.data.i18n[site.active_lang].strings -%}{%- endunless -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 <header class="site-header">
 
     <div class="wrapper">
@@ -23,7 +25,7 @@
                 <ul class="main-nav menu">
                     <!-- <li><a href="{{ '/' | relative_url }}">ChefMooon's Hub</a></li> -->
                     <li class="dropdown">
-                        <a onclick="handleMenuClick(event, this)">Minecraft Mods ▼</a>
+                        <a onclick="handleMenuClick(event, this)">{{ t.nav.mods | default: "Minecraft Mods" }} ▼</a>
                         <ul class="dropdown-content">
                             {%- for path in page_paths -%}
                                 {%- assign my_page = site.pages | where: "path", path | first -%}
@@ -33,17 +35,17 @@
                                     <li class="dropdown">
                                         <a class="page-link" onclick="handleSubMenuClick(event, this)">{{ mod_info.title | escape }}</a>
                                         <ul class="dropdown-content submenu">
-                                            <li><a class="page-link" href="{{ mod_base_url }}">Home</a></li>
-                                            <li><a href="{{ mod_base_url }}wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home.html">Wiki</a></li>
-                                            <li><a href="{{ mod_base_url }}changelog.html">Changelog</a></li>
-                                            <li><a href="{{ mod_base_url }}roadmap.html">Roadmap</a></li>
+                                            <li><a class="page-link" href="{{ mod_base_url }}">{{ t.nav.home | default: "Home" }}</a></li>
+                                            <li><a href="{{ mod_base_url }}wiki/{{ mod_info.wiki_default_minecraft_version | escape }}/home.html">{{ t.nav.wiki | default: "Wiki" }}</a></li>
+                                            <li><a href="{{ mod_base_url }}changelog.html">{{ t.nav.changelog | default: "Changelog" }}</a></li>
+                                            <li><a href="{{ mod_base_url }}roadmap.html">{{ t.nav.roadmap | default: "Roadmap" }}</a></li>
                                         </ul>
                                     </li>
                                 {%- endif -%}
                             {%- endfor -%}
                         </ul>
                     </li>
-                    <li><a href="{{ '/about' | relative_url }}">About</a></li>
+                    <li><a href="{{ '/about' | relative_url }}">{{ t.nav.about | default: "About" }}</a></li>
                     <!-- <li><a href="{{ site.patreon_url | relative_url }}">Patreon</a></li> -->
                 </ul>
             </div>

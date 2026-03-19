@@ -1,5 +1,9 @@
 {%- if include.item and include.item.components -%}
-    {%- assign components_i18n = site.data.i18n.en.components -%}
+    {%- unless t -%}
+      {%- assign t = site.data.i18n[site.active_lang].strings -%}
+      {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+    {%- endunless -%}
+    {%- assign components_i18n = t.components -%}
     <div class="recipe-components" aria-label="{{ components_i18n.section_title | default: 'Components' }}">
         <p class="recipe-components-title">{{ components_i18n.section_title | default: 'Components' }}</p>
         {%- for component in include.item.components -%}

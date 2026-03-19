@@ -2,6 +2,8 @@
 layout: minecraft-mod/wiki/base
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 {%- assign version_folder = page.minecraft_version | replace: ".", "-" -%}
 {%- assign version_recipes = site.data[page.mod_id].recipes[version_folder] -%}

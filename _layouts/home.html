@@ -2,6 +2,9 @@
 layout: default
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+
 <section class="hero">
 	<div class="container">
 		<h1 class="hero-title">ChefMooon</h1>
@@ -21,16 +24,18 @@ layout: default
 
 <section style="padding: 2rem 0;">
 	<div class="container">
-		<h2 class="section-heading">Minecraft Mods</h2>
+		<h2 class="section-heading">{{ t.layout.minecraft_mods }}</h2>
 		<div style="display: flex; flex-direction: column; gap: 0.75rem;">
 			{% for mod in site.data.minecraft_mods %}
+				{%- assign mod_i18n = site.data.i18n[site.active_lang].strings.mods[mod.id] -%}
+				{%- unless mod_i18n -%}{%- assign mod_i18n = site.data.i18n.en.strings.mods[mod.id] -%}{%- endunless -%}
 				<a class="mod-card" href="{{ '/' | append: mod.id | append: '/' | relative_url }}" style="--accent-colour: {{ mod.accent_colour }}">
 					<div class="mod-card-icon">
-						{% if mod.icon %}<img src="{{ mod.icon | relative_url }}" alt="{{ mod.title }} icon" class="mod-card-icon-img">{% else %}{{ mod.icon_placeholder }}{% endif %}
+						{% if mod.icon %}<img src="{{ mod.icon | relative_url }}" alt="{{ mod_i18n.title | default: mod.title }} icon" class="mod-card-icon-img">{% else %}{{ mod.icon_placeholder }}{% endif %}
 					</div>
 					<div class="mod-card-body">
-						<p class="mod-card-name">{{ mod.title }}</p>
-						<p class="mod-card-desc">{{ mod.description }}</p>
+						<p class="mod-card-name">{{ mod_i18n.title | default: mod.title }}</p>
+						<p class="mod-card-desc">{{ mod_i18n.description | default: mod.description }}</p>
 					</div>
 					<span class="mod-card-arrow">&rarr;</span>
 				</a>
@@ -41,7 +46,7 @@ layout: default
 
 <section style="padding: 2rem 0 4rem;">
 	<div class="container">
-		<h2 class="section-heading">Recent Updates</h2>
+		<h2 class="section-heading">{{ t.layout.recent_updates }}</h2>
 		<div style="display: flex; flex-direction: column; gap: 0.5rem;">
 			{% assign posts = site.posts %}
 			{% assign date_format = site.minima.date_format | default: "%b %-d, %Y" %}
@@ -50,14 +55,14 @@ layout: default
 				<a class="update-card" href="{{ post.url | relative_url }}">
 					<span class="update-card-date">{{ post.date | date: date_format }}</span>
 					<div>
-						{% if post.mod_id %}<div class="update-card-mod">{{ mod_info.title }}</div>{% endif %}
+						{% if post.mod_id %}{%- assign post_mod_i18n = site.data.i18n[site.active_lang].strings.mods[post.mod_id] -%}{%- unless post_mod_i18n -%}{%- assign post_mod_i18n = site.data.i18n.en.strings.mods[post.mod_id] -%}{%- endunless -%}<div class="update-card-mod">{{ post_mod_i18n.title | default: mod_info.title }}</div>{% endif %}
 						<div class="update-card-title">{% if post.mod_version %}{{ post.mod_version }} - {% endif %}{{ post.title }}</div>
 					</div>
 					<span class="update-card-arrow">&rarr;</span>
 				</a>
 			{% endfor %}
 			{% if posts.size > 5 %}
-				<a href="{{ '/recent-updates/' | relative_url }}" style="color: var(--muted); font-size: 0.875rem; text-decoration: none; margin-top: 0.5rem; display: inline-block;">View all updates &rarr;</a>
+				<a href="{{ '/recent-updates/' | relative_url }}" style="color: var(--muted); font-size: 0.875rem; text-decoration: none; margin-top: 0.5rem; display: inline-block;">{{ t.layout.view_all_updates }}</a>
 			{% endif %}
 		</div>
 	</div>

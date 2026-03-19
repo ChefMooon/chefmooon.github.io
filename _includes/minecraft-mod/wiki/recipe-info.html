@@ -1,45 +1,49 @@
+{%- unless t -%}
+  {%- assign t = site.data.i18n[site.active_lang].strings -%}
+  {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+{%- endunless -%}
 {%- if recipe['type'] -%}
     {%- assign recipe_type = recipe['type'] -%}
     {%- if recipe_type.loader -%}
-        <p><strong>Type:</strong> {{ site.data.crafting_types[recipe_type.value] }}</p>
+        <p><strong>{{ t.recipe.type }}:</strong> {{ t.crafting_types[recipe_type.value] | default: site.data.crafting_types[recipe_type.value] }}</p>
     {%- else -%}
-        <p><strong>Type:</strong> {{ site.data.crafting_types[recipe_type] }}</p>
+        <p><strong>{{ t.recipe.type }}:</strong> {{ t.crafting_types[recipe_type] | default: site.data.crafting_types[recipe_type] }}</p>
     {%- endif -%}
 {%- endif -%}
 {%- if recipe['category'] -%}
-    <p><strong>Category:</strong> {{ recipe['category'] | capitalize }}</p>
+    <p><strong>{{ t.recipe.category }}:</strong> {{ recipe['category'] | capitalize }}</p>
 {%- endif -%}
 {%- if recipe['recipe_book_tab'] -%}
-    <p><strong>Recipe Book Tab:</strong> {{ recipe['recipe_book_tab'] | capitalize_all }}</p>
+    <p><strong>{{ t.recipe.recipe_book_tab }}:</strong> {{ recipe['recipe_book_tab'] | capitalize_all }}</p>
 {%- endif -%}
 {%- if recipe['cookingtime'] -%}
-    <p><strong>Cooking Time:</strong> {{ recipe['cookingtime'] }}</p>
+    <p><strong>{{ t.recipe.cooking_time }}:</strong> {{ recipe['cookingtime'] }}</p>
 {%- endif -%}
 {%- if recipe['processing_time'] -%}
-    <p><strong>Processing Time:</strong> {{ recipe['processing_time'] }}</p>
+    <p><strong>{{ t.recipe.processing_time }}:</strong> {{ recipe['processing_time'] }}</p>
 {%- endif -%}
 {%- if recipe['experience'] and recipe['experience'] > 0 -%}
-    <p><strong>Experience:</strong> {{ recipe['experience'] }}</p>
+    <p><strong>{{ t.recipe.experience }}:</strong> {{ recipe['experience'] }}</p>
 {%- endif -%}
 {%- if recipe['tool'] -%}
     {%- assign mc_version = page.minecraft_version | replace: ".", "-" -%}
     {%- assign tool = recipe['tool'] -%}
     {%- assign tool_tag = site.data.tags[mc_version][tool] -%}
     {%- if tool_tag -%}
-        <p><strong>Tool:</strong> <span title="{{ tool }}" style="cursor: pointer;">{{ tool_tag }}<span class="tag-info">*</span></span></p>
+        <p><strong>{{ t.recipe.tool }}:</strong> <span title="{{ tool }}" style="cursor: pointer;">{{ tool_tag }}<span class="tag-info">*</span></span></p>
     {%- else -%}
-        <p><strong>Tool:</strong> {{ recipe['tool'] }}</p>
+        <p><strong>{{ t.recipe.tool }}:</strong> {{ recipe['tool'] }}</p>
     {%- endif -%}
 {%- endif -%}
 {%- if recipe['load_conditions'] -%}
-    <p><strong>Load Conditions:</strong></p>
+    <p><strong>{{ t.recipe.load_conditions }}:</strong></p>
     {%- for condition in recipe['load_conditions'] -%}
         {%- if condition['condition'] -%} <!-- Fabric -->
             {%- assign condition_type = condition['condition'] -%}
             {%- assign load_condition_info = site.data.load_conditions[condition_type] -%}
             {%- if load_condition_info -%}
                 <p title="{{ load_condition_info.description }}" style="cursor: pointer;">
-                    {{ load_condition_info.id }}
+                    {{ t.load_conditions[condition_type] | default: load_condition_info.id }}
                 </p>
             {%- else -%}
                 <p>{{ condition_type }}</p>
@@ -57,7 +61,7 @@
             {%- assign load_condition_info = site.data.load_conditions[condition_type] -%}
             {%- if load_condition_info -%}
                 <p title="{{ load_condition_info.description }}" style="cursor: pointer;">
-                    {{ load_condition_info.id }}
+                    {{ t.load_conditions[condition_type] | default: load_condition_info.id }}
                 </p>
             {%- else -%}
                 <p>{{ condition_type }}</p>

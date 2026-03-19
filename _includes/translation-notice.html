@@ -1,0 +1,7 @@
+{%- if page.rendered_lang and page.rendered_lang != site.active_lang -%}
+<div class="translation-notice" role="alert">
+  {%- assign t = site.data.i18n[site.active_lang].strings -%}
+  {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+  {{ t.fallback.notice | default: "This page is not yet available in your language. Showing English version." }}
+</div>
+{%- endif -%}

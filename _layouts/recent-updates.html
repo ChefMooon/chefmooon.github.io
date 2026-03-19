@@ -2,6 +2,9 @@
 layout: default
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+
 <section style="padding: 2rem 0 4rem;">
 	<div class="container">
 		<h1 class="section-heading">{{ page.title | escape }}</h1>
@@ -48,13 +51,13 @@ layout: default
 					<div style="display: flex; align-items: center; gap: 0.75rem;">
 						{%- if paginator.previous_page %}
 							<a href="{{ paginator.previous_page_path | relative_url }}" class="update-card" style="text-decoration: none; width: auto;">
-								<span style="color: var(--green);">← Previous</span>
+							<span style="color: var(--green);">{{ t.layout.previous }}</span>
 							</a>
 						{%- endif %}
-						<span style="color: var(--muted); font-family: 'Space Mono', monospace;">Page {{ paginator.page }}</span>
+						<span style="color: var(--muted); font-family: 'Space Mono', monospace;">{{ t.layout.page }} {{ paginator.page }}</span>
 						{%- if paginator.next_page %}
 							<a href="{{ paginator.next_page_path | relative_url }}" class="update-card" style="text-decoration: none; width: auto;">
-								<span style="color: var(--green);">Next →</span>
+							<span style="color: var(--green);">{{ t.layout.next }}</span>
 							</a>
 						{%- endif %}
 					</div>

@@ -2,6 +2,9 @@
 layout: base
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+
 <header class="post-header">
     <h1 class="post-title">{{ page.title | escape }}</h1>
 </header>
@@ -20,7 +23,7 @@ layout: base
 
 <hr>
 
-<h1>Mod Roadmaps</h1>
+<h1>{{ t.roadmap.title }}</h1>
 
 <div class="quick-links">
     <ul>

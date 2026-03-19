@@ -2,6 +2,8 @@
 layout: minecraft-mod/base
 ---
 
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
 
 <article class="post">
@@ -9,7 +11,7 @@ layout: minecraft-mod/base
     <section class="hero" style="padding-top: 2.5rem; padding-bottom: 1.5rem;">
         <div class="container">
             <header class="minecraft-mod-header">
-                <h1 class="hero-title">{{ mod_info.title | escape }} Changelog</h1>
+                <h1 class="hero-title">{{ mod_info.title | escape }} {{ t.nav.changelog }}</h1>
             </header>
         </div>
     </section>
@@ -27,7 +29,7 @@ layout: minecraft-mod/base
     {%- if filtered_posts.size > 0 -%}
         <section style="padding: 0 0 3rem;">
             <div class="container">
-                <h2 class="section-heading">All Entries</h2>
+                <h2 class="section-heading">{{ t.layout.all_entries }}</h2>
                 <div class="mod-changelog-list">
                     {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
                     {%- for post in filtered_posts -%}

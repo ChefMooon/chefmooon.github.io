@@ -2,3 +2,4 @@
 # Use with: bundle exec jekyll serve --config _config.yml,_config_debug.yml
 
 debug: true
+parallel_localization: false

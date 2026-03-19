@@ -1,0 +1,12 @@
+{%- if site.languages.size > 1 -%}
+<nav class="language-switcher" aria-label="Language">
+  {%- for lang in site.languages -%}
+    {%- if lang == site.active_lang -%}
+      <span class="language-switcher__current" aria-current="true">{{ lang }}</span>
+    {%- else -%}
+      <a {% static_href %}href="{% if lang != site.default_lang %}/{{ lang }}{% endif %}{{ page.url }}"{% endstatic_href %} hreflang="{{ lang }}">{{ lang }}</a>
+    {%- endif -%}
+    {%- unless forloop.last %} • {% endunless -%}
+  {%- endfor -%}
+</nav>
+{%- endif -%}

@@ -1799,3 +1799,12 @@ body::before {
     transform: translateX(-50%) translateY(0);
   }
 }
+
+/* Translation fallback notice */
+.translation-notice {
+  background: var(--surface2, #2a2a2a);
+  border-left: 4px solid var(--accent, #f59e0b);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}

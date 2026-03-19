@@ -1,0 +1,16 @@
+project_id: "<your-project-id>"
+token: "%LOKALISE_API_TOKEN%"
+files:
+  upload:
+    - file: _data/i18n/en/strings.yml
+      lang_iso: en
+      format: yaml
+      convert_placeholders: false
+      tags:
+        - ui-strings
+  download:
+    format: yaml
+    original_filenames: true
+    directory_prefix: ""
+    export_empty_as: base
+    bundle_structure: "_data/i18n/%LANG_ISO%/"

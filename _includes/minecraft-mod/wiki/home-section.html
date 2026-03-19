@@ -41,11 +41,11 @@
     {%- endif -%}
 
     {%- if section.current and section.current != "" -%}
-    <p><strong>Current:</strong> {{ section.current }}</p>
+    <p><strong>{{ t.wiki_home.current | default: "Current" }}:</strong> {{ section.current }}</p>
     {%- endif -%}
 
     {%- if section.planned and section.planned != "" -%}
-    <p><strong>Planned:</strong> {{ section.planned }}</p>
+    <p><strong>{{ t.wiki_home.planned | default: "Planned" }}:</strong> {{ section.planned }}</p>
     {%- endif -%}
 
 {%- elsif kind == "development" -%}

@@ -1,4 +1,6 @@
-### {{ site.data.i18n.en.translation.section_title }}
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+### {{ t.translation.section_title }}
 
 | Language | Status | Version | Authors |
 |---|---|---|---|
@@ -7,4 +9,4 @@
 | `uk_ua` | Partial | `1.1.0` | unroman |
 | `ko_kr` | Done | `1.4.3` | Copy-TT |
 
-*{{ site.data.i18n.en.translation.submit_placeholder }}*
+*{{ t.translation.submit_placeholder }}*

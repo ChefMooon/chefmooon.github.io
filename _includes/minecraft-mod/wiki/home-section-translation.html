@@ -8,10 +8,10 @@
 <table>
     <thead>
         <tr>
-            <th>Language</th>
-            <th>Status</th>
-            <th>Version</th>
-            <th>Authors</th>
+            <th>{{ t.translation.language | default: "Language" }}</th>
+            <th>{{ t.translation.status | default: "Status" }}</th>
+            <th>{{ t.translation.version | default: "Version" }}</th>
+            <th>{{ t.translation.authors | default: "Authors" }}</th>
         </tr>
     </thead>
     <tbody>

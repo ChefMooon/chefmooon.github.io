@@ -1,5 +1,7 @@
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ site.active_lang | default: 'en' }}">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -26,7 +28,7 @@
       <ul class="nav-links">
         <li class="nav-dropdown">
           <button class="nav-link nav-dropdown-trigger" aria-expanded="false" aria-haspopup="true">
-            Mods
+            {{ t.nav.mods }}
             <svg class="dropdown-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
@@ -42,18 +44,18 @@
                   </svg>
                 </button>
                 <ul class="dropdown-submenu">
-                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}">Home</a></li>
-                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">Wiki</a></li>
-                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">Changelog</a></li>
-                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">Roadmap</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}">{{ t.nav.home }}</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">{{ t.nav.wiki }}</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">{{ t.nav.changelog }}</a></li>
+                  <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">{{ t.nav.roadmap }}</a></li>
                 </ul>
               </li>
               {%- endfor -%}
             </ul>
           </div>
         </li>
-        <li><a class="nav-link" href="{{ '/recent-updates/' | relative_url }}">Updates</a></li>
-        <li><a class="nav-link" href="{{ '/about/' | relative_url }}">About</a></li>
+        <li><a class="nav-link" href="{{ '/recent-updates/' | relative_url }}">{{ t.nav.updates }}</a></li>
+        <li><a class="nav-link" href="{{ '/about/' | relative_url }}">{{ t.nav.about }}</a></li>
       </ul>
       
       <!-- Mobile hamburger button -->
@@ -64,6 +66,8 @@
       </button>
       
       <div class="nav-actions">
+        <!-- Language switcher -->
+        {%- include language-switcher.html -%}
         <!-- Discord badge with live member count -->
         <a href="https://discord.gg/mbuDBHHUws" target="_blank" rel="noopener" class="discord-badge">
           <span class="discord-pulse"></span>
@@ -79,7 +83,7 @@
       <!-- Mods dropdown for mobile -->
       <div class="mobile-menu-section">
         <button class="mobile-menu-toggle" id="mobile-mods-toggle" aria-expanded="false" aria-controls="mobile-mods-list">
-          Mods
+          {{ t.nav.mods }}
           <svg class="mobile-menu-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"></polyline>
           </svg>
@@ -94,10 +98,10 @@
               </svg>
             </button>
             <ul class="mobile-mod-submenu" style="display: none;">
-              <li><a href="{{ '/' | relative_url }}{{ mod.id }}">Home</a></li>
-              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">Wiki</a></li>
-              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">Changelog</a></li>
-              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">Roadmap</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}">{{ t.nav.home }}</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/wiki/{{ mod.wiki_default_minecraft_version }}/home">{{ t.nav.wiki }}</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/changelog">{{ t.nav.changelog }}</a></li>
+              <li><a href="{{ '/' | relative_url }}{{ mod.id }}/roadmap">{{ t.nav.roadmap }}</a></li>
             </ul>
           </li>
           {%- endfor -%}
@@ -105,12 +109,13 @@
       </div>
       
       <!-- Updates and About links for mobile -->
-      <a href="{{ '/recent-updates/' | relative_url }}" class="mobile-menu-link">Updates</a>
-      <a href="{{ '/about/' | relative_url }}" class="mobile-menu-link">About</a>
+      <a href="{{ '/recent-updates/' | relative_url }}" class="mobile-menu-link">{{ t.nav.updates }}</a>
+      <a href="{{ '/about/' | relative_url }}" class="mobile-menu-link">{{ t.nav.about }}</a>
     </div>
   </nav>
 
   <main>
+    {% include translation-notice.html %}
     {{ content }}
   </main>
 

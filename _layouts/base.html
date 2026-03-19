@@ -1,13 +1,15 @@
 <!DOCTYPE html>
-<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+<html lang="{{ page.lang | default: site.active_lang | default: site.lang | default: 'en' }}">
 
     {%- include head.html -%}
+    {% I18n_Headers %}
 
     <body>
 
         {%- include header.html -%}
 
         <main class="page-content" aria-label="Content">
+        {% include translation-notice.html %}
         <div class="wrapper">
             {% include anchor_headings.html html=content anchorBody="#" %}
         </div>
@@ -17,7 +19,7 @@
 
     </body>
 
-    <button id="back-to-top" title="Back to Top">↑</button>
+    <button id="back-to-top" title="{{ site.data.i18n[site.active_lang].strings.layout.back_to_top | default: 'Back to Top' }}">↑</button>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -65,6 +65,13 @@ tag_page_dir: tag
 # Silence some warnings
 sass:
   quiet_deps: true
+  sourcemap: never
+
+# i18n / Polyglot
+languages: ["en"]
+default_lang: "en"
+exclude_from_localization: ["assets", "images", "fonts", "sitemap.xml", "robots.txt", "feed.xml"]
+parallel_localization: false
 
 # Development settings
 debug: false

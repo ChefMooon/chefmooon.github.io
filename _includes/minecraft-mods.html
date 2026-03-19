@@ -1,11 +1,13 @@
 <div class="minecraft-mod-button">
     {%- for mod in site.data.minecraft_mods -%}
+        {%- assign mod_i18n = site.data.i18n[site.active_lang].strings.mods[mod.id] -%}
+        {%- unless mod_i18n -%}{%- assign mod_i18n = site.data.i18n.en.strings.mods[mod.id] -%}{%- endunless -%}
         <a href="{{ mod.id | relative_url }}">
             {% if mod.banner %}
-                <img class="minecraft-mod-banner" src="{{ mod.banner }}" alt="{{ mod.title | escape }}" />
+                <img class="minecraft-mod-banner" src="{{ mod.banner }}" alt="{{ mod_i18n.title | default: mod.title | escape }}" />
                 <br />
             {% else %}
-                <h3>{{ mod.title | escape }}</h3>
+                <h3>{{ mod_i18n.title | default: mod.title | escape }}</h3>
             {% endif %}
         </a>
         <a href="{{ mod.id | relative_url }}">

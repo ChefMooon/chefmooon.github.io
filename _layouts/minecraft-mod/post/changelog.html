@@ -1,11 +1,13 @@
 ---
 layout: minecraft-mod/base
 ---
+{%- assign t = site.data.i18n[site.active_lang].strings -%}
+{%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
 <article class="post h-entry mod-changelog-post" itemscope itemtype="http://schema.org/BlogPosting">
 
     <header class="post-header">
         <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-        <h2 class="post-subtitle">V{{ page.mod_version | escape }}</h2>
+        <h2 class="post-subtitle">{{ t.layout.version_prefix }}{{ page.mod_version | escape }}</h2>
         <p class="post-meta">
             {% assign minecraft_versions = page.minecraft_version | split: ", " %}
             {% assign minecraft_loaders = page.minecraft_loader | split: ", " %}

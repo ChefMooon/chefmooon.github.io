@@ -47,6 +47,9 @@ Comprehensive styling guide documenting the design system, CSS patterns, and com
 
 ## Build & Validation
 
+### [translations.md](translations.md)
+Runbook for the translation workflow with jekyll-polyglot. Covers adding a new language, maintaining i18n keys, Lokalise sync, fallback behavior, and release checks.
+
 ### [htmlproofer.md](htmlproofer.md)
 Guide to HTMLProofer link validation tool. Explains how to run HTMLProofer, why we disable external link checking, what errors we validate, and how to fix common link issues.
 

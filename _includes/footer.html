@@ -1,11 +1,16 @@
 <footer class="site-footer h-card">
     <data class="u-url" href="{{ "/" | relative_url }}"></data>
 
+    {%- unless t -%}
+      {%- assign t = site.data.i18n[site.active_lang].strings -%}
+      {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
+    {%- endunless -%}
+
     <div class="wrapper">
         <div class="footer-content">
             <p class="footer-text">
-                Built by <a class="footer-link">{{ site.title | split: "'" | first | strip }}</a> · 
-                Hosted on <a href="https://github.com/ChefMooon/chefmooon.github.io" target="_blank" class="footer-link">GitHub</a> Pages
+                {{ t.footer.built_by }} <a class="footer-link">{{ site.title | split: "'" | first | strip }}</a> · 
+                {{ t.footer.hosted_on }} <a href="https://github.com/ChefMooon/chefmooon.github.io" target="_blank" class="footer-link">GitHub</a> Pages
                 {%- assign social_ids = "discord,modrinth,curseforge" | split: "," -%}
                 {%- for social_id in social_ids -%}
                     {%- for social in site.data.socials -%}
@@ -14,7 +19,7 @@
                         {%- endif -%}
                     {%- endfor -%}
                 {%- endfor %}
-                 · <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}" target="_blank" class="footer-link" title="RSS Feed">RSS</a>
+                 · <a href="{{ site.feed.path | default: 'feed.xml' | absolute_url }}" target="_blank" class="footer-link" title="RSS Feed">{{ t.footer.rss }}</a>
             </p>
         </div>
     </div>
