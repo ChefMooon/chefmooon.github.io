@@ -14,7 +14,8 @@
   --accent-colour: #4ade80;
   --accent-base: #59db8d;
   --accent-fabric: #b47cf8;
-  --accent-forge: #f8a24a;
+  --accent-forge: #556c89;
+  --accent-neoforge: #e68c37;
 }
 [data-theme="light"] {
   --bg: #f4f7f5;
@@ -28,7 +29,8 @@
   --grid-col: rgba(0,0,0,0.04);
   --accent-base: #59db8d;
   --accent-fabric: #b47cf8;
-  --accent-forge: #f8a24a;
+  --accent-forge: #556c89;
+  --accent-neoforge: #e68c37;
 }
 
 /* ===============================
@@ -735,6 +737,59 @@ body::before {
   color: var(--green);
   opacity: 1;
 }
+.post-meta-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+  margin-top: 0.625rem;
+  align-items: center;
+}
+.post-meta-chips__versions,
+.post-meta-chips__loaders {
+  display: contents;
+}
+.meta-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.625rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-family: 'Space Mono', monospace;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid currentColor;
+  transition: filter 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.meta-chip--version {
+  color: var(--muted);
+  border-color: var(--border);
+}
+.meta-chip--version:hover {
+  color: var(--text);
+  border-color: var(--muted);
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+.meta-chip--fabric {
+  color: var(--accent-fabric);
+}
+.meta-chip--neoforge {
+  color: var(--accent-neoforge);
+}
+.meta-chip--forge {
+  color: var(--accent-forge);
+}
+.meta-chip--loader:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+@media (max-width: 600px) {
+  .meta-chip {
+    padding: 0.2rem 0.5rem;
+    font-size: 0.6875rem;
+  }
+}
 .post-content table {
   border-collapse: collapse;
   font-size: 0.9rem;
@@ -1326,7 +1381,7 @@ body::before {
 .chip.active-forge {
   background: rgba(248, 162, 74, 0.12);
   border-color: rgba(248, 162, 74, 0.32);
-  color: var(--accent-forge);
+  color: var(--accent-neoforge);
 }
 
 .chip[aria-pressed='false'] {
@@ -1404,7 +1459,7 @@ body::before {
 
 .tag-forge {
   background: rgba(248, 162, 74, 0.12);
-  color: var(--accent-forge);
+  color: var(--accent-neoforge);
   border: 1px solid rgba(248, 162, 74, 0.25);
 }
 
