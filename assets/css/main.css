@@ -40,12 +40,12 @@ html {
   color: var(--text);
 }
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 400;
   margin: 0;
 }
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', sans-serif;
   font-weight: 800;
   margin: 0 0 0.5em;
 }
@@ -451,7 +451,7 @@ body::before {
 .mod-card-name {
   font-family: 'Space Mono', monospace;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.25rem;
   color: var(--text);
   margin: 0 0 0.25rem;
 }
@@ -648,7 +648,7 @@ body::before {
    =============================== */
 .section-heading {
   font-family: 'Space Mono', monospace;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 800;
   color: var(--text);
   margin: 0 0 1rem;
@@ -1296,7 +1296,7 @@ body::before {
   color: var(--muted);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   white-space: nowrap;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Inter', sans-serif;
   appearance: none;
 }
 
