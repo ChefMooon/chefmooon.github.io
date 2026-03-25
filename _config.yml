@@ -62,11 +62,6 @@ google_analytics: G-2K7NSK072B
 tag_page_layout: tag_page
 tag_page_dir: tag
 
-# Silence some warnings
-sass:
-  quiet_deps: true
-  sourcemap: never
-
 # i18n / Polyglot
 languages: ["en"]
 default_lang: "en"

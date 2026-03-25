@@ -1,15 +1,19 @@
 ---
-layout: base
+layout: default
 ---
 {%- assign t = site.data.i18n[site.active_lang].strings -%}
 {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
-<h2>{{ page.tag }}</h2>
-<ul>
-{% for post in page.posts %}
-  <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }} | {{ t.layout.tags }}: {{ post | tags }})</li>
-{% endfor %}
-</ul>
+<section style="padding: 2rem 0 4rem;">
+  <div class="container">
+    <h1 class="section-heading">{{ page.tag }}</h1>
+    <ul>
+    {% for post in page.posts %}
+      <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }} | {{ t.layout.tags }}: {{ post | tags }})</li>
+    {% endfor %}
+    </ul>
 
-<div id="tag-cloud">
-  {{ site | tag_cloud }}
-</div>
+    <div id="tag-cloud">
+      {{ site | tag_cloud }}
+    </div>
+  </div>
+</section>

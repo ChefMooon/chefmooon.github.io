@@ -28,7 +28,7 @@ mods:
     title: "Ube's Delight"
     description: "A Farmer's Delight add-on celebrating Filipino cuisine, featuring ube, halo-halo, and more."
 
-# Navigation (used in _layouts/default.html, _includes/header.html)
+# Navigation (used in _layouts/default.html)
 nav:
   home: "Home"
   mods: "Mods"
