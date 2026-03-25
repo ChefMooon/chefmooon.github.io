@@ -323,6 +323,13 @@ body::before {
 .theme-toggle-btn .moon-icon {
   stroke: none;
 }
+[data-theme="light"] .theme-toggle-btn .moon-icon {
+  color: #2d473c;
+}
+[data-theme="dark"] .theme-toggle-btn .sun-icon {
+  color: #ffd76a;
+  stroke-width: 2.25;
+}
 [data-theme="light"] .moon-icon { display: inline; }
 [data-theme="light"] .sun-icon { display: none; }
 [data-theme="dark"] .moon-icon { display: none; }
