@@ -1,7 +1,7 @@
 ---
 layout: minecraft-mod/wiki/block-details
 
-title: Block Details \| Different Doors
+title: Block Details | Different Doors
 mod_id: differentdoors
 minecraft_version: 1.21.1
 permalink: /differentdoors/wiki/1.21.1/block-details

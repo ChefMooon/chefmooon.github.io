@@ -1,7 +1,7 @@
 ---
 layout: minecraft-mod/wiki/item-details
 
-title: Item Details \| Playful Planes
+title: Item Details | Playful Planes
 mod_id: playfulplanes
 minecraft_version: 1.21.8
 permalink: /playfulplanes/wiki/1.21.8/item-details

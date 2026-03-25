@@ -1,7 +1,7 @@
 ---
 layout: minecraft-mod/wiki/block-details
 
-title: Block Details \| Ube's Delight
+title: Block Details | Ube's Delight
 mod_id: ubesdelight
 minecraft_version: 1.21.10
 permalink: /ubesdelight/wiki/1.21.10/block-details

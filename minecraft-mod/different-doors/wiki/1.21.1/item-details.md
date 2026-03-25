@@ -1,7 +1,7 @@
 ---
 layout: minecraft-mod/wiki/item-details
 
-title: Item Details \| Different Doors
+title: Item Details | Different Doors
 mod_id: differentdoors
 minecraft_version: 1.21.1
 permalink: /differentdoors/wiki/1.21.1/item-details
