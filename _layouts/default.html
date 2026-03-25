@@ -16,6 +16,10 @@
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}" />
   <!-- SEO -->
   {%- seo -%}
+  <!-- Google Analytics (production only) -->
+  {%- if jekyll.environment == 'production' and site.google_analytics -%}
+    {%- include google-analytics.html -%}
+  {%- endif -%}
 </head>
 <body>
 
