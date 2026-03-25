@@ -1775,6 +1775,7 @@ body::before {
   padding: 0;
   margin-left: auto;
   margin-right: 1rem;
+  flex-shrink: 0;
 }
 .nav-hamburger span {
   display: block;
