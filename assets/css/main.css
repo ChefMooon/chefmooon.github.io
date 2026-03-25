@@ -309,9 +309,19 @@ body::before {
 .theme-toggle-btn svg {
   width: 16px;
   height: 16px;
+  color: var(--muted);
   fill: none;
-  stroke: var(--muted);
+  stroke: currentColor;
   stroke-width: 2;
+}
+.theme-toggle-btn:hover svg {
+  color: var(--text);
+}
+[data-theme="light"] .theme-toggle-btn svg {
+  color: var(--text);
+}
+.theme-toggle-btn .moon-icon {
+  stroke: none;
 }
 [data-theme="light"] .moon-icon { display: inline; }
 [data-theme="light"] .sun-icon { display: none; }
