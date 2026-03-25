@@ -715,6 +715,26 @@ body::before {
   padding-top: 1.5rem;
   padding-bottom: 3rem;
 }
+.mod-changelog-post {
+  max-width: 62rem;
+  margin: 0 auto;
+}
+.mod-changelog-post .post-meta a,
+.mod-changelog-post .post-meta .p-category,
+.mod-changelog-post .post-meta a:visited,
+.mod-changelog-post .post-meta .p-category:visited {
+  color: var(--link);
+  opacity: 1;
+  text-decoration: underline;
+  transition: color 0.2s, opacity 0.2s;
+}
+.mod-changelog-post .post-meta a:hover,
+.mod-changelog-post .post-meta .p-category:hover,
+.mod-changelog-post .post-meta a:focus-visible,
+.mod-changelog-post .post-meta .p-category:focus-visible {
+  color: var(--green);
+  opacity: 1;
+}
 .post-content table {
   border-collapse: collapse;
   font-size: 0.9rem;

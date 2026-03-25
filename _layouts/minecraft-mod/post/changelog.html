@@ -3,72 +3,74 @@ layout: minecraft-mod/base
 ---
 {%- assign t = site.data.i18n[site.active_lang].strings -%}
 {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
-<article class="post h-entry mod-changelog-post" itemscope itemtype="http://schema.org/BlogPosting">
+<div class="container wiki-content-wrap">
+        <article class="post h-entry mod-changelog-post" itemscope itemtype="http://schema.org/BlogPosting">
 
-    <header class="post-header">
-        <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
-        <h2 class="post-subtitle">{{ t.layout.version_prefix }}{{ page.mod_version | escape }}</h2>
-        <p class="post-meta">
-            {% assign minecraft_versions = page.minecraft_version | split: ", " %}
-            {% assign minecraft_loaders = page.minecraft_loader | split: ", " %}
-            {% assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first %}
+            <header class="post-header">
+                <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
+                <h2 class="post-subtitle">{{ t.layout.version_prefix }}{{ page.mod_version | escape }}</h2>
+                <p class="post-meta">
+                    {% assign minecraft_versions = page.minecraft_version | split: ", " %}
+                    {% assign minecraft_loaders = page.minecraft_loader | split: ", " %}
+                    {% assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first %}
 
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-            <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-                {{ page.date | date: date_format }}
-            </time>
-            {%- if page.modified_date -%}
-                ~ 
-                {%- assign mdate = page.modified_date | date_to_xmlschema -%}
-                <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
-                {{ mdate | date: date_format }}
-                </time>
+                    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                    <time class="dt-published" datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+                        {{ page.date | date: date_format }}
+                    </time>
+                    {%- if page.modified_date -%}
+                        ~ 
+                        {%- assign mdate = page.modified_date | date_to_xmlschema -%}
+                        <time class="dt-modified" datetime="{{ mdate }}" itemprop="dateModified">
+                        {{ mdate | date: date_format }}
+                        </time>
+                    {%- endif -%}
+                    {%- if page.author -%}
+                        • {% for author in page.author %}
+                        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+                            <span class="p-author h-card" itemprop="name">{{ author }}&nbsp;</span></span>
+                            {%- if forloop.last == false %}, {% endif -%}
+                        {% endfor %}
+                    {%- endif -%}
+                    <!-- {%- if page.mod_id -%}
+                        • {{ mod_info.title | escape }}&nbsp;
+                    {%- endif -%} -->
+                    <!-- {%- if minecraft_versions.size > 0 -%}
+                        • {{ minecraft_versions | join: ", " }}&nbsp;
+                    {%- endif -%}
+                    {%- if minecraft_loaders.size > 0 -%}
+                        • {{ minecraft_loaders | join: ", " }}
+                    {%- endif -%} -->
+                    {%- if page.tags -%}
+                        {% for tag in page.tags %}
+                            {%- if forloop.first == true -%} • {% endif -%}
+                            <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ tag }}</a>
+                            {%- if forloop.last == false %} • {% endif -%} 
+                        {% endfor %}
+                    {% endif -%}
+
+                    <!-- {%- if page.tags -%}
+                        • 
+                        {% for tag in page.tags %}
+                        {%- if tag == page.mod_id -%}
+                            <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ mod_info.title | escape }}</a>
+                        {%- else -%}
+                            <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ tag }}</a>
+                        {%- endif -%}
+                        {%- if forloop.last == false %} • {% endif -%} {% endfor %}
+                    {% endif -%} -->
+                </p>
+                
+            </header>
+
+            <div class="post-content e-content" itemprop="articleBody">
+                {{ content }}
+            </div>
+
+            {%- if site.disqus.shortname -%}
+                {%- include disqus_comments.html -%}
             {%- endif -%}
-            {%- if page.author -%}
-                • {% for author in page.author %}
-                <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-                    <span class="p-author h-card" itemprop="name">{{ author }}&nbsp;</span></span>
-                    {%- if forloop.last == false %}, {% endif -%}
-                {% endfor %}
-            {%- endif -%}
-            <!-- {%- if page.mod_id -%}
-                • {{ mod_info.title | escape }}&nbsp;
-            {%- endif -%} -->
-            <!-- {%- if minecraft_versions.size > 0 -%}
-                • {{ minecraft_versions | join: ", " }}&nbsp;
-            {%- endif -%}
-            {%- if minecraft_loaders.size > 0 -%}
-                • {{ minecraft_loaders | join: ", " }}
-            {%- endif -%} -->
-            {%- if page.tags -%}
-                {% for tag in page.tags %}
-                    {%- if forloop.first == true -%} • {% endif -%}
-                    <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ tag }}</a>
-                    {%- if forloop.last == false %} • {% endif -%} 
-                {% endfor %}
-            {% endif -%}
 
-            <!-- {%- if page.tags -%}
-                • 
-                {% for tag in page.tags %}
-                {%- if tag == page.mod_id -%}
-                    <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ mod_info.title | escape }}</a>
-                {%- else -%}
-                    <a class="p-category" href="{{ '/tag/' | relative_url }}{{ tag | replace: ' ', '-' }}.html">{{ tag }}</a>
-                {%- endif -%}
-                {%- if forloop.last == false %} • {% endif -%} {% endfor %}
-            {% endif -%} -->
-        </p>
-        
-    </header>
-
-    <div class="post-content e-content" itemprop="articleBody">
-        {{ content }}
-    </div>
-
-    {%- if site.disqus.shortname -%}
-        {%- include disqus_comments.html -%}
-    {%- endif -%}
-
-    <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
-</article>
+            <a class="u-url" href="{{ page.url | relative_url }}" hidden></a>
+        </article>
+</div>
