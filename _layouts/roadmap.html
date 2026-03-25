@@ -25,14 +25,18 @@ layout: default
 
         <h2>{{ t.roadmap.title }}</h2>
 
-        <div class="quick-links">
-            <ul>
+        <div class="roadmap-links" aria-label="Roadmap links to other mods">
+            <div class="social-pills roadmap-pills">
                 {%- for mod in site.data.minecraft_mods -%}
-                    <li>
-                        <a href="/{{ mod.id }}/roadmap.html">{{ mod.title }} Roadmap</a>
-                    </li>
+                    <a
+                        class="social-pill roadmap-pill"
+                        href="/{{ mod.id }}/roadmap.html"
+                        style="--pill-color: {{ mod.accent_colour | default: 'var(--accent-base)' }}"
+                    >
+                        {{ mod.title }}
+                    </a>
                 {%- endfor -%}
-            </ul>
+            </div>
         </div>
     </div>
 </section>

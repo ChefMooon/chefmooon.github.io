@@ -853,6 +853,60 @@ body::before {
 .quick-links a:hover {
   color: var(--green);
 }
+
+/* Roadmap page variant: modern panel + title-case mod pills */
+.roadmap-links {
+  margin: 1.5rem 0;
+}
+.roadmap-pills {
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+.roadmap-links .roadmap-pill {
+  font-family: 'Inter', sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+  border-radius: 4px;
+  border-width: 1px;
+  padding: 0.45rem 0.9rem;
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+.roadmap-links .roadmap-pill:visited {
+  color: var(--text);
+}
+.roadmap-links .roadmap-pill:hover {
+  background: color-mix(in srgb, var(--pill-color) 18%, var(--surface2));
+  border-color: var(--pill-color);
+  color: color-mix(in srgb, var(--pill-color) 86%, var(--text));
+  text-decoration: none;
+}
+.roadmap-links .roadmap-pill:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+@media (max-width: 600px) {
+  .roadmap-pills {
+    justify-content: flex-start;
+  }
+  .roadmap-pill {
+    font-size: 0.9375rem;
+    padding: 0.4rem 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .roadmap-pill {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .mod-changelog-list {
   display: flex;
   flex-direction: column;
