@@ -10,8 +10,8 @@ layout: minecraft-mod/base
                 <h1 class="post-title p-name" itemprop="name headline">{{ page.title | escape }}</h1>
                 <h2 class="post-subtitle">{{ t.layout.version_prefix }}{{ page.mod_version | escape }}</h2>
 
-                {%- assign minecraft_versions = page.minecraft_version | split: " " -%}
-                {%- assign minecraft_loaders = page.minecraft_loader | split: " " -%}
+                {%- assign minecraft_versions = page.minecraft_version | default: "" | replace: ",", " " | split: " " -%}
+                {%- assign minecraft_loaders = page.minecraft_loader | default: "" | replace: ",", " " | split: " " -%}
                 {%- assign mod_info = site.data.minecraft_mods | where: "id", page.mod_id | first -%}
                 {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
 
@@ -31,15 +31,21 @@ layout: minecraft-mod/base
                     {%- if minecraft_versions.size > 0 -%}
                     <span class="post-meta-chips__versions">
                         {%- for version in minecraft_versions -%}
-                            <a class="meta-chip meta-chip--version" href="{{ '/tag/' | relative_url }}{{ version }}.html">{{ version }}</a>
+                            {%- assign version_clean = version | strip -%}
+                            {%- if version_clean != "" -%}
+                                <a class="meta-chip meta-chip--version" href="{{ '/tag/' | relative_url }}{{ version_clean }}.html">{{ version_clean }}</a>
+                            {%- endif -%}
                         {%- endfor -%}
                     </span>
                     {%- endif -%}
                     {%- if minecraft_loaders.size > 0 -%}
                     <span class="post-meta-chips__loaders">
                         {%- for loader in minecraft_loaders -%}
-                            {%- assign loader_slug = loader | downcase -%}
-                            <a class="meta-chip meta-chip--loader meta-chip--{{ loader_slug }}" href="{{ '/tag/' | relative_url }}{{ loader_slug }}.html">{{ loader }}</a>
+                            {%- assign loader_clean = loader | strip -%}
+                            {%- if loader_clean != "" -%}
+                            {%- assign loader_slug = loader_clean | downcase | replace: ",", "" -%}
+                                <a class="meta-chip meta-chip--loader meta-chip--{{ loader_slug }}" href="{{ '/tag/' | relative_url }}{{ loader_slug }}.html">{{ loader_clean }}</a>
+                            {%- endif -%}
                         {%- endfor -%}
                     </span>
                     {%- endif -%}
