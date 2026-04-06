@@ -3,17 +3,118 @@ layout: default
 ---
 {%- assign t = site.data.i18n[site.active_lang].strings -%}
 {%- unless t -%}{%- assign t = site.data.i18n.en.strings -%}{%- endunless -%}
-<section style="padding: 2rem 0 4rem;">
-  <div class="container">
-    <h1 class="section-heading">{{ page.tag }}</h1>
-    <ul>
-    {% for post in page.posts %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a> ({{ post.date | date_to_string }} | {{ t.layout.tags }}: {{ post | tags }})</li>
-    {% endfor %}
-    </ul>
+{%- assign current_tag = page.tag | strip -%}
+{%- assign current_mod = site.data.minecraft_mods | where: "id", current_tag | first -%}
+{%- assign current_tag_type = "tag" -%}
+{%- if current_mod -%}
+  {%- assign current_tag_type = "mod" -%}
+{%- elsif current_tag == "fabric" or current_tag == "neoforge" or current_tag == "forge" -%}
+  {%- assign current_tag_type = "loader" -%}
+{%- elsif current_tag contains "." -%}
+  {%- assign current_tag_type = "version" -%}
+{%- endif -%}
+{%- assign result_count = page.posts | size -%}
+{%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
 
-    <div id="tag-cloud">
-      {{ site | tag_cloud }}
-    </div>
+<section class="tag-page">
+  <div class="container">
+    <header class="tag-page-header">
+      <div class="tag-page-heading">
+        <p class="tag-page-kicker">{{ t.layout.tags }}</p>
+        <h1 class="section-heading tag-page-title">{{ current_tag }}</h1>
+      </div>
+      <div class="tag-page-summary">
+        {%- if current_tag_type == "mod" -%}
+          <span class="meta-chip meta-chip--mod tag-page-summary-chip" style="--chip-colour: {{ current_mod.accent_colour }};">{{ current_mod.title | escape }}</span>
+        {%- elsif current_tag_type == "loader" -%}
+          <span class="meta-chip meta-chip--loader meta-chip--{{ current_tag }} tag-page-summary-chip">{{ current_tag }}</span>
+        {%- elsif current_tag_type == "version" -%}
+          <span class="meta-chip meta-chip--version tag-page-summary-chip">{{ current_tag }}</span>
+        {%- else -%}
+          <span class="meta-chip meta-chip--version tag-page-summary-chip">{{ current_tag }}</span>
+        {%- endif -%}
+        <p class="tag-page-description">{{ result_count }} {% if result_count == 1 %}post{% else %}posts{% endif %} tagged here.</p>
+      </div>
+    </header>
+
+    {%- if result_count > 0 -%}
+      <div class="tag-results-list">
+      {%- for post in page.posts -%}
+        {%- assign mod_info = site.data.minecraft_mods | where: "id", post.mod_id | first -%}
+        {%- assign raw_versions = post.minecraft_version | default: "" | replace: ",", " " | split: " " -%}
+        {%- assign raw_loaders = post.minecraft_loader | default: "" | replace: ",", " " | split: " " -%}
+        {%- capture result_chips -%}
+          {%- if mod_info and post.mod_id != current_tag -%}
+            <a class="meta-chip meta-chip--mod" href="{{ '/tag/' | relative_url }}{{ post.mod_id }}.html" style="--chip-colour: {{ mod_info.accent_colour }};">{{ mod_info.title | escape }}</a>
+          {%- endif -%}
+          {%- for version in raw_versions -%}
+            {%- assign version_clean = version | strip -%}
+            {%- if version_clean != "" and version_clean != current_tag -%}
+              <a class="meta-chip meta-chip--version" href="{{ '/tag/' | relative_url }}{{ version_clean }}.html">{{ version_clean }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+          {%- for loader in raw_loaders -%}
+            {%- assign loader_clean = loader | strip -%}
+            {%- if loader_clean != "" -%}
+              {%- assign loader_slug = loader_clean | downcase | replace: ",", "" -%}
+              {%- if loader_slug != current_tag -%}
+                <a class="meta-chip meta-chip--loader meta-chip--{{ loader_slug }}" href="{{ '/tag/' | relative_url }}{{ loader_slug }}.html">{{ loader_clean }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+        <article class="tag-result-card"{% if mod_info and mod_info.accent_colour %} style="--accent-colour: {{ mod_info.accent_colour }};"{% endif %}>
+          <div class="tag-result-date">{{ post.date | date: date_format }}</div>
+          <div class="tag-result-main">
+            <div class="tag-result-eyebrow">
+              {%- if mod_info -%}
+                <a class="tag-result-mod-link" href="{{ '/tag/' | relative_url }}{{ post.mod_id }}.html">{{ mod_info.title | escape }}</a>
+              {%- endif -%}
+              {%- if post.mod_version -%}
+                <span class="tag-result-release">v{{ post.mod_version | escape }}</span>
+              {%- endif -%}
+            </div>
+            <h2 class="tag-result-title"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+            {%- assign result_chips_stripped = result_chips | strip -%}
+            {%- if result_chips_stripped != "" -%}
+              <div class="post-meta-chips tag-result-chips">{{ result_chips_stripped }}</div>
+            {%- endif -%}
+          </div>
+        </article>
+      {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="tag-page-empty">No posts found for this tag.</p>
+    {%- endif -%}
+
+    <section class="tag-cloud-panel" aria-labelledby="tag-cloud-heading">
+      <h2 class="section-heading tag-cloud-heading" id="tag-cloud-heading">All {{ t.layout.tags }}</h2>
+      <div class="tag-cloud-list">
+        {%- assign sorted_tags = site.tags | sort -%}
+        {%- for tag in sorted_tags -%}
+          {%- assign tag_name = tag[0] | strip -%}
+          {%- assign tag_posts = tag[1] -%}
+          {%- assign tag_mod = site.data.minecraft_mods | where: "id", tag_name | first -%}
+          {%- assign tag_type = "tag" -%}
+          {%- assign tag_chip_classes = "meta-chip meta-chip--version tag-cloud-chip" -%}
+          {%- assign tag_label = tag_name -%}
+          {%- if tag_mod -%}
+            {%- assign tag_type = "mod" -%}
+            {%- assign tag_chip_classes = "meta-chip meta-chip--mod tag-cloud-chip" -%}
+            {%- assign tag_label = tag_mod.title -%}
+          {%- elsif tag_name == "fabric" or tag_name == "neoforge" or tag_name == "forge" -%}
+            {%- assign tag_type = "loader" -%}
+            {%- assign tag_chip_classes = "meta-chip meta-chip--loader meta-chip--" | append: tag_name | append: " tag-cloud-chip" -%}
+            {%- assign tag_label = tag_name | capitalize -%}
+          {%- elsif tag_name contains "." -%}
+            {%- assign tag_type = "version" -%}
+          {%- endif -%}
+          <a class="{{ tag_chip_classes }}{% if tag_name == current_tag %} is-active{% endif %}" href="{{ '/tag/' | relative_url }}{{ tag_name }}.html"{% if tag_mod %} style="--chip-colour: {{ tag_mod.accent_colour }};"{% endif %}{% if tag_name == current_tag %} aria-current="page"{% endif %}>
+            <span>{{ tag_label }}</span>
+            <span class="tag-cloud-count">{{ tag_posts | size }}</span>
+          </a>
+        {%- endfor -%}
+      </div>
+    </section>
   </div>
 </section>

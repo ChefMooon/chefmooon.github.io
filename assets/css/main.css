@@ -804,10 +804,232 @@ body::before {
   filter: brightness(1.15);
   transform: translateY(-1px);
 }
+.meta-chip--mod {
+  color: var(--chip-colour, var(--green));
+  border-color: currentColor;
+}
+.meta-chip--mod:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
 @media (max-width: 600px) {
   .meta-chip {
     padding: 0.2rem 0.5rem;
     font-size: 0.6875rem;
+  }
+}
+
+/* ===============================
+   Section 12.5 — Tag pages
+   =============================== */
+.tag-page {
+  padding: 2rem 0 4rem;
+}
+.tag-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.tag-page-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.tag-page-kicker {
+  margin: 0;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.tag-page-title {
+  margin-bottom: 0;
+}
+.tag-page-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.625rem;
+}
+.tag-page-summary-chip {
+  font-size: 0.8125rem;
+}
+.tag-page-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  text-align: right;
+}
+.tag-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.tag-result-card {
+  display: grid;
+  grid-template-columns: 7rem minmax(0, 1fr);
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.tag-result-card:hover {
+  border-color: var(--accent-colour, var(--border));
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+.tag-result-date {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  padding-top: 0.2rem;
+}
+.tag-result-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.tag-result-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.625rem;
+}
+.tag-result-mod-link {
+  color: var(--accent-colour, var(--green));
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: filter 0.2s, color 0.2s;
+}
+.tag-result-mod-link:visited {
+  color: var(--accent-colour, var(--green));
+}
+.tag-result-mod-link:hover {
+  filter: brightness(1.15);
+}
+.tag-result-release {
+  color: var(--muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+}
+.tag-result-title {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.3;
+  font-weight: 800;
+}
+.tag-result-title a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.tag-result-title a:visited {
+  color: var(--text);
+}
+.tag-result-title a:hover {
+  color: var(--accent-colour, var(--green));
+}
+.tag-result-chips {
+  margin-top: 0.125rem;
+}
+.tag-page-empty {
+  margin: 0;
+  padding: 1.25rem;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+.tag-cloud-panel {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.tag-cloud-heading {
+  margin-bottom: 1rem;
+}
+.tag-cloud-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.tag-cloud-chip {
+  gap: 0.375rem;
+  background: var(--surface2);
+  border-color: var(--border);
+  color: var(--muted);
+}
+.tag-cloud-chip:visited {
+  color: inherit;
+}
+.tag-cloud-chip:hover {
+  background: var(--surface);
+}
+.tag-cloud-chip.is-active {
+  color: var(--text);
+  border-color: currentColor;
+}
+.tag-cloud-count {
+  font-size: 0.6875rem;
+  opacity: 0.8;
+  margin-left: 0.125rem;
+  padding-left: 0.375rem;
+  border-left: 1px solid var(--border);
+}
+@media (max-width: 767px) {
+  .tag-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .tag-page-summary {
+    align-items: flex-start;
+  }
+
+  .tag-page-description {
+    text-align: left;
+  }
+
+  .tag-result-card {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .tag-result-date {
+    padding-top: 0;
+  }
+}
+@media (max-width: 600px) {
+  .tag-result-card {
+    padding: 0.875rem 1rem;
+  }
+
+  .tag-result-title {
+    font-size: 1rem;
+  }
+
+  .tag-page-description {
+    font-size: 0.875rem;
+  }
+
+  .tag-cloud-panel {
+    padding: 1rem;
   }
 }
 .post-content table {
