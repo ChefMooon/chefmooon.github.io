@@ -33,6 +33,7 @@ forge:eggs: Egg
 forge:raw_chicken: Raw Chicken
 forge:raw_beef: Raw Beef
 forge:raw_pork: Raw Pork
+forge:raw_meat: Raw Meat
 forge:raw_fishes: Fish
 forge:cooked_eggs: Cooked Eggs
 forge:tools/rolling_pins: Rolling pin
@@ -51,6 +52,7 @@ forge:crops/lemongrass: Lemongrass
 forge:crops/ube: Ube
 forge:dough: Dough
 forge:grain: Grain
+forge:mushrooms: Mushrooms
 forge:bones: Bones
 forge:gems/diamond: Diamond
 forge:ingots/iron: Iron Ingot

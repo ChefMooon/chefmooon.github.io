@@ -1,3 +1,12 @@
+## 2026-05-08 14:07:11 — ubes-delight-1-20-1
+
+**Summary:** 1 updated  
+
+### Updated (1)
+- `forge/farmersdelight/cooking/lumpia_from_cooking_pot.json`
+
+---
+
 ## 2026-03-03 12:58:09 — ubes-delight-1-20-1
 
 **Summary:** 76 added, 76 removed  

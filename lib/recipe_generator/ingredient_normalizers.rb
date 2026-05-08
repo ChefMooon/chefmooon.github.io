@@ -61,8 +61,18 @@ module Jekyll
 
       # Normalizes an array of ingredients, grouping identical items/tags/fluids and
       # summing their counts/amounts. Used by shapeless crafting and FD cooking.
+      #
+      # When a single slot is itself an Array, it represents a "choice list" — the player
+      # may use any one of the listed alternatives to fill that slot. These are preserved
+      # as { 'choices' => [...normalized alternatives...] } so the layout can render them
+      # as a single ingredient entry showing all valid options.
       def normalize_combined_input(ingredients)
         normalized = ingredients.map do |ingredient|
+          if ingredient.is_a?(Array)
+            # Choice-list slot: normalize each alternative and wrap in a choices entry
+            choices = ingredient.map { |alt| normalize_input(alt) }
+            next { 'choices' => choices }
+          end
           if ingredient.is_a?(String)
             if ingredient.start_with?('#')
               { 'tag' => ingredient[1..], 'count' => 1 }
@@ -70,7 +80,15 @@ module Jekyll
               { 'item' => ingredient, 'count' => 1 }
             end
           elsif ingredient.is_a?(Hash)
-            if ingredient['item'].is_a?(String) && ingredient['item'].start_with?('#')
+            if ingredient['type'] == 'neoforge:compound' && ingredient['children'].is_a?(Array)
+              # NeoForge compound ingredient: any one of the listed children satisfies the slot
+              choices = ingredient['children'].map { |alt| normalize_input(alt) }
+              next { 'choices' => choices }
+            elsif ingredient['fabric:type'] == 'fabric:any' && ingredient['ingredients'].is_a?(Array)
+              # Fabric any-of ingredient: any one of the listed ingredients satisfies the slot
+              choices = ingredient['ingredients'].map { |alt| normalize_input(alt) }
+              next { 'choices' => choices }
+            elsif ingredient['item'].is_a?(String) && ingredient['item'].start_with?('#')
               { 'tag' => ingredient['item'][1..], 'count' => ingredient['count'] || 1 }
             elsif ingredient['tag']
               { 'tag' => ingredient['tag'], 'count' => ingredient['count'] || 1 }
@@ -88,7 +106,10 @@ module Jekyll
           end
         end
 
-        grouped = normalized.group_by do |ingredient|
+        # Choices entries are already fully normalized — pull them out before grouping
+        choices_entries, plain_entries = normalized.partition { |i| i.is_a?(Hash) && i['choices'] }
+
+        grouped = plain_entries.group_by do |ingredient|
           if ingredient['item']
             ['item', ingredient['item']]
           elsif ingredient['tag']
@@ -117,7 +138,7 @@ module Jekyll
               }
             }
           end
-        end
+        end + choices_entries
       end
 
       # Normalizes smithing table input slots (addition, base, template).

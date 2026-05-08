@@ -7,14 +7,29 @@ module Jekyll
     module TagCollection
       private
 
-      def collect_tags_from_ingredient(ingredient, page_key)
-        return unless ingredient.is_a?(Hash) && ingredient['tag'].is_a?(Hash)
-
-        tag_id = ingredient['tag']['id']
-        return unless tag_id
+      def add_tag_to_page(tag_id, page_key)
+        return if tag_id.to_s.strip.empty?
 
         @tags_used_by_page[page_key] ||= Set.new
         @tags_used_by_page[page_key].add(tag_id)
+      end
+
+      def collect_tags_from_ingredient(ingredient, page_key)
+        return unless ingredient.is_a?(Hash)
+
+        tag_data = ingredient['tag']
+        if tag_data.is_a?(Hash)
+          add_tag_to_page(tag_data['id'], page_key)
+        elsif tag_data.is_a?(String)
+          add_tag_to_page(tag_data.sub(/^#/, ''), page_key)
+        end
+
+        # Choice-list ingredients are normalized as { 'choices' => [ ... ] }.
+        # Recurse so nested tag alternatives are included in validation.
+        choices = ingredient['choices']
+        if choices.is_a?(Array)
+          choices.each { |choice| collect_tags_from_ingredient(choice, page_key) }
+        end
       end
 
       def collect_tags_from_recipe(recipe, page_key)

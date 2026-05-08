@@ -87,3 +87,20 @@ No other changes are needed. The registrations are self-contained within each mo
 `normalize_load_conditions` reads `fabric:load_conditions`, `neoforge:conditions`, or `conditions`
 (Forge) keys from raw recipe data. `loader_folder?` identifies folder names like `fabric/`, `neoforge/`
 during `process_nested_recipes` traversal so loader-specific recipe variants are tagged correctly.
+
+## Choice-List Ingredients
+
+Some recipes (notably Forge-flavoured Farmer's Delight cooking) express a single ingredient slot
+as an array of alternatives, e.g.:
+
+```json
+"ingredients": [
+  [{ "tag": "forge:raw_meat" }, { "tag": "forge:raw_fishes" }],
+  { "tag": "forge:salad_ingredients" }
+]
+```
+
+`normalize_combined_input` detects inner Arrays and converts each one into a single
+`{ 'choices' => [...normalized alternatives...] }` entry rather than flattening the alternatives
+into separate ingredient slots. The wiki layout's `recipe-input.html` renders a choices entry
+as a single `<li>` with all alternatives separated by `/`.

@@ -3,7 +3,20 @@
         {%- if recipe['input'] | kind_of: "array" -%}
             {%- for ingredient in recipe['input'] -%}
                 <li>
-                    {%- if ingredient['fluid'] -%}
+                    {%- if ingredient['choices'] -%}
+                        <span class="ingredient-choices">
+                            {%- for choice in ingredient['choices'] -%}
+                                {%- unless forloop.first -%}<span class="ingredient-choices-sep"> / </span>{%- endunless -%}
+                                {%- if choice['fluid'] -%}
+                                    {% include minecraft-mod/wiki/fluid-renderer.html fluid=choice.fluid %}
+                                {%- elsif choice['tag'] -%}
+                                    {%- include minecraft-mod/wiki/tag-renderer.html tag=choice.tag -%}
+                                {%- elsif choice['item']['id'] -%}
+                                    {%- include minecraft-mod/wiki/item-renderer.html item=choice.item -%}
+                                {%- endif -%}
+                            {%- endfor -%}
+                        </span>
+                    {%- elsif ingredient['fluid'] -%}
                         {% include minecraft-mod/wiki/fluid-renderer.html fluid=ingredient.fluid %}
                     {%- elsif ingredient['tag'] -%}
                         {%- include minecraft-mod/wiki/tag-renderer.html tag=ingredient.tag -%}

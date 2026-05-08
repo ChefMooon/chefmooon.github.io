@@ -1,3 +1,26 @@
+## 2026-05-08 14:05:56 — ubes-delight-1-21-1
+
+**Summary:** 2 added, 8 updated, 1 removed  
+
+### Added (2)
+- `fabric/farmersdelight/cooking/lumpia.json`
+- `neoforge/farmersdelight/cooking/lumpia.json`
+
+### Updated (8)
+- `core/baking_mat/apple_pie_from_baking_mat.json`
+- `core/baking_mat/honey_cookie_from_baking_mat.json`
+- `core/baking_mat/pumpkin_pie_from_baking_mat.json`
+- `core/baking_mat/raw_pasta_from_egg_from_baking_mat.json`
+- `core/baking_mat/raw_pasta_from_water_bucket_from_baking_mat.json`
+- `core/baking_mat/sweet_berry_cookie_from_baking_mat.json`
+- `core/baking_mat/wheat_dough_from_egg_from_baking_mat.json`
+- `core/baking_mat/wheat_dough_from_water_bucket_from_baking_mat.json`
+
+### Removed (1)
+- `core/farmersdelight/cooking/lumpia.json`
+
+---
+
 ## 2026-03-03 13:06:36 — ubes-delight-1-21-1
 
 **Summary:** 122 added, 31 updated, 122 removed  

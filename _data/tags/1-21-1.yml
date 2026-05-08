@@ -6,6 +6,7 @@ c:foods/cooked_egg: Cooked Egg
 c:foods/raw_chicken: Raw chicken
 c:foods/raw_beef: Raw beef
 c:foods/raw_pork: Raw pork
+c:foods/raw_meat: Raw meat
 c:foods/safe_raw_fish: Safe Raw Fish
 c:foods/leafy_green: Leafy Green
 c:foods/vegetable: Vegetable
@@ -23,6 +24,7 @@ c:crops/ube: Ube
 c:drinks/milk: Milk
 c:tools/rolling_pin: Rolling pin
 c:tools/knife: Knife
+c:mushrooms: Mushrooms
 c:bones: Bones
 c:gems/diamond: Diamond
 c:ingots/gold: Gold Ingot
