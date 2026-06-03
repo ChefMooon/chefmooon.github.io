@@ -1,0 +1,24 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:wheat",
+    "minecraft:wheat",
+    "minecraft:wheat",
+    "#c:drinks/milk"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "id": "farmersdelight:pie_crust"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "id": "farmersdelight:pie_crust"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

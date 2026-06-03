@@ -1,0 +1,25 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "#c:crops/ginger",
+    "minecraft:wheat",
+    "minecraft:wheat"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 8,
+        "id": "ubesdelight:cookie_ginger"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 4,
+        "id": "ubesdelight:cookie_ginger"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}

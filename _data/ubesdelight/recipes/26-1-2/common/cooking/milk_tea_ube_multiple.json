@@ -1,0 +1,17 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 1.0,
+  "ingredients": [
+    "#c:crops/ube",
+    "#c:tea_ingredients/sweet/weak",
+    "ubesdelight:condensed_milk_bottle",
+    "ubesdelight:condensed_milk_bottle",
+    "ubesdelight:condensed_milk_bottle",
+    "ubesdelight:condensed_milk_bottle"
+  ],
+  "recipe_book_tab": "drinks",
+  "result": {
+    "count": 4,
+    "id": "ubesdelight:milk_tea_ube"
+  }
+}

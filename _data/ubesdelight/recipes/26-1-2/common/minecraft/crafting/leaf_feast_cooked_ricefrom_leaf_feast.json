@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "farmersdelight:cooked_rice",
+    "farmersdelight:cooked_rice",
+    "farmersdelight:cooked_rice",
+    "farmersdelight:cooked_rice",
+    "farmersdelight:cooked_rice",
+    "farmersdelight:cooked_rice",
+    "ubesdelight:leaf_feast"
+  ],
+  "result": {
+    "id": "ubesdelight:leaf_feast_cooked_rice"
+  }
+}

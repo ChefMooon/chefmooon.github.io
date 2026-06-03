@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:hopia_ube",
+    "ubesdelight:hopia_ube",
+    "ubesdelight:hopia_ube",
+    "ubesdelight:hopia_ube",
+    "ubesdelight:hopia_ube",
+    "ubesdelight:hopia_ube",
+    "ubesdelight:leaf_feast"
+  ],
+  "result": {
+    "id": "ubesdelight:leaf_feast_hopia_ube"
+  }
+}

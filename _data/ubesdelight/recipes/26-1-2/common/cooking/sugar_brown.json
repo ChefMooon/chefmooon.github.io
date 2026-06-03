@@ -1,0 +1,11 @@
+{
+  "type": "farmersdelight:cooking",
+  "experience": 0.5,
+  "ingredients": [
+    "minecraft:sugar"
+  ],
+  "recipe_book_tab": "drinks",
+  "result": {
+    "id": "ubesdelight:sugar_brown"
+  }
+}

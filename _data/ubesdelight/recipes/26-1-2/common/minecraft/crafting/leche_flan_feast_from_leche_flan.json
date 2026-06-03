@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:leche_flan",
+    "ubesdelight:leche_flan",
+    "ubesdelight:leche_flan",
+    "ubesdelight:leche_flan",
+    "ubesdelight:leche_flan"
+  ],
+  "result": {
+    "id": "ubesdelight:leche_flan_feast"
+  }
+}

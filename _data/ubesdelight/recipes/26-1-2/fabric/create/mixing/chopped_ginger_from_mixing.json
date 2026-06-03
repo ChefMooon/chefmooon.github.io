@@ -1,0 +1,16 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": ["create"]
+    }
+  ],
+  "type": "create:mixing",
+  "ingredients": ["ubesdelight:ginger"],
+  "results": [
+    {
+      "count": 2,
+      "id": "ubesdelight:ginger_chop"
+    }
+  ]
+}

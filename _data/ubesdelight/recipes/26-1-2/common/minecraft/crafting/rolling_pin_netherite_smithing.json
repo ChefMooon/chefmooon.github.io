@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#c:ingots/netherite",
+  "base": "ubesdelight:rolling_pin_diamond",
+  "result": {
+    "id": "ubesdelight:rolling_pin_netherite"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

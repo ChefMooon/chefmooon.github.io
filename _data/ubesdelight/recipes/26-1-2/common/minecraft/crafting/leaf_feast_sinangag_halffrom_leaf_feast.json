@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "ubesdelight:sinangag",
+    "ubesdelight:sinangag",
+    "ubesdelight:sinangag",
+    "ubesdelight:leaf_feast"
+  ],
+  "result": {
+    "id": "ubesdelight:leaf_feast_sinangag_half"
+  }
+}

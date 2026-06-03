@@ -1,0 +1,25 @@
+{
+  "type": "ubesdelight:baking_mat",
+  "ingredients": [
+    "minecraft:cocoa_beans",
+    "minecraft:wheat",
+    "minecraft:wheat"
+  ],
+  "processing_stages": [],
+  "result": [
+    {
+      "item": {
+        "count": 8,
+        "id": "minecraft:cookie"
+      }
+    },
+    {
+      "chance": 0.25,
+      "item": {
+        "count": 4,
+        "id": "minecraft:cookie"
+      }
+    }
+  ],
+  "tool": "#c:tools/rolling_pin"
+}
