@@ -4,9 +4,8 @@
 
 | Minecraft | Fabric | NeoForge |
 |---|---|---|
-| 1.21.5 | ➖ | ➖ |
-| 1.21.4 | ❌ | ❌ |
-| 1.21.2-1.21.3 | ❌ | ❌ |
+| 26.2.x | ➖ | ➖ |
+| 26.1.x | ➖ | ➖ |
 | 1.21-1.21.1 | ✅ (`v0.1.4`) | ✅ (`v0.1.4`) |
 
 **{{ t.compatibility.legend_label }}** • ✅ {{ t.compatibility.supported_label }} • ❌ {{ t.compatibility.unsupported_label }} • ➕ {{ t.compatibility.bugfix_label }} • ➖ {{ t.compatibility.planned_label }}
